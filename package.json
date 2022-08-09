@@ -1,0 +1,40 @@
+{
+  "name": "ssml-document",
+  "version": "1.0.0",
+  "description": "SSML Document",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "release": "npm run build && npm publish",
+    "example": "node tools/runExample.js"
+  },
+  "repository": "https://github.com/TIDC/ssml-document.git",
+  "keywords": [
+    "ssml"
+  ],
+  "author": "Vinlic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TIDC/ssml-document/issues"
+  },
+  "homepage": "https://github.com/TIDC/ssml-document#readme",
+  "devDependencies": {
+    "@types/lodash": "^4.14.182",
+    "tsup": "^5.12.6",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "htmlparser2": "8.0.1",
+    "lodash": "^4.17.21",
+    "xmlbuilder2": "3.0.2"
+  }
+}

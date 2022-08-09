@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "es6",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "useDefineForClassFields": true,
+    "removeComments": true,
+    "isolatedModules": true,
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowJs": false,
+    "checkJs": false,
+    "outDir": "./dist"
+  },
+  "exclude": ["node_modules", "dist", "test"]
+}
