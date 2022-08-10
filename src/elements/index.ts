@@ -1,6 +1,5 @@
 export { default as Element } from './Element';
 export { default as Audio } from './Audio';
-export { default as Bookmark } from './Bookmark';
 export { default as Break } from './Break';
 export { default as Language } from './Language';
 export { default as Lexicon } from './Lexicon';
