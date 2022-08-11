@@ -6,7 +6,6 @@ export default class Prosody extends Element {
 
     static type = Element.Type.Prosody;
     type = Element.Type.Prosody;
-    static tagName = "prosody";
     pitch?: string;  //语音音调强度
     contour?: string;  //语音音高值
     range?: string;  //语音音高范围
@@ -28,7 +27,7 @@ export default class Prosody extends Element {
     }
 
     get tagName() {
-        return Prosody.tagName;
+        return "prosody";
     }
 
 }

@@ -6,7 +6,6 @@ export default class Lexicon extends Element {
 
     static type = Element.Type.Lexicon;
     type = Element.Type.Lexicon;
-    static tagName = "lexicon";
     uri?: string;  //外部PLS文档地址
 
     constructor(options: ILexiconOptions) {
@@ -17,7 +16,7 @@ export default class Lexicon extends Element {
     }
 
     get tagName() {
-        return Lexicon.tagName;
+        return "lexicon";
     }
 
 }

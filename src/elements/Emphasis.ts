@@ -6,7 +6,6 @@ export default class Emphasis extends Element {
 
     static type = Element.Type.Emphasis;
     type = Element.Type.Emphasis;
-    static tagName = "emphasis";
     level?: string;  //强调强度
 
     constructor(options: IEmphasisOptions) {
@@ -17,7 +16,7 @@ export default class Emphasis extends Element {
     }
 
     get tagName() {
-        return Emphasis.tagName;
+        return "emphasis";
     }
 
 }

@@ -6,7 +6,6 @@ export default class Silence extends Element {
 
     static type = Element.Type.Silence;
     type = Element.Type.Silence;
-    static tagName = "mstts:silence";
     __type?: string;  //静音类型
     __value?: string;  //静音时长
 
@@ -19,7 +18,7 @@ export default class Silence extends Element {
     }
 
     get tagName() {
-        return Silence.tagName;
+        return "mstts:silence";
     }
 
 }

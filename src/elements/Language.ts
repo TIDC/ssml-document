@@ -6,7 +6,6 @@ export default class Language extends Element {
 
     static type = Element.Type.Language;
     type = Element.Type.Language;
-    static tagName = "lang";
     "xml:lang"?: string;  //语音语言
 
     constructor(options: ILanguageOptions) {
@@ -17,7 +16,7 @@ export default class Language extends Element {
     }
 
     get tagName() {
-        return Language.tagName;
+        return "lang";
     }
 
 }

@@ -5,7 +5,6 @@ export default class Sentence extends Element {
 
     static type = Element.Type.Sentence;
     type = Element.Type.Sentence;
-    static tagName = "s";
 
     constructor(options: ISentenceOptions) {
         super(options);
@@ -13,7 +12,7 @@ export default class Sentence extends Element {
     }
 
     get tagName() {
-        return Sentence.tagName;
+        return "s";
     }
 
 }

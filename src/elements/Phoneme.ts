@@ -7,7 +7,6 @@ export default class Phoneme extends Element {
 
     static type = Element.Type.Phoneme;
     type = Element.Type.Phoneme;
-    static tagName = "phoneme";
     alphabet?: string;  //音标表
     ph?: string;  //音标
 
@@ -20,7 +19,7 @@ export default class Phoneme extends Element {
     }
 
     get tagName() {
-        return Phoneme.tagName;
+        return "phoneme";
     }
 
 }

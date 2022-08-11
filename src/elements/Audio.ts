@@ -6,7 +6,6 @@ export default class Audio extends Element {
 
     static type = Element.Type.Audio;
     type = Element.Type.Audio;
-    static tagName = "audio";
     src?: string;  //音频来源
     fetchtimeout?: string;  //拉取音频超时时间
     fetchhint?: string;  //音频初始化方式
@@ -25,7 +24,7 @@ export default class Audio extends Element {
     }
     
     get tagName() {
-        return Audio.tagName;
+        return "audio";
     }
 
 };

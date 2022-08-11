@@ -6,7 +6,6 @@ export default class Bookmark extends Element {
 
     static type = Element.Type.Bookmark;
     type = Element.Type.Bookmark;
-    static tagName = "bookmark";
     mark?: string;  //标识
 
     constructor(options: IBookmarkOptions) {
@@ -17,7 +16,7 @@ export default class Bookmark extends Element {
     }
 
     get tagName() {
-        return Bookmark.tagName;
+        return "bookmark";
     }
 
 }

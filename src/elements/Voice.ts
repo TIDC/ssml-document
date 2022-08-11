@@ -6,7 +6,6 @@ export default class Voice extends Element {
 
     static type = Element.Type.Voice;
     type = Element.Type.Voice;
-    static tagName = "voice";
     gender?: string;  //发音音色性别
     age?: number;  //发音音色年龄
     variant?: string;  //发音变体
@@ -31,7 +30,7 @@ export default class Voice extends Element {
     }
 
     get tagName() {
-        return Voice.tagName;
+        return "voice";
     }
 
 }

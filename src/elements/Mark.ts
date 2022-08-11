@@ -6,7 +6,6 @@ export default class Mark extends Element {
 
     static type = Element.Type.Mark;
     type = Element.Type.Mark;
-    static tagName = "mark";
     name?: string;  //标识名称
 
     constructor(options: IMarkOptions) {
@@ -17,7 +16,7 @@ export default class Mark extends Element {
     }
 
     get tagName() {
-        return Mark.tagName;
+        return "mark";
     }
 
 }

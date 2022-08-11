@@ -6,7 +6,6 @@ export default class Break extends Element {
 
     static type = Element.Type.Break;
     type = Element.Type.Break;
-    static tagName = "break";
     strength?: string;  //中断强度
     time?: string;  //暂停持续时间
 
@@ -19,7 +18,7 @@ export default class Break extends Element {
     }
 
     get tagName() {
-        return Break.tagName;
+        return "break";
     }
 
 }

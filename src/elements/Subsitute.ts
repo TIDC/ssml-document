@@ -6,7 +6,6 @@ export default class Subsitute extends Element {
 
     static type = Element.Type.Subsitute;
     type = Element.Type.Subsitute;
-    static tagName = "sub";
     alias?: string;  //朗读别名
 
     constructor(options: ISubsituteOptions) {
@@ -17,7 +16,7 @@ export default class Subsitute extends Element {
     }
 
     get tagName() {
-        return Subsitute.tagName;
+        return "sub";
     }
 
 }

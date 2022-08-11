@@ -1,5 +1,6 @@
 import ICompilerOptions from "./lib/interface/ICompilerOptions";
-import { Element, Audio, Bookmark, Break, Language, Lexicon, Paragraph, Phoneme, Prosody, Raw, SayAs, Sentence, Subsitute, Voice, Word } from "./elements";
+import Element from "./elements/Element";
+import { Audio, Break, Language, Lexicon, Paragraph, Phoneme, Prosody, Raw, SayAs, Sentence, Subsitute, Voice, Word } from "./elements";
 import util from "./lib/util";
 
 export default class ElementFactory {
@@ -10,7 +11,19 @@ export default class ElementFactory {
             data = { type: Raw.type, value: data };
         if (!util.isObject(data)) throw new TypeError('data must be an Object');
         const element = new (({
-            
+            [Element.Type.Audio]: Audio,
+            [Element.Type.Break]: Break,
+            [Element.Type.Language]: Language,
+            [Element.Type.Lexicon]: Lexicon,
+            [Element.Type.Paragraph]: Paragraph,
+            [Element.Type.Phoneme]: Phoneme,
+            [Element.Type.Prosody]: Prosody,
+            [Element.Type.SayAs]: SayAs,
+            [Element.Type.Sentence]: Sentence,
+            [Element.Type.Subsitute]: Subsitute,
+            [Element.Type.Voice]: Voice,
+            [Element.Type.Word]: Word,
+            [Element.Type.Raw]: Raw
         } as any)[(data as any).type] || Element)(data, compilerOptions);
         element.parent = parent;
         return element;

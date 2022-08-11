@@ -1,7 +1,29 @@
-import Element from "./Element";
+import IRawOptions from './interface/IRawOptions';
+import Element from './Element';
 
 export default class Raw extends Element {
 
-    
+    static type = Element.Type.Raw;
+    type = Element.Type.Raw;
+
+    constructor(options: IRawOptions) {
+        super(options);
+        this.optionsInject(options, {}, {});
+    }
+
+    render(options: any, parent?: any) {
+        if(!parent) return this.value || "";
+        parent.txt(this.getText());
+    }
+
+    getText(filter?: any) {
+        if(filter && this.parent && !filter[this.parent.type])
+            return "";
+        return this.value || "";
+    }
+
+    static isInstance(value: any) {
+        return value instanceof Raw;
+    }
 
 }

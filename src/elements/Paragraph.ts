@@ -5,7 +5,6 @@ export default class Paragraph extends Element {
 
     static type = Element.Type.Paragraph;
     type = Element.Type.Paragraph;
-    static tagName = "p";
 
     constructor(options: IParagraphOptions) {
         super(options);
@@ -13,7 +12,7 @@ export default class Paragraph extends Element {
     }
 
     get tagName() {
-        return Paragraph.tagName;
+        return "p";
     }
 
 }
