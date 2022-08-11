@@ -14,13 +14,11 @@ export default class Voice extends Element {
     languages?: string;  //发音语言列表
     required?: string;  //发音特征列表
     ordering?: string;  //发音特征列表顺序
-    children?: Element[] = [];  //元素子节点
 
     constructor(options: IVoiceOptions) {
         super(options);
         this.optionsInject(options, {
-            age: Number,
-            children: (v: any) => (v || []).map((options: any) => {})
+            age: Number
         }, {
             gender: util.isString,
             age: util.isFinite,
@@ -28,8 +26,7 @@ export default class Voice extends Element {
             name: util.isString,
             languages: util.isString,
             required: util.isString,
-            ordering: util.isString,
-            children: util.isArray
+            ordering: util.isString
         });
     }
 
