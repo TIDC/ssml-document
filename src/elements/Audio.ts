@@ -12,8 +12,8 @@ export default class Audio extends Element {
     maxage?: string;  //适用最大年龄
     maxstale?: string;  //适用最大超期时间
 
-    constructor(options: IAudioOptions) {
-        super(options);
+    constructor(options: IAudioOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             src: util.isString,
             fetchtimeout: util.isString,

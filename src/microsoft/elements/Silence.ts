@@ -9,8 +9,8 @@ export default class Silence extends Element {
     __type?: string;  //静音类型
     __value?: string;  //静音时长
 
-    constructor(options: ISilenceOptions) {
-        super(options);
+    constructor(options: ISilenceOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             __type: util.isString,
             __value: util.isString

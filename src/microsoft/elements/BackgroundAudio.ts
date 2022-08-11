@@ -11,8 +11,8 @@ export default class BackgroundAudio extends Element {
     fadein?: number;  //背景音频淡入时长
     fadeout?: number;  //背景音频淡出时长
 
-    constructor(options: IBackgroundAudioOptions) {
-        super(options);
+    constructor(options: IBackgroundAudioOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {
             volume: Number,
             fadein: Number,

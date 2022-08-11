@@ -15,14 +15,19 @@ export default class Document extends Base {
     "xml:base"?: string;  //文档基础URL
     xmlns = "";  //文档URI
     children?: Element[] = [];  //文档子节点
+    static ElementFactory = ElementFactory;
 
-    constructor(options: IDocumentOptions, compilerOptions?: ICompilerOptions) {
-        super(options);
+    constructor(options: IDocumentOptions, compilerOptions?: ICompilerOptions, _ElementFactory?: typeof ElementFactory) {
+        super(options, compilerOptions, _ElementFactory);
         this.optionsInject(options, {
             ["xml:lang"]: (v: any) => options.language || v,
             ["xml:base"]: (v: any) => options.baseUrl || v,
             xmlns: (v: any) => util.defaultTo(v, "http://www.w3.org/2001/10/synthesis"),
-            children: (v: any) => (v || []).map((options: any) => ElementFactory.createElement(options, compilerOptions, this))
+            children: (v: any) => (v || []).map((options: any) => {
+                const node = this.ElementFactory.createElement(options, compilerOptions);
+                node.parent = this;
+                return node;
+            })
         }, {
             version: util.isString,
             ["xml:lang"]: util.isString,

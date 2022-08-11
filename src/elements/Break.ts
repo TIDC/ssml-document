@@ -9,8 +9,8 @@ export default class Break extends Element {
     strength?: string;  //中断强度
     time?: string;  //暂停持续时间
 
-    constructor(options: IBreakOptions) {
-        super(options);
+    constructor(options: IBreakOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             strength: util.isString,
             time: util.isString

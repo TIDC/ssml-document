@@ -10,8 +10,8 @@ export default class Phoneme extends Element {
     alphabet?: string;  //音标表
     ph?: string;  //音标
 
-    constructor(options: IPhonemeOptions) {
-        super(options);
+    constructor(options: IPhonemeOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             alphabet: util.isString,
             ph: util.isString

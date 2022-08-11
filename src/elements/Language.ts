@@ -8,8 +8,8 @@ export default class Language extends Element {
     type = Element.Type.Language;
     "xml:lang"?: string;  //语音语言
 
-    constructor(options: ILanguageOptions) {
-        super(options);
+    constructor(options: ILanguageOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             ["xml:lang"]: util.isString
         });

@@ -8,8 +8,8 @@ export default class Emphasis extends Element {
     type = Element.Type.Emphasis;
     level?: string;  //强调强度
 
-    constructor(options: IEmphasisOptions) {
-        super(options);
+    constructor(options: IEmphasisOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             level: util.isString
         });

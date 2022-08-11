@@ -6,8 +6,8 @@ export default class Sentence extends Element {
     static type = Element.Type.Sentence;
     type = Element.Type.Sentence;
 
-    constructor(options: ISentenceOptions) {
-        super(options);
+    constructor(options: ISentenceOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {});
     }
 

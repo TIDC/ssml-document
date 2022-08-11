@@ -4,6 +4,7 @@ import IBaseOptions from './interface/IBaseOptions';
 import ICompilerOptions from './lib/interface/ICompilerOptions';
 import Compiler from './lib/Compiler';
 import util from './lib/util';
+import ElementFactory from './ElementFactory';
 
 class Base {
 
@@ -11,8 +12,9 @@ class Base {
     compile: boolean = false;  //是否编译
     debug: boolean = false;  //是否为调试模式
     compilerOptions: ICompilerOptions = {};  //编译器选项
+    ElementFactory = ElementFactory;
 
-    constructor(options?: IBaseOptions, compilerOptions?: ICompilerOptions) {
+    constructor(options?: IBaseOptions, compilerOptions?: ICompilerOptions, _ElementFactory?: typeof ElementFactory) {
         if(!options) return;
         this.optionsInject(options, {
             compile: (v: any) => util.booleanParse(util.defaultTo(v, false)),
@@ -23,6 +25,8 @@ class Base {
             data: util.isPlainObject
         });
         this.compilerOptions = { ...compilerOptions, debug: this.debug };
+        if(_ElementFactory)
+            this.ElementFactory = _ElementFactory;
     }
 
     optionsCompile(options: any) {
@@ -48,7 +52,7 @@ class Base {
     }
 
     optionsExport(_excludeAttrNames?: string[]) {
-        const excludeAttrNames = ["type", "children", "content", "compile", "debug", "compilerOptions", ...(_excludeAttrNames || [])];
+        const excludeAttrNames = ["type", "children", "content", "compile", "debug", "compilerOptions", "ElementFactory", ...(_excludeAttrNames || [])];
         const options: any = {};
         for(let key in this) {
             if(excludeAttrNames.indexOf(key) !== -1)

@@ -6,8 +6,8 @@ export default class Raw extends Element {
     static type = Element.Type.Raw;
     type = Element.Type.Raw;
 
-    constructor(options: IRawOptions) {
-        super(options);
+    constructor(options: IRawOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {});
     }
 

@@ -14,8 +14,8 @@ export default class Voice extends Element {
     required?: string;  //发音特征列表
     ordering?: string;  //发音特征列表顺序
 
-    constructor(options: IVoiceOptions) {
-        super(options);
+    constructor(options: IVoiceOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {
             age: Number
         }, {

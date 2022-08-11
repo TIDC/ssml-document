@@ -5,12 +5,16 @@ import util from "./lib/util";
 
 export default class ElementFactory {
 
-    static createElement(data: any, compilerOptions?: ICompilerOptions, parent?: any) {
+    static createElement(data: any, compilerOptions?: ICompilerOptions) {
         if(Element.isInstance(data)) return data;
         if(util.isString(data))  //纯文本添加为Raw节点
             data = { type: Raw.type, value: data };
         if (!util.isObject(data)) throw new TypeError('data must be an Object');
-        const element = new (({
+        return new (this.getElementTarget((data as any).type) || Raw)(data, compilerOptions, this);
+    }
+
+    static getElementTarget(type: string) {
+        return ({
             [Element.Type.Audio]: Audio,
             [Element.Type.Break]: Break,
             [Element.Type.Language]: Language,
@@ -24,9 +28,7 @@ export default class ElementFactory {
             [Element.Type.Voice]: Voice,
             [Element.Type.Word]: Word,
             [Element.Type.Raw]: Raw
-        } as any)[(data as any).type] || Element)(data, compilerOptions);
-        element.parent = parent;
-        return element;
+        })[type] || null;
     }
 
 }

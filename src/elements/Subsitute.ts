@@ -8,8 +8,8 @@ export default class Subsitute extends Element {
     type = Element.Type.Subsitute;
     alias?: string;  //朗读别名
 
-    constructor(options: ISubsituteOptions) {
-        super(options);
+    constructor(options: ISubsituteOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             alias: util.isString
         });

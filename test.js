@@ -1,4 +1,5 @@
-const { version, Document, elements: { Voice }, Aliyun, Microsoft } = require("./");
+const { version, elements: { Voice }, Aliyun, Microsoft } = require("./");
+const { Document } = Microsoft;
 
 const document = new Document({
     version: "1.0",
@@ -8,6 +9,14 @@ const document = new Document({
             type: "voice",
             name: "crazy",
             children: [
+                {
+                    type: "backgroundAudio",
+                    src: "http://sssss"
+                },
+                {
+                    type: "expressAs",
+                    style: "service"
+                },
                 {
                     type: "paragraph",
                     children: [

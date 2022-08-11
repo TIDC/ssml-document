@@ -8,8 +8,8 @@ export default class Mark extends Element {
     type = Element.Type.Mark;
     name?: string;  //标识名称
 
-    constructor(options: IMarkOptions) {
-        super(options);
+    constructor(options: IMarkOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             name: util.isString
         });

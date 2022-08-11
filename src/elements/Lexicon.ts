@@ -8,8 +8,8 @@ export default class Lexicon extends Element {
     type = Element.Type.Lexicon;
     uri?: string;  //外部PLS文档地址
 
-    constructor(options: ILexiconOptions) {
-        super(options);
+    constructor(options: ILexiconOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {}, {
             uri: util.isString
         });

@@ -10,8 +10,8 @@ export default class ExpressAs extends Element {
     styledegree?: number;  //讲话风格强度
     role?: string;  //讲话角色名称
 
-    constructor(options: IExpressAsOptions) {
-        super(options);
+    constructor(options: IExpressAsOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {
             styledegree: Number
         }, {

@@ -13,8 +13,8 @@ export default class Prosody extends Element {
     duration?: number;  //语音持续时长
     volume?: string;  //语音音量
 
-    constructor(options: IProsodyOptions) {
-        super(options);
+    constructor(options: IProsodyOptions, ...args: any[]) {
+        super(options, ...args);
         this.optionsInject(options, {
             duration: util.millisecondsToTimeString
         }, {

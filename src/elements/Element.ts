@@ -16,10 +16,14 @@ export default class Element extends Base {
     children?: Element[] = [];  //元素子节点
     #parent?: Document | Element;  //父级节点
 
-    constructor(options: IElementOptions, compilerOptions?: ICompilerOptions) {
-        super(options, compilerOptions);
+    constructor(options: IElementOptions, compilerOptions?: ICompilerOptions, _ElementFactory?: typeof ElementFactory) {
+        super(options, compilerOptions, _ElementFactory);
         this.optionsInject(options, {
-            children: (v: any) => (v || []).map((options: any) => ElementFactory.createElement(options, compilerOptions, this))
+            children: (v: any) => (v || []).map((options: any) => {
+                const node = this.ElementFactory.createElement(options, compilerOptions);
+                node.parent = this;
+                return node;
+            })
         }, {
             content: util.isString,
             value: util.isString,
@@ -45,8 +49,8 @@ export default class Element extends Base {
         return this.children?.reduce((t, e) => t + e.getText(filter), "") as string;
     }
 
-    static create(value: any, compilerOptions?: ICompilerOptions, parent?: any) {
-        return Element.isInstance(value) ? value : ElementFactory.createElement(value, compilerOptions, parent);
+    static create(value: any, compilerOptions?: ICompilerOptions) {
+        return Element.isInstance(value) ? value : ElementFactory.createElement(value, compilerOptions);
     }
 
     static isInstance(value: any) {
