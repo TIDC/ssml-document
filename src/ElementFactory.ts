@@ -1,6 +1,6 @@
 import ICompilerOptions from "./lib/interface/ICompilerOptions";
 import Element from "./elements/Element";
-import { Audio, Break, Language, Lexicon, Paragraph, Phoneme, Prosody, Raw, SayAs, Sentence, Subsitute, Voice, Word } from "./elements";
+import { Audio, Break, BackgroundAudio, Bookmark, ExpressAs, Silence, Language, Lexicon, Paragraph, Phoneme, Prosody, Raw, SayAs, Sentence, Subsitute, Voice, Word } from "./elements";
 import util from "./lib/util";
 
 export default class ElementFactory {
@@ -26,6 +26,10 @@ export default class ElementFactory {
             [Element.Type.Sentence]: Sentence,
             [Element.Type.Subsitute]: Subsitute,
             [Element.Type.Voice]: Voice,
+            [Element.Type.BackgroundAudio]: BackgroundAudio,
+            [Element.Type.Bookmark]: Bookmark,
+            [Element.Type.ExpressAs]: ExpressAs,
+            [Element.Type.Silence]: Silence,
             [Element.Type.Word]: Word,
             [Element.Type.Raw]: Raw
         })[type] || null;

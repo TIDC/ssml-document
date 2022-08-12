@@ -1,6 +1,6 @@
 import IBackgroundAudioOptions from './interface/IBackgroundAudioOptions';
 import Element from "./Element";
-import util from '../../lib/util';
+import util from '../lib/util';
 
 export default class BackgroundAudio extends Element {
 

@@ -1,6 +1,6 @@
 import IBookmarkOptions from './interface/IBookmarkOptions';
-import Element from './Element';
-import util from '../../lib/util';
+import Element from '../elements/Element';
+import util from '../lib/util';
 
 export default class Bookmark extends Element {
 

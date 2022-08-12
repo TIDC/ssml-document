@@ -1,6 +1,6 @@
 import IExpressAsOptions from './interface/IExpressAsOptions';
 import Element from "./Element";
-import util from "../../lib/util"; 
+import util from "../lib/util"; 
 
 export default class ExpressAs extends Element {
 
