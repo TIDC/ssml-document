@@ -1,5 +1,6 @@
 
 import IPhonemeOptions from './interface/IPhonemeOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util";
 
@@ -18,8 +19,18 @@ export default class Phoneme extends Element {
         });
     }
 
-    get tagName() {
-        return "phoneme";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+            case ServiceProvider.Tencent:
+            case ServiceProvider.YunXiaoWei:
+                return "phoneme";
+            default:
+                return null;
+        }
     }
 
 }

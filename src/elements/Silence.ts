@@ -1,4 +1,5 @@
 import ISilenceOptions from './interface/ISilenceOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from '../lib/util';
 
@@ -17,8 +18,13 @@ export default class Silence extends Element {
         });
     }
 
-    get tagName() {
-        return "mstts:silence";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                return "mstts:silence";
+            default:
+                return null;
+        }
     }
 
 }

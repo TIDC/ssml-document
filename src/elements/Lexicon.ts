@@ -1,4 +1,5 @@
 import ILexiconOptions from './interface/ILexiconOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from './Element';
 import util from '../lib/util';
 
@@ -15,8 +16,14 @@ export default class Lexicon extends Element {
         });
     }
 
-    get tagName() {
-        return "lexicon";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+                return "lexicon";
+            default:
+                return null;
+        }
     }
 
 }

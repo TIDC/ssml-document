@@ -1,4 +1,5 @@
 import IVoiceOptions from './interface/IVoiceOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from './Element';
 import util from '../lib/util';
 
@@ -29,8 +30,14 @@ export default class Voice extends Element {
         });
     }
 
-    get tagName() {
-        return "voice";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+                return "voice";
+            default:
+                return null;
+        }
     }
 
 }

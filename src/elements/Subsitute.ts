@@ -1,4 +1,5 @@
 import ISubsituteOptions from './interface/ISubsituteOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util";
 
@@ -15,8 +16,16 @@ export default class Subsitute extends Element {
         });
     }
 
-    get tagName() {
-        return "sub";
+    getTagName(provider?: ServiceProvider) {
+        switch (provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+            case ServiceProvider.Tencent:
+                return "sub";
+            default:
+                return null;
+        }
     }
 
 }

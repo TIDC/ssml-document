@@ -1,7 +1,9 @@
 import IElementOptions from "./interface/IElementOptions";
+import IRenderOptions from "../interface/IRenderOptions";
 import ICompilerOptions from "../lib/interface/ICompilerOptions";
 import ElementFactory from "../ElementFactory";
 import ElementTypes from "../enums/ElementTypes";
+import ServiceProvider from "../enums/ServiceProvoder";
 import Document from "../Document";
 import Base from "../Base";
 import util from "../lib/util";
@@ -16,11 +18,11 @@ export default class Element extends Base {
     children?: Element[] = [];  //元素子节点
     #parent?: Document | Element;  //父级节点
 
-    constructor(options: IElementOptions, compilerOptions?: ICompilerOptions, _ElementFactory?: typeof ElementFactory) {
-        super(options, compilerOptions, _ElementFactory);
+    constructor(options: IElementOptions, compilerOptions?: ICompilerOptions) {
+        super(options, compilerOptions);
         this.optionsInject(options, {
             children: (v: any) => (v || []).map((options: any) => {
-                const node = this.ElementFactory.createElement(options, compilerOptions);
+                const node = ElementFactory.createElement(options, compilerOptions);
                 node.parent = this;
                 return node;
             })
@@ -31,18 +33,25 @@ export default class Element extends Base {
         });
     }
 
-    render(options: { pretty?: boolean, headless?: boolean } = {}, parent?: any) {
-        const tag = parent ? parent.ele(this.tagName) : this.createRootTag(this.tagName);
-        const _options = this.optionsExport();
-        for(let key in _options)
-            tag.att(key, _options[key]);
+    render(options: IRenderOptions = {}, parent?: any) {
+        const tagName = this.getTagName(options.provider || ServiceProvider.W3C);
+        let tag: any;
+        if (tagName) {
+            tag = parent ? parent.ele(tagName) : this.createRootTag(tagName);
+            const _options = this.optionsExport();
+            for (let key in _options)
+                tag.att(key, _options[key]);
+        }
+        else
+            tag = parent;
         this.content && tag.txt(this.content);
-        this.children?.forEach(node => node.render(undefined, tag));
-        if(!parent)
+        this.children?.forEach(node => node.render(options, tag));
+        if (!parent)
             return tag.end({
                 prettyPrint: options.pretty,
                 headless: options.headless
             });
+        return tag;
     }
 
     getText(filter?: any): string {
@@ -57,8 +66,8 @@ export default class Element extends Base {
         return value instanceof Element;
     }
 
-    get tagName() {
-        return "element";
+    getTagName(provider?: ServiceProvider): string | null {
+        return null;
     }
 
     set parent(node: Document | Element) {

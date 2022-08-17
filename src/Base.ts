@@ -12,9 +12,8 @@ class Base {
     compile: boolean = false;  //是否编译
     debug: boolean = false;  //是否为调试模式
     compilerOptions: ICompilerOptions = {};  //编译器选项
-    ElementFactory = ElementFactory;
 
-    constructor(options?: IBaseOptions, compilerOptions?: ICompilerOptions, _ElementFactory?: typeof ElementFactory) {
+    constructor(options?: IBaseOptions, compilerOptions?: ICompilerOptions) {
         if(!options) return;
         this.optionsInject(options, {
             compile: (v: any) => util.booleanParse(util.defaultTo(v, false)),
@@ -25,8 +24,7 @@ class Base {
             data: util.isPlainObject
         });
         this.compilerOptions = { ...compilerOptions, debug: this.debug };
-        if(_ElementFactory)
-            this.ElementFactory = _ElementFactory;
+
     }
 
     optionsCompile(options: any) {
@@ -69,8 +67,8 @@ class Base {
         return options;
     }
     
-    createRootTag(name: string, attrs?: any) {
-        return create().ele(name, attrs);
+    createRootTag(name?: string, attrs?: any) {
+        return name ? create().ele(name, attrs) : create();
     }
 
 }

@@ -1,4 +1,5 @@
 import IWordOptions from './interface/IWordOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
 export default class Word extends Element {
@@ -10,8 +11,15 @@ export default class Word extends Element {
         super(options, ...args);
     }
 
-    get tagName() {
-        return "w";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+                return "w";
+            default:
+                return null;
+        }
     }
 
 }

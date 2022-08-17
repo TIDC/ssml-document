@@ -1,5 +1,4 @@
-const { version, elements: { Voice }, Aliyun, Microsoft } = require("./");
-const { Document } = Microsoft;
+const { version, Document, elements: { Voice }, Aliyun, Microsoft } = require("./");
 
 const document = new Document({
     version: "1.0",
@@ -22,9 +21,16 @@ const document = new Document({
                     children: [
                         "KFC Crazy Thursday V me 50"
                     ]
+                },
+                {
+                    type: "word",
+                    children: ["Test"]
                 }
             ]
         }
     ]
 });
-console.log(document.render({ pretty: true }));
+console.log(document.render({
+    provider: "yunXiaoWei",
+    pretty: true
+}));

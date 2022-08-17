@@ -1,4 +1,5 @@
 import IMarkOptions from './interface/IMarkOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from './Element';
 import util from '../lib/util';
 
@@ -15,8 +16,14 @@ export default class Mark extends Element {
         });
     }
 
-    get tagName() {
-        return "mark";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Amazon:
+                return "mark";
+            default:
+                return null;
+        }
     }
 
 }

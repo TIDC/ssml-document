@@ -1,4 +1,5 @@
 import IParagraphOptions from './interface/IParagraphOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
 export default class Paragraph extends Element {
@@ -11,8 +12,16 @@ export default class Paragraph extends Element {
         this.optionsInject(options, {}, {});
     }
 
-    get tagName() {
-        return "p";
+    getTagName(provider?: ServiceProvider) {
+        switch (provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.YunXiaoWei:
+                return "p";
+            default:
+                return null;
+        }
     }
 
 }

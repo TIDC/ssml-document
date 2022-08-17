@@ -1,4 +1,5 @@
 import ISentenceOptions from './interface/ISentenceOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
 export default class Sentence extends Element {
@@ -11,8 +12,16 @@ export default class Sentence extends Element {
         this.optionsInject(options, {}, {});
     }
 
-    get tagName() {
-        return "s";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+                return "s";
+            default:
+                return null;
+        }
     }
 
 }

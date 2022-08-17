@@ -1,4 +1,5 @@
 import IBreakOptions from "./interface/IBreakOptions";
+import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
 
@@ -17,8 +18,18 @@ export default class Break extends Element {
         });
     }
 
-    get tagName() {
-        return "break";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Tencent:
+            case ServiceProvider.YunXiaoWei:
+                return "break";
+            default:
+                return null;
+        }
     }
 
 }

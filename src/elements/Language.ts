@@ -1,4 +1,5 @@
 import ILanguageOptions from "./interface/ILanguageOptions";
+import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
 
@@ -15,8 +16,14 @@ export default class Language extends Element {
         });
     }
 
-    get tagName() {
-        return "lang";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+                return "lang";
+            default:
+                return null;
+        }
     }
 
 }

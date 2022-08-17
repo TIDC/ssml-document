@@ -1,4 +1,5 @@
 import IProsodyOptions from './interface/IProsodyOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util";
 
@@ -26,8 +27,16 @@ export default class Prosody extends Element {
         });
     }
 
-    get tagName() {
-        return "prosody";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+                return "prosody";
+            default:
+                return null;
+        }
     }
 
 }

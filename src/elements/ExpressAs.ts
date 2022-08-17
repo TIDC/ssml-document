@@ -1,4 +1,5 @@
 import IExpressAsOptions from './interface/IExpressAsOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util"; 
 
@@ -21,8 +22,13 @@ export default class ExpressAs extends Element {
         });
     }
 
-    get tagName() {
-        return "mstts:express-as";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                return "mstts:express-as";
+            default:
+                return null;
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 import ISayAsOptions from './interface/ISayAsOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
 export default class SayAs extends Element {
@@ -11,8 +12,17 @@ export default class SayAs extends Element {
         this.optionsInject(options, {}, {});
     }
     
-    get tagName() {
-        return "say-as";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Amazon:
+            case ServiceProvider.Aliyun:
+            case ServiceProvider.Tencent:
+                return "say-as";
+            default:
+                return null;
+        }
     }
 
 }

@@ -1,4 +1,6 @@
 import IBackgroundAudioOptions from './interface/IBackgroundAudioOptions';
+import IRenderOptions from '../interface/IRenderOptions';
+import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from '../lib/util';
 
@@ -25,8 +27,13 @@ export default class BackgroundAudio extends Element {
         });
     }
 
-    get tagName() {
-        return "mstts:backgroundaudio";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                return "mstts:backgroundaudio";
+            default:
+                return null;
+        }
     }
 
 }

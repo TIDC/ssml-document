@@ -1,4 +1,5 @@
 import IAudioOptions from "./interface/IAudioOptions";
+import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
 
@@ -23,8 +24,14 @@ export default class Audio extends Element {
         });
     }
     
-    get tagName() {
-        return "audio";
+    getTagName(provider?: ServiceProvider) {
+        switch(provider) {
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+                return "audio";
+            default:
+                return null;
+        }
     }
 
 };
