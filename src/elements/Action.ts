@@ -19,7 +19,7 @@ export default class Action extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.YunXiaoWei:
-                return "action";
+                return "insert-action";
             default:
                 return null;
         }

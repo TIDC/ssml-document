@@ -5,6 +5,7 @@ import ServiceProvider from "./enums/ServiceProvoder";
 import Element from "./elements/Element";
 import ElementFactory from "./ElementFactory";
 import Base from "./Base";
+import parser from './lib/parser';
 import util from "./lib/util";
 
 export default class Document extends Base {
@@ -82,5 +83,7 @@ export default class Document extends Base {
     set baseUrl(value: string) {
         this["xml:base"] = value;
     }
+
+    static parse = parser.parseToDocument.bind(parser);
 
 }

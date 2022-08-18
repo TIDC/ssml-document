@@ -3,6 +3,7 @@ import IRenderOptions from "../interface/IRenderOptions";
 import ICompilerOptions from "../lib/interface/ICompilerOptions";
 import ElementFactory from "../ElementFactory";
 import ElementTypes from "../enums/ElementTypes";
+import ElementTypesAlias from "../enums/ElementTypesAlias";
 import ServiceProvider from "../enums/ServiceProvoder";
 import Document from "../Document";
 import Base from "../Base";
@@ -11,6 +12,7 @@ import util from "../lib/util";
 export default class Element extends Base {
 
     static Type = ElementTypes;
+    static TypeAlias = ElementTypesAlias;
     static type = ElementTypes.Element;
     type = ElementTypes.Element;
     content?: string;  //元素内容

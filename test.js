@@ -1,36 +1,7 @@
-const { version, Document, elements: { Voice }, Aliyun, Microsoft } = require("./");
+const { version, Document, elements: { Voice } } = require("./");
 
-const document = new Document({
-    version: "1.0",
-    language: "zh-CN",
-    children: [
-        {
-            type: "voice",
-            name: "crazy",
-            children: [
-                {
-                    type: "backgroundAudio",
-                    src: "http://sssss"
-                },
-                {
-                    type: "expressAs",
-                    style: "service"
-                },
-                {
-                    type: "paragraph",
-                    children: [
-                        "KFC Crazy Thursday V me 50"
-                    ]
-                },
-                {
-                    type: "word",
-                    children: ["Test"]
-                }
-            ]
-        }
-    ]
-});
+const document = Document.parse("<speak><voice name=\"xiaohai\"><p>听我说谢谢你</p></voice></speak>");
 console.log(document.render({
-    provider: "yunXiaoWei",
+    provider: "w3c",
     pretty: true
 }));

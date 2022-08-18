@@ -1,5 +1,4 @@
 import IBackgroundAudioOptions from './interface/IBackgroundAudioOptions';
-import IRenderOptions from '../interface/IRenderOptions';
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from '../lib/util';
