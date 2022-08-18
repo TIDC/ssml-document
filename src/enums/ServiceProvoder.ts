@@ -2,6 +2,7 @@ enum ServiceProvider {
     W3C = 'w3c',  //W3C标准
     Microsoft = 'microsoft',  //微软云
     Amazon = 'amazon',  //亚马逊云
+    Google = 'google',  //谷歌云
     Aliyun = 'aliyun',  //阿里云
     Tencent = 'tencent',  //腾讯云
     Huawei = 'huawei',  //华为云

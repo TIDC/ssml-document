@@ -60,6 +60,7 @@ export default class Document extends Base {
             case ServiceProvider.W3C:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Microsoft:
+            case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Tencent:
                 return "speak";

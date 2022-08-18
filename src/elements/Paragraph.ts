@@ -16,6 +16,7 @@ export default class Paragraph extends Element {
         switch (provider) {
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
+            case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.YunXiaoWei:
                 return "p";

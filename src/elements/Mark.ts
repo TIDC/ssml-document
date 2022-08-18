@@ -17,8 +17,9 @@ export default class Mark extends Element {
     }
 
     getTagName(provider?: ServiceProvider) {
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.W3C:
+            case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 return "mark";
             default:

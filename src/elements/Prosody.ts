@@ -28,9 +28,10 @@ export default class Prosody extends Element {
     }
 
     getTagName(provider?: ServiceProvider) {
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
+            case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
                 return "prosody";
