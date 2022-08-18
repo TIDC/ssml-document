@@ -17,8 +17,9 @@ export default class Language extends Element {
     }
 
     getTagName(provider?: ServiceProvider) {
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.W3C:
+            case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
                 return "lang";
             default:

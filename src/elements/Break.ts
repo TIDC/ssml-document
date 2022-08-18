@@ -21,6 +21,7 @@ export default class Break extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.W3C:
+            case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Microsoft:
