@@ -1,6 +1,6 @@
 import ICompilerOptions from "./lib/interface/ICompilerOptions";
 import Element from "./elements/Element";
-import { Audio, Break, BackgroundAudio, Bookmark, ExpressAs, Silence, Language, Lexicon, Paragraph, Phoneme, Prosody, Raw, SayAs, Sentence, Subsitute, Voice, Word } from "./elements";
+import { Audio, Action, AutoBreaths, Break, BackgroundAudio, Bookmark, ExpressAs, Emotion, Silence, Language, Lexicon, Paragraph, Phoneme, Parallel, Prosody, Raw, SayAs, SoundEvent, Sentence, Subsitute, Sequential, Voice, Word, Emphasis, Mark } from "./elements";
 import util from "./lib/util";
 
 export default class ElementFactory {
@@ -16,13 +16,22 @@ export default class ElementFactory {
     static getElementTarget(type: string) {
         return ({
             [Element.Type.Audio]: Audio,
+            [Element.Type.Action]: Action,
+            [Element.Type.AutoBreaths]: AutoBreaths,
+            [Element.TypeAlias.AutoBreaths]: AutoBreaths,
             [Element.Type.Break]: Break,
+            [Element.Type.ExpressAs]: ExpressAs,
+            [Element.TypeAlias.ExpressAs]: ExpressAs,
+            [Element.Type.Emotion]: Emotion,
+            [Element.Type.Emphasis]: Emphasis,
             [Element.Type.Language]: Language,
             [Element.TypeAlias.Language]: Language,
             [Element.Type.Lexicon]: Lexicon,
             [Element.Type.Paragraph]: Paragraph,
             [Element.TypeAlias.Paragraph]: Paragraph,
             [Element.Type.Phoneme]: Phoneme,
+            [Element.Type.Parallel]: Parallel,
+            [Element.TypeAlias.Parallel]: Parallel,
             [Element.Type.Prosody]: Prosody,
             [Element.Type.SayAs]: SayAs,
             [Element.TypeAlias.SayAs]: SayAs,
@@ -30,16 +39,19 @@ export default class ElementFactory {
             [Element.TypeAlias.Sentence]: Sentence,
             [Element.Type.Subsitute]: Subsitute,
             [Element.TypeAlias.Subsitute]: Subsitute,
+            [Element.Type.SoundEvent]: SoundEvent,
+            [Element.TypeAlias.SoundEvent]: SoundEvent,
+            [Element.Type.Sequential]: Sequential,
+            [Element.TypeAlias.Sequential]: Sequential,
             [Element.Type.Voice]: Voice,
             [Element.Type.BackgroundAudio]: BackgroundAudio,
             [Element.TypeAlias.BackgroundAudio]: BackgroundAudio,
             [Element.TypeAlias.BackgroundAudio2]: BackgroundAudio,
             [Element.Type.Bookmark]: Bookmark,
-            [Element.Type.ExpressAs]: ExpressAs,
-            [Element.TypeAlias.ExpressAs]: ExpressAs,
             [Element.Type.Silence]: Silence,
             [Element.Type.Word]: Word,
             [Element.TypeAlias.Word]: Word,
+            [Element.Type.Mark]: Mark,
             [Element.Type.Raw]: Raw
         })[type] || null;
     }

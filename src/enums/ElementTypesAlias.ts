@@ -1,5 +1,5 @@
 enum ElementTypesAlias {
-    Action = 'insert-action',  //动作元素
+    AutoBreaths = 'auto-breaths',  //呼吸音元素
     ExpressAs = 'express-as',  //风格元素
     BackgroundAudio = 'background-audio',  //背景音频元素
     BackgroundAudio2 = 'backgroundaudio',  //背景音频元素

@@ -1,5 +1,6 @@
 export { default as Audio } from './Audio';
 export { default as Action } from './Action';
+export { default as AutoBreaths } from './AutoBreaths';
 export { default as Break } from './Break';
 export { default as BackgroundAudio } from './BackgroundAudio';
 export { default as Bookmark } from './Bookmark';

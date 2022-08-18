@@ -2,6 +2,7 @@ enum ElementTypes {
     Element = 'element',  //元素基类
     Audio = 'audio',  //音频元素
     Action = 'action',  //动作元素
+    AutoBreaths = 'autoBreaths',  //呼吸音元素
     Bookmark = 'bookmark',  //标记元素
     Break = 'break',  //停止元素
     BackgroundAudio = 'backgroundAudio',  //背景音频元素
