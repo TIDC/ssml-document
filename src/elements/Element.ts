@@ -36,11 +36,12 @@ export default class Element extends Base {
     }
 
     render(options: IRenderOptions = {}, parent?: any) {
-        const tagName = this.getTagName(options.provider || ServiceProvider.W3C);
+        const provider = options.provider || ServiceProvider.W3C;
+        const tagName = this.getTagName(provider);
         let tag: any;
         if (tagName) {
             tag = parent ? parent.ele(tagName) : this.createRootTag(tagName);
-            const _options = this.optionsExport();
+            const _options = this.optionsExport(provider);
             for (let key in _options)
                 tag.att(key, _options[key]);
         }

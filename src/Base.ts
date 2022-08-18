@@ -2,33 +2,34 @@ import { create } from 'xmlbuilder2';
 
 import IBaseOptions from './interface/IBaseOptions';
 import ICompilerOptions from './lib/interface/ICompilerOptions';
+import ServiceProvider from './enums/ServiceProvoder';
 import Compiler from './lib/Compiler';
 import util from './lib/util';
-import ElementFactory from './ElementFactory';
 
 class Base {
 
     data?: object;  //元素数据对象
-    compile: boolean = false;  //是否编译
-    debug: boolean = false;  //是否为调试模式
-    compilerOptions: ICompilerOptions = {};  //编译器选项
+    compile?: boolean;  //是否编译
+    debug?: boolean;  //是否为调试模式
+    compilerOptions?: ICompilerOptions;  //编译器选项
 
     constructor(options?: IBaseOptions, compilerOptions?: ICompilerOptions) {
         if(!options) return;
         this.optionsInject(options, {
-            compile: (v: any) => util.booleanParse(util.defaultTo(v, false)),
-            debug: (v: any) => util.booleanParse(util.defaultTo(v, false))
+            compile: util.booleanParse,
+            debug: util.booleanParse
         }, {
             compile: util.isBoolean,
             debug: util.isBoolean,
             data: util.isPlainObject
         });
-        this.compilerOptions = { ...compilerOptions, debug: this.debug };
-
+        this.compilerOptions = compilerOptions;
     }
 
     optionsCompile(options: any) {
-        return new Compiler(this.compilerOptions).compile(options);
+        const compilerOptions = this.compilerOptions || {};
+        compilerOptions.debug = this.debug;
+        return new Compiler(compilerOptions).compile(options);
     }
 
     optionsInject(options: any = {}, initializers: any = {}, checkers: any = {}) {
@@ -49,7 +50,7 @@ class Base {
         });
     }
 
-    optionsExport(_excludeAttrNames?: string[]) {
+    optionsExport(provider?: ServiceProvider, _excludeAttrNames?: string[]) {
         const excludeAttrNames = ["type", "children", "content", "compile", "debug", "compilerOptions", "ElementFactory", ...(_excludeAttrNames || [])];
         const options: any = {};
         for(let key in this) {

@@ -22,9 +22,19 @@ export default class Prosody extends Element {
             pitch: util.isString,
             contour: util.isString,
             range: util.isString,
-            duration: util.isFinite,
+            duration: util.isString,
             volume: util.isString
         });
+    }
+
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider, ["duration"]);
+        switch(provider) {
+            case ServiceProvider.Amazon:
+                this.duration && (options["amazon:max-duration"] = this.duration);
+            break;
+        }
+        return options;
     }
 
     getTagName(provider?: ServiceProvider) {

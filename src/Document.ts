@@ -40,7 +40,7 @@ export default class Document extends Base {
 
     render(options: IRenderOptions = {}) {
         const tagName = this.getTagName(options.provider || ServiceProvider.W3C);
-        const tag = this.createRootTag(tagName || "root", this.optionsExport());
+        const tag = this.createRootTag(tagName || "root", this.optionsExport(options.provider));
         this.children?.forEach(node => node.render(options, tag));
         const content = tag.end({
             prettyPrint: options.pretty,

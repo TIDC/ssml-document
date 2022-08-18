@@ -16,7 +16,7 @@ export default {
     },
 
     timeStringToMilliseconds(value: string) {
-        if(!this.isString(value)) return Number(value);
+        if(!lodash.isString(value)) return Number(value);
         value = value.trim();
         const match = value.match(/^(\d+)(ms|s|m|h)$/);
         if(!match) return null;
@@ -29,6 +29,7 @@ export default {
     },
 
     millisecondsToTimeString(value: number) {
+        if(!lodash.isFinite(Number(value))) return value;
         if(value < 1000)
             return value + "ms";
         if(value < 1000 * 60)
