@@ -24,6 +24,10 @@ export default class ExpressAs extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aliyun:
+                return "emotion";
+            case ServiceProvider.Amazon:
+                return "amazon:domain";
             case ServiceProvider.Microsoft:
                 return "mstts:express-as";
             default:

@@ -7,6 +7,7 @@ export { default as Bookmark } from './Bookmark';
 export { default as ExpressAs } from './ExpressAs';
 export { default as Emphasis } from './Emphasis';
 export { default as Emotion } from './Emotion';
+export { default as Effect } from './Effect';
 export { default as Mark } from './Mark';
 export { default as Language } from './Language';
 export { default as Lexicon } from './Lexicon';

@@ -24,6 +24,7 @@ enum ElementTypes {
     Voice = 'voice',  //语音元素
     Word = 'word',  //分句元素
     Emphasis = 'emphasis',  //强调元素
+    Effect = 'effect',  //音效元素
     Mark = 'mark',  //标记元素
 }
 

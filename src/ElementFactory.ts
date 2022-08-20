@@ -1,6 +1,6 @@
 import ICompilerOptions from "./lib/interface/ICompilerOptions";
 import Element from "./elements/Element";
-import { Audio, Action, AutoBreaths, Break, BackgroundAudio, Bookmark, ExpressAs, Emotion, Silence, Language, Lexicon, Paragraph, Phoneme, Parallel, Prosody, Raw, SayAs, SoundEvent, Sentence, Subsitute, Sequential, Voice, Word, Emphasis, Mark } from "./elements";
+import { Audio, Action, AutoBreaths, Break, BackgroundAudio, Bookmark, ExpressAs, Emotion, Effect, Silence, Language, Lexicon, Paragraph, Phoneme, Parallel, Prosody, Raw, SayAs, SoundEvent, Sentence, Subsitute, Sequential, Voice, Word, Emphasis, Mark } from "./elements";
 import util from "./lib/util";
 
 export default class ElementFactory {
@@ -23,6 +23,7 @@ export default class ElementFactory {
             [Element.Type.ExpressAs]: ExpressAs,
             [Element.TypeAlias.ExpressAs]: ExpressAs,
             [Element.Type.Emotion]: Emotion,
+            [Element.Type.Effect]: Effect,
             [Element.Type.Emphasis]: Emphasis,
             [Element.Type.Language]: Language,
             [Element.TypeAlias.Language]: Language,
