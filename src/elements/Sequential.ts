@@ -16,7 +16,7 @@ export default class Sequential extends Element {
         switch (provider) {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
-                return "par";
+                return "seq";
             default:
                 return null;
         }

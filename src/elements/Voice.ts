@@ -30,6 +30,15 @@ export default class Voice extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                return util.pick(options, ["name"]);
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.W3C:

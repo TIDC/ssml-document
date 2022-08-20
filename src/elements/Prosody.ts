@@ -30,9 +30,12 @@ export default class Prosody extends Element {
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["duration"]);
         switch(provider) {
+            case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 this.duration && (options["amazon:max-duration"] = this.duration);
-            break;
+                return util.omit(options, ["contour", "range"]);
+            case ServiceProvider.Aliyun:
+                return {};
         }
         return options;
     }

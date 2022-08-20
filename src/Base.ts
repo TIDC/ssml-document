@@ -8,7 +8,6 @@ import util from './lib/util';
 
 class Base {
 
-    data?: object;  //元素数据对象
     compile?: boolean;  //是否编译
     debug?: boolean;  //是否为调试模式
     compilerOptions?: ICompilerOptions;  //编译器选项
@@ -20,8 +19,7 @@ class Base {
             debug: util.booleanParse
         }, {
             compile: util.isBoolean,
-            debug: util.isBoolean,
-            data: util.isPlainObject
+            debug: util.isBoolean
         });
         this.compilerOptions = compilerOptions;
     }
@@ -56,14 +54,7 @@ class Base {
         for(let key in this) {
             if(excludeAttrNames.indexOf(key) !== -1)
                 continue;
-            options[key] = (function handle(value: any) {
-                if(util.isObject(value)) {
-                    for(let _key in value)
-                        options[`${key}-${_key}`] = handle((value as any)[_key]);
-                }
-                else
-                    return value;
-            }).bind(this)(this[key]);
+            options[key] = this[key];
         }
         return options;
     }

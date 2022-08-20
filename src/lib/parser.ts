@@ -68,18 +68,8 @@ export default {
 
     parseAttributes(value: any) {
         const attributes: any = {};
-        for(let key in value) {
-            const index = key.indexOf("-");
-            if(index !== -1) {
-                const oKey = key.substring(0, index);
-                const vkey = key.substring(index + 1);
-                if(!attributes[oKey])
-                    attributes[oKey] = {};
-                attributes[oKey][vkey] = value[key];
-            }
-            else
-                attributes[key] = value[key];
-        }
+        for(let key in value)
+            attributes[key] = value[key];
         return attributes;
     },
 
