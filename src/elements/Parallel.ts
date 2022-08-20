@@ -14,6 +14,7 @@ export default class Parallel extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.W3C:
             case ServiceProvider.Google:
                 return "par";
             default:
