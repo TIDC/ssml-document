@@ -1,4 +1,3 @@
-
 import IPhonemeOptions from './interface/IPhonemeOptions';
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
@@ -19,12 +18,35 @@ export default class Phoneme extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        let ph;
+        if(this.alphabet === "py" && this.ph)
+            ph = util.pinyinConvert(this.ph);
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                if(this.alphabet === "py" && ph) {
+                    options.alphabet = "sapi";
+                    options.ph = util.pinyin2sapi(ph);
+                }
+            break;
+            case ServiceProvider.Aliyun:
+            case ServiceProvider.Tencent:
+            case ServiceProvider.YunXiaoWei:
+                if(this.alphabet === "py" && ph)
+                    options.ph = ph;
+            break;
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
+                return this.alphabet === "py" ? null : "phoneme";
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
