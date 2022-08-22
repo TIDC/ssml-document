@@ -22,6 +22,20 @@ export default class ExpressAs extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Aliyun:
+                return {
+                    category: this.style,
+                    intensity: this.styledegree
+                };
+            case ServiceProvider.Amazon:
+                return { name: this.style };
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aliyun:

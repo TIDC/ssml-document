@@ -27,4 +27,12 @@ export default class Language extends Element {
         }
     }
 
+    get language() {
+        return this["xml:lang"] as any;
+    }
+
+    set language(value: string) {
+        this["xml:lang"] = value;
+    }
+
 }

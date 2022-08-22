@@ -49,7 +49,7 @@ class Base {
     }
 
     optionsExport(provider?: ServiceProvider, _excludeAttrNames?: string[]) {
-        const excludeAttrNames = ["type", "children", "content", "compile", "debug", "compilerOptions", "ElementFactory", ...(_excludeAttrNames || [])];
+        const excludeAttrNames = ["type", "children", "content", "compile", "debug", "compilerOptions", "xmlns", "ElementFactory", ...(_excludeAttrNames || [])];
         const options: any = {};
         for(let key in this) {
             if(excludeAttrNames.indexOf(key) !== -1)

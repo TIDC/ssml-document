@@ -20,6 +20,20 @@ export default class Emotion extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                return {
+                    style: this.category,
+                    styledegree: this.intensity
+                };
+            case ServiceProvider.Amazon:
+                return { name: this.category };
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aliyun:
