@@ -32,7 +32,7 @@ export default class BackgroundAudio extends Element {
             case ServiceProvider.Aliyun:
                 return {
                     bgm: this.src,
-                    backgroundMusicVolume: this.volume
+                    backgroundMusicVolume: util.isFinite(Number(this.volume)) ? Number(this.volume) * 0.5 : this.volume
                 };
         }
         return options;

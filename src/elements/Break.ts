@@ -12,7 +12,9 @@ export default class Break extends Element {
 
     constructor(options: IBreakOptions, ...args: any[]) {
         super(options, ...args);
-        this.optionsInject(options, {}, {
+        this.optionsInject(options, {
+            time: util.millisecondsToTimeString
+        }, {
             strength: util.isString,
             time: util.isString
         });
