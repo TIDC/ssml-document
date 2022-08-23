@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<speak voice="aixia" rate="100">
+  <s>
+    测试一下
+    <break time="2s"/>
+    再测试一下
+  </s>
+</speak>
