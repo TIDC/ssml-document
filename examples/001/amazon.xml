@@ -1,0 +1,9 @@
+<speak>
+  <prosody rate="120%">
+    <p>
+      测试一下
+      <break time="2s"/>
+      再测试一下
+    </p>
+  </prosody>
+</speak>

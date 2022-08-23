@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<speak>
-  <voice name="test">
-    <prosody rate="1.2">
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
+  <voice name="zh-CN-XiaoxiaoNeural">
+    <prosody rate="120%">
       <p>
         测试一下
         <break time="2s"/>
