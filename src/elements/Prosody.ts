@@ -32,17 +32,27 @@ export default class Prosody extends Element {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider, ["duration"]);
-        switch(provider) {
+        const options = super.optionsExport(provider);
+        switch (provider) {
+            case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-                this.duration && (options["amazon:max-duration"] = this.duration);
-                return util.omit(options, ["contour", "range"]);
+            case ServiceProvider.Microsoft:
+                options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
+                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch}`) + "%" : options.rate;
+                if (provider !== ServiceProvider.Microsoft)
+                    options.volume = util.isFinite(Number(this.volume)) ? util.volumeValueParse(Number(this.volume)) : this.volume;
+                if (provider === ServiceProvider.Amazon) {
+                    options.duration && (options["amazon:max-duration"] = options.duration);
+                    return util.omit(options, ["duration", "contour", "range"]);
+                }
+                break;
             case ServiceProvider.Aliyun:
-                const rate = util.isFinite(Number(this.rate)) ? Number(this.rate) * 500 - 500 : this.rate;
-                const pitch = util.isFinite(Number(this.pitch)) ? Number(this.pitch) * 500 - 500 : this.pitch;
-                const volume = util.isFinite(Number(this.volume)) ? Number(this.volume) * 0.5 : this.volume;
-                return { rate, pitch, volume };
+                return {
+                    rate: util.isFinite(Number(this.rate)) ? Number(this.rate) * 500 - 500 : this.rate,
+                    pitch: util.isFinite(Number(this.pitch)) ? Number(this.pitch) * 500 - 500 : this.pitch,
+                    volume: util.isFinite(Number(this.volume)) ? Number(this.volume) * 0.5 : this.volume
+                };
         }
         return options;
     }

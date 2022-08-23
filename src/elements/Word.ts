@@ -19,6 +19,7 @@ export default class Word extends Element {
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["role"]);
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.Amazon:
                 this.role && (options["role"] = this.role);
                 break;

@@ -41,7 +41,7 @@ const util = {
 
     millisecondsToTimeString(value: number) {
         if(!util.isFinite(Number(value)))
-            return util.durationParse(`${value}`);
+            return util.durationParse(value as any);
         if(value < 1000)
             return value + "ms";
         if(value < 1000 * 60)
@@ -90,6 +90,15 @@ const util = {
             "loud": 150,
             "x-loud": 200
         })[value] || value;
+    },
+
+    volumeValueParse(value: number) {
+        if(value < 10) return "silent";
+        else if(value < 50) return "x-soft";
+        else if(value < 100) return "soft";
+        else if(value < 150) return "medium";
+        else if(value < 200) return "loud";
+        else return "x-loud";
     },
 
     pinyin2sapi(value: string) {

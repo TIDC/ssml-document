@@ -22,7 +22,7 @@ export default class SayAs extends Element {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider, ["role"]);
+        const options = super.optionsExport(provider);
         switch(provider) {
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
