@@ -22,6 +22,7 @@ export default class Prosody extends Element {
             pitch: util.isString,
             contour: util.isString,
             range: util.isString,
+            rate: util.isString,
             duration: util.isString,
             volume: util.isString
         });

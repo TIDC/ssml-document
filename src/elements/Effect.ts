@@ -9,6 +9,7 @@ export default class Effect extends Element {
     type = Element.Type.Effect;
     name = '';  //音效名称
     phonation?: string;  //发音方式
+    level?: string;  //音效强度
     "vocal-tract-length"?: string;  //声道长度
 
     constructor(options: IEffectOptions, ...args: any[]) {
@@ -16,6 +17,7 @@ export default class Effect extends Element {
         this.optionsInject(options, {}, {
             name: util.isString,
             phonation: util.isString,
+            level: util.isString,
             ["vocal-tract-length"]: util.isString
         });
     }

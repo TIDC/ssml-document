@@ -57,6 +57,16 @@ export default class Element extends Base {
         return tag;
     }
 
+    find(key: string): Element | null {
+        for (let node of this.children || []) {
+            if (node.type === key)
+                return node;
+            const foundNode = node.find(key);
+            if(foundNode) return foundNode;
+        }
+        return null;
+    }
+
     getText(filter?: any): string {
         return this.children?.reduce((t, e) => t + e.getText(filter), "") as string;
     }

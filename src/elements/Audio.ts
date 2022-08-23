@@ -57,6 +57,8 @@ export default class Audio extends Element {
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
                 return "audio";
+            case ServiceProvider.Aliyun:
+                return "soundEvent";
             default:
                 return null;
         }

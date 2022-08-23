@@ -5,7 +5,7 @@ const { version, Document, elements: { Voice } } = require("./");
     const content = (await fs.promises.readFile("ssml.xml")).toString();
     const document = Document.parse(content);
     await fs.promises.writeFile("result.xml", document.render({
-        provider: "yunXiaoWei",
+        provider: "aliyun",
         pretty: true
     }));
 })()

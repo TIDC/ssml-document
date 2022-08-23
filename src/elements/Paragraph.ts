@@ -18,8 +18,9 @@ export default class Paragraph extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-            case ServiceProvider.YunXiaoWei:
                 return "p";
+            case ServiceProvider.Aliyun:
+                return "s";
             default:
                 return null;
         }

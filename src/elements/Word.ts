@@ -18,20 +18,23 @@ export default class Word extends Element {
 
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["role"]);
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.Amazon:
                 this.role && (options["role"] = this.role);
-            break;
+                break;
         }
         return options;
     }
 
     getTagName(provider?: ServiceProvider) {
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.W3C:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
                 return "w";
+            case ServiceProvider.Microsoft:
+            case ServiceProvider.Google:
+                return "s";
             default:
                 return null;
         }

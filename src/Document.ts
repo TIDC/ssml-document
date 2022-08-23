@@ -4,6 +4,7 @@ import IRenderOptions from "./interface/IRenderOptions";
 import ServiceProvider from "./enums/ServiceProvoder";
 import Element from "./elements/Element";
 import ElementFactory from "./ElementFactory";
+import { BackgroundAudio, Effect, Prosody } from "./elements";
 import Base from "./Base";
 import parser from './lib/parser';
 import util from "./lib/util";
@@ -16,6 +17,8 @@ export default class Document extends Base {
     "xml:lang"?: string;  //语音语言
     "xml:base"?: string;  //文档基础URL
     xmlns = "";  //文档URI
+    encodeType?: string;  //音频编码类型
+    sampleRate?: string;  //音频采样率
     children?: Element[] = [];  //文档子节点
 
     constructor(options: IDocumentOptions, compilerOptions?: ICompilerOptions) {
@@ -34,8 +37,37 @@ export default class Document extends Base {
             ["xml:lang"]: util.isString,
             ["xml:base"]: util.isString,
             xmlns: util.isString,
+            encodeType: util.isString,
+            sampleRate: util.isString,
             children: util.isArray
         });
+    }
+
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Aliyun:
+                const prosody = this.find("prosody") as Prosody;
+                if(prosody) {
+                    options.rate = prosody.rate;
+                    options.pitch = prosody.pitch;
+                    options.volume = prosody.volume;
+                }
+                const effect = this.find("effect") as Effect;
+                if(effect) {
+                    options.effect = effect.name;
+                    options.effectValue = effect.level;
+                }
+                const backgroundAudio = this.find("backgroundAudio") as BackgroundAudio;
+                if(backgroundAudio) {
+                    options.bgm = backgroundAudio.src;
+                    options.backgroundMusicVolume = backgroundAudio.volume;
+                }
+            break;
+            default:
+                return util.omit(options, ["encodeType", "sampleRate", "format"]);
+        }
+        return options;
     }
 
     render(options: IRenderOptions = {}) {
@@ -50,6 +82,16 @@ export default class Document extends Base {
         if(tagName)
             return content;
         return content.replace(/<root.*?>/, "").replace(/<\/root>$/, "");
+    }
+
+    find(key: string) {
+        for (let node of this.children || []) {
+            if (node.type === key)
+                return node;
+            const foundNode = node.find(key);
+            if(foundNode) return foundNode;
+        }
+        return null;
     }
 
     getText(filter?: any): string {
