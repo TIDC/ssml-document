@@ -18,12 +18,13 @@ export default class Mark extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 return "mark";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

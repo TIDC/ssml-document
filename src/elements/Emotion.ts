@@ -36,6 +36,7 @@ export default class Emotion extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.Aliyun:
                 return "emotion";
             case ServiceProvider.Amazon:
@@ -43,7 +44,7 @@ export default class Emotion extends Element {
             case ServiceProvider.Microsoft:
                 return "mstts:express-as";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

@@ -35,6 +35,7 @@ export default class SayAs extends Element {
     
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
@@ -43,7 +44,7 @@ export default class SayAs extends Element {
             case ServiceProvider.Tencent:
                 return "say-as";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

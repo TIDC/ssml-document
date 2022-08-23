@@ -20,10 +20,12 @@ export default class Silence extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
+                return "silence";
             case ServiceProvider.Microsoft:
                 return "mstts:silence";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

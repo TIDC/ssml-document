@@ -33,6 +33,7 @@ export default class Break extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
@@ -42,7 +43,7 @@ export default class Break extends Element {
             case ServiceProvider.YunXiaoWei:
                 return "break";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

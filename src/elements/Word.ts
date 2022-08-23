@@ -28,6 +28,7 @@ export default class Word extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
@@ -36,7 +37,7 @@ export default class Word extends Element {
             case ServiceProvider.Google:
                 return "s";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

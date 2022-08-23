@@ -18,10 +18,12 @@ export default class Action extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
+                return "action";
             case ServiceProvider.YunXiaoWei:
                 return "insert-action";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

@@ -40,10 +40,12 @@ export default class BackgroundAudio extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
+                return "backgroundAudio";
             case ServiceProvider.Microsoft:
                 return "mstts:backgroundaudio";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

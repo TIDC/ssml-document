@@ -14,10 +14,12 @@ export default class AutoBreaths extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
+                return "auto-breaths";
             case ServiceProvider.Amazon:
                 return "amazon:auto-breaths";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

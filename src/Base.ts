@@ -55,8 +55,8 @@ class Base {
             if(excludeAttrNames.indexOf(key) !== -1)
                 continue;
             const targetKey = ({
-                type: "__type",
-                value: "__value"
+                __type: "type",
+                __value: "value"
               } as any)[key] || key;
             options[targetKey] = this[key];
         }

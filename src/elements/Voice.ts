@@ -43,12 +43,13 @@ export default class Voice extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
                 return "voice";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

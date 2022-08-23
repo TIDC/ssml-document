@@ -18,10 +18,12 @@ export default class Bookmark extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
+                return "bookmark";
             case ServiceProvider.Microsoft:
                 return "mstts:bookmark";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

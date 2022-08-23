@@ -42,6 +42,8 @@ export default class Phoneme extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
+                return "phoneme";
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
@@ -52,7 +54,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.YunXiaoWei:
                 return "phoneme";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

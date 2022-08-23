@@ -14,11 +14,12 @@ export default class Sequential extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
                 return "seq";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

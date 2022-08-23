@@ -18,11 +18,12 @@ export default class Lexicon extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
                 return "lexicon";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

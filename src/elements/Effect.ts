@@ -36,10 +36,12 @@ export default class Effect extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
+            case ServiceProvider.Aggregation:
+                return "effect";
             case ServiceProvider.Amazon:
                 return "amazon:effect";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

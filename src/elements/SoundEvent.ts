@@ -17,15 +17,16 @@ export default class SoundEvent extends Element {
     }
 
     getTagName(provider?: ServiceProvider) {
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
                 return "audio";
+            case ServiceProvider.Aggregation:
             case ServiceProvider.Aliyun:
                 return "soundEvent";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

@@ -36,7 +36,7 @@ export default class Element extends Base {
     }
 
     render(options: IRenderOptions = {}, parent?: any) {
-        const provider = options.provider || ServiceProvider.W3C;
+        const provider = options.provider || ServiceProvider.Aggregation;
         const tagName = this.getTagName(provider);
         let tag: any;
         if (tagName) {

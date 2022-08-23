@@ -49,13 +49,14 @@ export default class Prosody extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 return "prosody";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

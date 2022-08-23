@@ -76,7 +76,7 @@ export default class Document extends Base {
     }
 
     render(options: IRenderOptions = {}) {
-        const tagName = this.getTagName(options.provider || ServiceProvider.W3C);
+        const tagName = this.getTagName(options.provider || ServiceProvider.Aggregation);
         const tag = this.createRootTag(tagName || "root", this.optionsExport(options.provider));
         this.children?.forEach(node => node.render(options, tag));
         const content = tag.end({
@@ -104,6 +104,7 @@ export default class Document extends Base {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Microsoft:

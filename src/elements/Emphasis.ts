@@ -18,13 +18,14 @@ export default class Emphasis extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 return "emphasis";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 

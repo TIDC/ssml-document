@@ -14,6 +14,7 @@ export default class Paragraph extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
+            case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
@@ -22,7 +23,7 @@ export default class Paragraph extends Element {
             case ServiceProvider.Aliyun:
                 return "s";
             default:
-                return null;
+                return super.getTagName(provider);
         }
     }
 
