@@ -68,8 +68,13 @@ export default {
 
     parseAttributes(value: any) {
         const attributes: any = {};
-        for(let key in value)
-            attributes[key === "type" ? "__type" : key] = value[key];
+        for(let key in value) {
+            const targetKey = {
+                type: "__type",
+                value: "__value"
+              }[key] || key;
+            attributes[targetKey] = value[key];
+        }
         return attributes;
     },
 
