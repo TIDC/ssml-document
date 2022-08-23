@@ -34,8 +34,9 @@ export default class Voice extends Element {
         const options = super.optionsExport(provider);
         switch (provider) {
             case ServiceProvider.Microsoft:
-            case ServiceProvider.Aliyun:
                 return util.pick(options, ["name"]);
+            case ServiceProvider.Aliyun:
+                return { voice: options.name };
         }
         return options;
     }
