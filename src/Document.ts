@@ -4,7 +4,7 @@ import IRenderOptions from "./interface/IRenderOptions";
 import ServiceProvider from "./enums/ServiceProvoder";
 import Element from "./elements/Element";
 import ElementFactory from "./ElementFactory";
-import { BackgroundAudio, Effect, Prosody } from "./elements";
+import { BackgroundAudio, Effect, Prosody, Voice } from "./elements";
 import Base from "./Base";
 import parser from './lib/parser';
 import util from "./lib/util";
@@ -26,6 +26,7 @@ export default class Document extends Base {
         this.optionsInject(options, {
             ["xml:lang"]: (v: any) => options.language || v,
             ["xml:base"]: (v: any) => options.baseUrl || v,
+            version: (v: any) => util.defaultTo(v, "1.0"),
             xmlns: (v: any) => util.defaultTo(v, "http://www.w3.org/2001/10/synthesis"),
             children: (v: any) => (v || []).map((options: any) => {
                 const node = ElementFactory.createElement(options, compilerOptions);
@@ -44,28 +45,32 @@ export default class Document extends Base {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider);
+        const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "xmlns", "xml:base", "xml:lang"]);
         switch(provider) {
-            case ServiceProvider.Aliyun:
-                const prosody = this.find("prosody") as Prosody;
-                if(prosody) {
-                    options.rate = prosody.rate;
-                    options.pitch = prosody.pitch;
-                    options.volume = prosody.volume;
-                }
-                const effect = this.find("effect") as Effect;
-                if(effect) {
-                    options.effect = effect.name;
-                    options.effectValue = effect.level;
-                }
-                const backgroundAudio = this.find("backgroundAudio") as BackgroundAudio;
-                if(backgroundAudio) {
-                    options.bgm = backgroundAudio.src;
-                    options.backgroundMusicVolume = backgroundAudio.volume;
-                }
+            case ServiceProvider.W3C:
+                options.version = this.version;
+                options["xml:base"] = this.baseUrl;
+                options["xml:lang"] = this.language;
+                options.xmlns = this.xmlns;
             break;
-            default:
-                return util.omit(options, ["encodeType", "sampleRate", "format"]);
+            case ServiceProvider.Aliyun:
+                const voice = this.find("voice") as Voice;
+                voice && Object.assign(options, voice.optionsExport(provider));
+                const prosody = this.find("prosody") as Prosody;
+                prosody && Object.assign(options, prosody.optionsExport(provider));
+                const effect = this.find("effect") as Effect;
+                effect && Object.assign(options, effect.optionsExport(provider));
+                const backgroundAudio = this.find("backgroundAudio") as BackgroundAudio;
+                backgroundAudio && Object.assign(options, backgroundAudio.optionsExport(provider));
+                options.encodeType = this.encodeType;
+                options.sampleRate = this.sampleRate;
+            break;
+            case ServiceProvider.Microsoft:
+                options.version = this.version;
+                options["xml:lang"] = this.language;
+                options.xmlns = this.xmlns;
+                options["xmlns:mstts"] = "https://www.w3.org/2001/mstts";
+            break;
         }
         return options;
     }
@@ -74,7 +79,6 @@ export default class Document extends Base {
         const tagName = this.getTagName(options.provider || ServiceProvider.W3C);
         const tag = this.createRootTag(tagName || "root", this.optionsExport(options.provider));
         this.children?.forEach(node => node.render(options, tag));
-        tag.att("xmlns", this.xmlns);
         const content = tag.end({
             prettyPrint: options.pretty,
             headless: options.headless,

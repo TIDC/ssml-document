@@ -17,14 +17,17 @@ export default class Prosody extends Element {
     constructor(options: IProsodyOptions, ...args: any[]) {
         super(options, ...args);
         this.optionsInject(options, {
-            duration: util.millisecondsToTimeString
+            pitch: util.pitchParse,
+            rate: util.rateParse,
+            duration: util.millisecondsToTimeString,
+            volume: util.volumeParse
         }, {
-            pitch: util.isString,
+            pitch: (v: any) => util.isString(v) || util.isFinite(v),
             contour: util.isString,
             range: util.isString,
-            rate: util.isString,
+            rate: (v: any) => util.isString(v) || util.isFinite(v),
             duration: util.isString,
-            volume: util.isString
+            volume: (v: any) => util.isString(v) || util.isFinite(v)
         });
     }
 
@@ -36,7 +39,10 @@ export default class Prosody extends Element {
                 this.duration && (options["amazon:max-duration"] = this.duration);
                 return util.omit(options, ["contour", "range"]);
             case ServiceProvider.Aliyun:
-                return {};
+                const rate = util.isFinite(Number(this.rate)) ? Number(this.rate) * 500 - 500 : this.rate;
+                const pitch = util.isFinite(Number(this.pitch)) ? Number(this.pitch) * 500 - 500 : this.pitch;
+                const volume = util.isFinite(Number(this.volume)) ? Number(this.volume) * 0.5 : this.volume;
+                return { rate, pitch, volume };
         }
         return options;
     }
@@ -47,7 +53,6 @@ export default class Prosody extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-            case ServiceProvider.Aliyun:
                 return "prosody";
             default:
                 return null;

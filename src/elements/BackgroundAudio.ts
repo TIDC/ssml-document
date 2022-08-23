@@ -26,6 +26,18 @@ export default class BackgroundAudio extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Aliyun:
+                return {
+                    bgm: this.src,
+                    backgroundMusicVolume: this.volume
+                };
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Microsoft:

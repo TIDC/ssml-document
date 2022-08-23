@@ -11,7 +11,7 @@ const vowelTones = [
 const vowels = ["a", "o", "e", "i", "u", "ü"];
 const vowelRegExp = new RegExp(vowelTones.join("|"), "g");
 
-export default {
+const util = {
     ...lodash,
 
     isUnixTimestamp(value: any) {
@@ -27,7 +27,7 @@ export default {
     },
 
     timeStringToMilliseconds(value: string) {
-        if(!lodash.isString(value)) return Number(value);
+        if(!util.isString(value)) return Number(value);
         value = value.trim();
         const match = value.match(/^(\d+)(ms|s|m|h)$/);
         if(!match) return null;
@@ -40,7 +40,8 @@ export default {
     },
 
     millisecondsToTimeString(value: number) {
-        if(!lodash.isFinite(Number(value))) return value;
+        if(!util.isFinite(Number(value)))
+            return util.durationParse(`${value}`);
         if(value < 1000)
             return value + "ms";
         if(value < 1000 * 60)
@@ -48,6 +49,47 @@ export default {
         if(value < 1000 * 60 * 60)
             return value / (1000 * 60) + "m";
         return value / (1000 * 60 * 60) + "h";
+    },
+
+    durationParse(value: string) {
+        return ({
+            "x-weak": 250,
+            "weak": 500,
+            "medium": 750,
+            "strong": 1000,
+            "x-strong": 1250
+        })[value] || value;
+    },
+
+    rateParse(value: string) {
+        return ({
+            "x-slow": 0.1,
+            "slow": 0.5,
+            "medium": 1.0,
+            "fast": 1.5,
+            "x-fast": 2.0
+        })[value] || value;
+    },
+
+    pitchParse(value: string) {
+        return ({
+            "x-slow": 0.1,
+            "slow": 0.5,
+            "medium": 1.0,
+            "high": 1.5,
+            "x-high": 2
+        })[value] || value;
+    },
+
+    volumeParse(value: string) {
+        return ({
+            "silent": 0,
+            "x-soft": 10,
+            "soft": 50,
+            "medium": 100,
+            "loud": 150,
+            "x-loud": 200
+        })[value] || value;
     },
 
     pinyin2sapi(value: string) {
@@ -80,3 +122,5 @@ export default {
     }
 
 };
+
+export default util;

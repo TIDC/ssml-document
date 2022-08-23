@@ -22,6 +22,18 @@ export default class Effect extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Aliyun:
+                return {
+                    effect: this.name,
+                    effectValue: this.level
+                };
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Amazon:
