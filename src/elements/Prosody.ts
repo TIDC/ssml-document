@@ -35,18 +35,20 @@ export default class Prosody extends Element {
         const options = super.optionsExport(provider);
         switch (provider) {
             case ServiceProvider.W3C:
-            case ServiceProvider.Google:
-            case ServiceProvider.Amazon:
             case ServiceProvider.Microsoft:
                 options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
                 options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch}`) + "%" : options.rate;
-                if (provider !== ServiceProvider.Microsoft)
-                    options.volume = util.isFinite(Number(this.volume)) ? util.volumeValueParse(Number(this.volume)) : this.volume;
+                break;
+            case ServiceProvider.Google:
+            case ServiceProvider.Amazon:
+                options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
+                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch}`) + "%" : options.rate;
+                options.volume = util.isFinite(Number(this.volume)) ? util.volumeValueParse(Number(this.volume)) : this.volume;
                 if (provider === ServiceProvider.Amazon) {
                     options.duration && (options["amazon:max-duration"] = options.duration);
-                    return util.omit(options, ["duration", "contour", "range"]);
+                    delete options.duration;
                 }
-                break;
+                return util.omit(options, ["contour", "range"]);
             case ServiceProvider.Aliyun:
                 return {
                     rate: util.isFinite(Number(this.rate)) ? Number(this.rate) * 500 - 500 : this.rate,
