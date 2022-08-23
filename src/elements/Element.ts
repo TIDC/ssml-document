@@ -20,7 +20,7 @@ export default class Element extends Base {
     children?: Element[] = [];  //元素子节点
     #parent?: Document | Element;  //父级节点
 
-    constructor(options: IElementOptions, compilerOptions?: ICompilerOptions) {
+    constructor(options: IElementOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
         this.optionsInject(options, {
             children: (v: any) => (v || []).map((options: any) => {
@@ -33,6 +33,13 @@ export default class Element extends Base {
             value: util.isString,
             children: util.isArray
         });
+    }
+
+    appendChild(node: any) {
+        if(!Element.isInstance(node))
+            node = ElementFactory.createElement(node, this.compilerOptions);
+        node.parent = this;
+        this.children?.push(node);
     }
 
     render(options: IRenderOptions = {}, parent?: any) {

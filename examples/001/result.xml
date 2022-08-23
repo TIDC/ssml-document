@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<speak>
+  <voice name="test">
+    <prosody rate="1.2">
+      <p>
+        测试一下
+        <break time="2s"/>
+        再测试一下
+      </p>
+    </prosody>
+  </voice>
+</speak>

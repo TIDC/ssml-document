@@ -2,8 +2,8 @@ import ICompilerOptions from "./lib/interface/ICompilerOptions";
 import IDocumentOptions from "./interface/IDocumentOptions";
 import IRenderOptions from "./interface/IRenderOptions";
 import ServiceProvider from "./enums/ServiceProvoder";
-import Element from "./elements/Element";
 import ElementFactory from "./ElementFactory";
+import Element from "./elements/Element";
 import { BackgroundAudio, Effect, Prosody, Voice } from "./elements";
 import Base from "./Base";
 import parser from './lib/parser';
@@ -21,7 +21,7 @@ export default class Document extends Base {
     sampleRate?: string;  //音频采样率
     children?: Element[] = [];  //文档子节点
 
-    constructor(options: IDocumentOptions, compilerOptions?: ICompilerOptions) {
+    constructor(options: IDocumentOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
         this.optionsInject(options, {
             ["xml:lang"]: (v: any) => options.language || v,
@@ -42,6 +42,13 @@ export default class Document extends Base {
             sampleRate: util.isString,
             children: util.isArray
         });
+    }
+
+    appendChild(node: any) {
+        if(!Element.isInstance(node))
+            node = ElementFactory.createElement(node, this.compilerOptions);
+        node.parent = this;
+        this.children?.push(node);
     }
 
     optionsExport(provider?: ServiceProvider) {
