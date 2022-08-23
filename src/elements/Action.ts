@@ -12,7 +12,7 @@ export default class Action extends Element {
     constructor(options: IActionOptions, ...args: any[]) {
         super(options, ...args);
         this.optionsInject(options, {}, {
-            type: util.isString
+            __type: util.isString
         });
     }
 

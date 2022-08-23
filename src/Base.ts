@@ -54,7 +54,7 @@ class Base {
         for(let key in this) {
             if(excludeAttrNames.indexOf(key) !== -1)
                 continue;
-            options[key] = this[key];
+            options[key === "__type" ? "type" : key] = this[key];
         }
         return options;
     }

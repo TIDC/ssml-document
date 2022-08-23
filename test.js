@@ -1,7 +1,12 @@
+const fs = require("fs");
 const { version, Document, elements: { Voice } } = require("./");
 
-const document = Document.parse("<speak><voice name=\"xiaohai\" gender=\"17\"><prosody duration=\"1000\"><p>听我说<say-as interpret-as=\"string\" format=\"date\">谢谢</say-as>你</p></prosody></voice></speak>");
-console.log(document.render({
-    provider: "aliyun",
-    pretty: true
-}));
+(async () => {
+    const content = (await fs.promises.readFile("ssml.xml")).toString();
+    const document = Document.parse(content);
+    await fs.promises.writeFile("result.xml", document.render({
+        provider: "yunXiaoWei",
+        pretty: true
+    }));
+})()
+.catch(err => console.error(err));

@@ -17,6 +17,7 @@ export default class ElementFactory {
         return ({
             [Element.Type.Audio]: Audio,
             [Element.Type.Action]: Action,
+            [Element.TypeAlias.Action]: Action,
             [Element.Type.AutoBreaths]: AutoBreaths,
             [Element.TypeAlias.AutoBreaths]: AutoBreaths,
             [Element.Type.Break]: Break,

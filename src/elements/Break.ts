@@ -18,6 +18,17 @@ export default class Break extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Aliyun:
+            case ServiceProvider.Tencent:
+                delete options.strength;
+            break;
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.W3C:
