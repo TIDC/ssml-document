@@ -7,13 +7,12 @@
     <p>
       56666
       <emotion category="cry">哈哈哈哈哈</emotion>
-      <w>
-        abc
-        <sub alias="万维网">W3C</sub>
-        <say-as interpret-as="digits">123456</say-as>
-        啊啊啊
-      </w>
-      6666
+      <w>abc</w>
+      <sub alias="万维网">W3C</sub>
+      <phoneme alphabet="py" ph="zhang 3">长</phoneme>
+      <say-as interpret-as="digits">123456</say-as>
     </p>
+    啊啊啊
   </prosody>
+  6666
 </speak>

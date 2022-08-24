@@ -2,7 +2,7 @@ import { create } from 'xmlbuilder2';
 
 import IBaseOptions from './interface/IBaseOptions';
 import ICompilerOptions from './lib/interface/ICompilerOptions';
-import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions } from './elements/interface';
+import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions, IPhonemeOptions } from './elements/interface';
 import ServiceProvider from './enums/ServiceProvoder';
 import Compiler from './lib/Compiler';
 import Element from './elements/Element';
@@ -92,7 +92,7 @@ class Base {
         });
         content && node.appendChild(content);
         this.appendChild(node);
-        return node;
+        return this;
     }
 
     expressAs(content: string, options: IExpressAsOptions) {
@@ -131,18 +131,26 @@ class Base {
         return node;
     }
 
-    sub(content?: string, alias?: string) {
-        const node = Element.create({ type: Element.Type.Subsitute, alias })
-        content && node.appendChild(`${content}`);
-        this.appendChild(node);
-        return node;
-    }
-
     w(content?: string) {
         const node = Element.create({ type: Element.Type.Word })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return node;
+        return this;
+    }
+
+    sub(content: string, alias: string) {
+        const node = Element.create({ type: Element.Type.Subsitute, alias })
+        content && node.appendChild(`${content}`);
+        this.appendChild(node);
+        return this;
+    }
+    
+    phoneme(content: string, options: IPhonemeOptions) {
+        options = util.isObject(options) ? options : {};
+        const node = Element.create({ type: Element.Type.Phoneme, ...options })
+        content && node.appendChild(`${content}`);
+        this.appendChild(node);
+        return this;
     }
 
     break(value: any) {

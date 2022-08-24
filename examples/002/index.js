@@ -16,7 +16,10 @@ document
 .up()
 .w("abc")
 .sub("W3C", "万维网")
-.up()
+.phoneme("长", {
+    alphabet: "py",
+    ph: "zhang 3"
+})
 .sayAs("123456", { interpret: "digits" })
 .up()
 .say("啊啊啊")
