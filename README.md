@@ -126,24 +126,6 @@ console.log(ssml);
 */
 ```
 
-Building SSML based on elements:
-
-基于元素构建SSML：
-
-```javascript
-const { Document, ServiceProvider, elements } = require("ssml-document");
-const { Prosody, Paragraph } = elements;
-const doc = new Document();
-const prosody = new Prosody({ rate: 1.2, pitch: 1.1 });
-const p = new Paragraph();
-p.appendChild("Hello World");
-prosody.appendChild(p);
-doc.appendChild(prosody);
-const ssml = doc.render({ provider: ServiceProvider.Amazon });
-console.log(ssml);
-//<speak><prosody pitch="110%" rate="120%"><p>Hello World</p></prosody></speak>
-```
-
 Build aggregated SSML for storage or transport:
 
 构建用于存储或传输的聚合SSML：
@@ -202,6 +184,39 @@ console.log(ssml2);
 //<speak voice="aida">Hello World</speak>
 ```
 
+Get speech rate, pitch, volume and speaker parameters.
+
+获取语音语速、语调、音量以及发音人参数
+
+```javascript
+const { Document } = require("ssml-document");
+const doc = new Document();
+doc.voice("aixia")
+  .prosody({ rate: 1.2, pitch: 1.1 })
+  .say("Example Text");
+console.log(doc.rate, doc.pitch, doc.volume, doc.speaker);
+//1.2 1.1 100 aixia
+```
+
+
+Building SSML based on elements:
+
+基于元素构建SSML：
+
+```javascript
+const { Document, ServiceProvider, elements } = require("ssml-document");
+const { Prosody, Paragraph } = elements;
+const doc = new Document();
+const prosody = new Prosody({ rate: 1.2, pitch: 1.1 });
+const p = new Paragraph();
+p.appendChild("Hello World");
+prosody.appendChild(p);
+doc.appendChild(prosody);
+const ssml = doc.render({ provider: ServiceProvider.Amazon });
+console.log(ssml);
+//<speak><prosody pitch="110%" rate="120%"><p>Hello World</p></prosody></speak>
+```
+
 Setting the compile attribute for tags enables JavaScript syntax expression evaluation:
 给标签设置compile属性启用JavaScript语法表达式求值:
 
@@ -216,13 +231,13 @@ const aggregationSSML = '<?xml version="1.0"?>\
   </voice>\
 </speak>';
 const date = new Date();
-const document = Document.parse(aggregationSSML, {
+const doc = Document.parse(aggregationSSML, {
     dataset: {
         time: date.getHours() + ":" + date.getMinutes()
     }
 });
-const ssml = document.render({
-    provider: document.provider,
+const ssml = doc.render({
+    provider: doc.provider,
     pretty: true
 });
 console.log(ssml);
@@ -242,6 +257,7 @@ Setting for/if/elif/else attributes for tags can also implement loops and condit
 给标签设置 for/if/elif/else 属性还能够实现循环和条件分歧。
 
 ```javascript
+const { Document } = require("ssml-document");
 const aggregationSSML = '<?xml version="1.0"?>\
 <speak compile="true" version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">\
   <voice name="aixia">\
@@ -249,14 +265,14 @@ const aggregationSSML = '<?xml version="1.0"?>\
     <s else="true" for="{{s2}}">{{item}}<break time="100"></s>\
   </voice>\
 </speak>';
-const document = Document.parse(aggregationSSML, {
+const doc = Document.parse(aggregationSSML, {
     dataset: {
         s1: ["Oh", "my", "god"],
         s2: ["Holy", "crap"]
     }
 });
-const ssml = document.render({
-    provider: document.provider,
+const ssml = doc.render({
+    provider: doc.provider,
     pretty: true
 });
 console.log(ssml);
@@ -284,8 +300,6 @@ console.log(ssml);
 Tag: speak
 Support: w3c / microsoft / aliyun / tencent / google / amazon
 ```
-
-
 
 ### Voice
 ```

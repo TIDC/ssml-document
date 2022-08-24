@@ -153,7 +153,7 @@ export default class Document extends Base {
         return this;
     }
 
-    get declaimer() {
+    get speaker() {
         const voice = this.find("voice") as Voice;
         if(!voice) return null;
         return voice.name;
