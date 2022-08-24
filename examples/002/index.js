@@ -23,8 +23,10 @@ document
 })
 .sayAs("123456", { interpret: "digits" })
 .up()
-.say("啊啊啊")
-.action("test")
+.p()
+.say("主人，您起床啦，{{['毒鸡汤1','毒鸡汤2','毒鸡汤3'][parseInt(Math.random() * 3)]}}", true)
+.say("当前时间是：{{new Date().toLocaleTimeString()}}", true)
+.action("打招呼")
 .up()
 .say("6666");
 

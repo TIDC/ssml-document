@@ -8,12 +8,15 @@
       56666
       <emotion category="cry">哈哈哈哈哈</emotion>
       <w>abc</w>
-      <sub alias="万维网2">W3C</sub>
+      <sub alias="万维网">W3C</sub>
       <phoneme alphabet="py" ph="zhǎng">长</phoneme>
       <say-as interpret-as="digits">123456</say-as>
     </p>
-    啊啊啊
-    <action type="test"/>
+    <p>
+      主人，您起床啦，毒鸡汤1
+      当前时间是：下午1:48:01
+      <action type="打招呼"/>
+    </p>
+    6666
   </prosody>
-  6666
 </speak>

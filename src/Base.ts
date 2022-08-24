@@ -71,119 +71,122 @@ class Base {
 
     appendChild(node: any) {}
 
-    prosody(options: IProsodyOptions) {
+    prosody(options: IProsodyOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
-        const node = Element.create({ type: Element.Type.Prosody, ...options });
+        const node = Element.create({ type: Element.Type.Prosody, ...options, compile });
         this.appendChild(node);
         return node;
     }
 
-    effect(options: IEffectOptions) {
+    effect(options: IEffectOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
-        const node = Element.create({ type: Element.Type.Effect, ...options });
+        const node = Element.create({ type: Element.Type.Effect, ...options, compile });
         this.appendChild(node);
         return node;
     }
 
-    say(content: string) {
-        this.appendChild(`${content}`);
+    say(content: string, compile?: boolean) {
+        this.appendChild(Element.create({ type: Element.Type.Raw, value: `${content}`, compile }));
         return this;
     }
 
-    sayAs(content: string, options: ISayAsOptions) {
+    sayAs(content: string, options: ISayAsOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.SayAs,
             ["interpret-as"]: options.interpret,
-            ...options
+            ...options,
+            compile
         });
         content && node.appendChild(content);
         this.appendChild(node);
         return this;
     }
 
-    expressAs(content: string, options: IExpressAsOptions) {
+    expressAs(content: string, options: IExpressAsOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.ExpressAs,
-            ...options
+            ...options,
+            compile
         });
         content && node.appendChild(content);
         this.appendChild(node);
         return node;
     }
 
-    emotion(content: string, options: IEmotionOptions) {
+    emotion(content: string, options: IEmotionOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.Emotion,
-            ...options
+            ...options,
+            compile
         });
         content && node.appendChild(content);
         this.appendChild(node);
         return node;
     }
 
-    emphasis(content: string, level?: string) {
-        const node = Element.create({ type: Element.Type.Emphasis, level })
+    emphasis(content: string, level?: string, compile?: boolean) {
+        const node = Element.create({ type: Element.Type.Emphasis, level, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return this;
     }
 
-    p(content?: string) {
-        const node = Element.create({ type: Element.Type.Paragraph })
+    p(content?: string, compile?: boolean) {
+        const node = Element.create({ type: Element.Type.Paragraph, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return node;
     }
 
-    s(content?: string) {
-        const node = Element.create({ type: Element.Type.Sentence })
+    s(content?: string, compile?: boolean) {
+        const node = Element.create({ type: Element.Type.Sentence, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return node;
     }
 
-    w(content?: string) {
-        const node = Element.create({ type: Element.Type.Word })
+    w(content?: string, compile?: boolean) {
+        const node = Element.create({ type: Element.Type.Word, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return this;
     }
 
-    sub(content: string, alias: string) {
-        const node = Element.create({ type: Element.Type.Subsitute, alias })
+    sub(content: string, alias: string, compile?: boolean) {
+        const node = Element.create({ type: Element.Type.Subsitute, alias, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return this;
     }
     
-    phoneme(content: string, options: IPhonemeOptions) {
+    phoneme(content: string, options: IPhonemeOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
-        const node = Element.create({ type: Element.Type.Phoneme, ...options })
+        const node = Element.create({ type: Element.Type.Phoneme, ...options, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return this;
     }
 
-    break(time: any) {
-        this.appendChild(Element.create({ type: Element.Type.Break, time }));
+    break(time: any, compile?: boolean) {
+        this.appendChild(Element.create({ type: Element.Type.Break, time, compile }));
         return this;
     }
 
-    pause(value: any) {
-        return this.break(value);
+    pause(value: any, compile?: boolean) {
+        return this.break(value, compile);
     }
 
-    audio(options: IAudioOptions) {
+    audio(options: IAudioOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
-        this.appendChild(Element.create({ type: Element.Type.Audio, ...options }));
+        this.appendChild(Element.create({ type: Element.Type.Audio, ...options, compile }));
         return this;
     }
 
-    action(type: string) {
-        this.appendChild(Element.create({ type: Element.Type.Action, __type: type }));
+    action(type: string, compile?: boolean) {
+        this.appendChild(Element.create({ type: Element.Type.Action, __type: type, compile }));
         return this;
     }
 
