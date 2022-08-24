@@ -2,7 +2,7 @@ import { create } from 'xmlbuilder2';
 
 import IBaseOptions from './interface/IBaseOptions';
 import ICompilerOptions from './lib/interface/ICompilerOptions';
-import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions, IPhonemeOptions, IEffectOptions } from './elements/interface';
+import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions, IPhonemeOptions, IEffectOptions, IVoiceOptions } from './elements/interface';
 import ServiceProvider from './enums/ServiceProvoder';
 import Compiler from './lib/Compiler';
 import Element from './elements/Element';
@@ -70,6 +70,13 @@ class Base {
     }
 
     appendChild(node: any) {}
+
+    voice(name: string, options: IVoiceOptions, compile?: boolean) {
+        options = util.isObject(options) ? options : {};
+        const node = Element.create({ type: Element.Type.Voice, ...options, name, compile });
+        this.appendChild(node);
+        return node;
+    }
 
     prosody(options: IProsodyOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};

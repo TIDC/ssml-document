@@ -17,29 +17,49 @@ Every month we check the development documents of these service providers to ens
 
 ## Basic Usage
 
-build microsoft-azure ssml:
+Build microsoft-azure SSML:
+构建微软云语音SSML：
 
 ```javascript
 const { Document, ServiceProvider } = require("ssml-document");
 const doc = new Document();
 const ssml = doc
+.voice("zh-CN-XiaoxiaoNeural")
 .prosody({ rate: 1.2, pitch: 1.1 })
 .say("Hello World")
 .pause(500)
 .say("GO GO GO")
 .sayAs("123456", { interpretAs: "digits" })
 .up()
-.render({ provider: ServiceProvider.Microsoft });
+.up()
+.render({
+    pretty: true,  //format SSML
+    provider: ServiceProvider.Microsoft
+});
 console.log(ssml);
-//<?xml version="1.0"?><speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts"><prosody pitch="110%" rate="120%">Hello World<break time="500ms"/>GO GO GO</prosody></speak>
+/*
+<?xml version="1.0"?>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts">
+  <voice name="zh-CN-XiaoxiaoNeural">
+    <prosody pitch="110%" rate="120%">
+      Hello World
+      <break time="500ms"/>
+      GO GO GO
+      <say-as interpret-as="digits">123456</say-as>
+    </prosody>
+  </voice>
+</speak>
+*/
 ```
 
-build aliyun ssml:
+Build aliyun SSML:
+构建阿里云语音SSML：
 
 ```javascript
 const { Document, ServiceProvider } = require("ssml-document");
 const doc = new Document();
 const ssml = doc
+.voice("aixia")
 .prosody({ rate: 1.2, pitch: 1.1 })
 .say("我的身高")
 .phoneme("长", {
@@ -51,8 +71,91 @@ const ssml = doc
 .sub("W3C", "万维网")
 .up()
 .up()
-.render({ provider: ServiceProvider.Aliyun });
+.up()
+.render({ pretty: true, provider: ServiceProvider.Aliyun });
 console.log(ssml);
-//<speak rate="100" pitch="50">我的身高<phoneme alphabet="py" ph="zhang3">长</phoneme>高了<s>欢迎来到<sub alias="万维网">W3C</sub></s></speak>
+/*
+<speak voice="aixia" rate="100" pitch="50">
+  我的身高
+  <phoneme alphabet="py" ph="zhang3">长</phoneme>
+  高了
+  <s>
+    欢迎来到
+    <sub alias="万维网">W3C</sub>
+  </s>
+</speak>
+*/
+```
+
+Building SSML based on elements:
+基于元素构建SSML：
+
+```javascript
+const { Document, ServiceProvider, elements } = require("ssml-document");
+const { Prosody, Paragraph } = elements;
+const doc = new Document();
+const prosody = new Prosody({ rate: 1.2, pitch: 1.1 });
+const p = new Paragraph();
+p.appendChild("Hello World");
+prosody.appendChild(p);
+doc.appendChild(prosody);
+const ssml = doc.render({ provider: ServiceProvider.Amazon });
+console.log(ssml);
+//<speak><prosody pitch="110%" rate="120%"><p>Hello World</p></prosody></speak>
+```
+
+Build aggregated SSML for storage or transport:
+构建用于存储或传输的聚合SSML：
+
+```javascript
+const { Document } = require("ssml-document");
+const doc = new Document();
+const ssml = doc
+.voice("aixia")
+.say("Hello World")
+.break(2000)
+.say("Bye")
+.up()
+.render({ pretty: true });  //no provider
+console.log(ssml);
+/*
+<?xml version="1.0"?>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
+  <voice name="aixia">
+    Hello World
+    <break time="2s"/>
+    Bye
+  </voice>
+</speak>
+*/
+```
+
+Support for marking expected voice service providers in aggregated SSML:
+支持在聚合SSML中标记期望的语音服务商：
+
+```javascript
+//Frontend code:
+//前端代码：
+const doc = new Document({ provider: ServiceProvider.Aliyun });
+const ssml = doc
+.voice("aida")
+.say("Hello World")
+.up()
+.render({ pretty: true });  //no provider
+console.log(ssml);
+/*
+<?xml version="1.0"?>
+<speak provider="aliyun" version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
+  <voice name="aida">Hello World</voice>
+</speak>
+*/
+
+//Backend code:
+//后端代码：
+const doc2 = Document.parse(ssml);
+console.log(doc2.provider);  //aliyun
+const ssml2 = doc2.render({ provider: doc2.provider });  //build aliyun SSML
+console.log(ssml2);
+//<speak voice="aida">Hello World</speak>
 ```
 

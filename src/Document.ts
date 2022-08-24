@@ -153,6 +153,31 @@ export default class Document extends Base {
         return this;
     }
 
+    get declaimer() {
+        const voice = this.find("voice") as Voice;
+        if(!voice) return null;
+        return voice.name;
+    }
+
+    get rate() {
+        const prosody = this.find("prosody") as Prosody;
+        if(!prosody) return 1.0;
+        return prosody.rate || 1.0;
+    }
+
+    get pitch() {
+        const prosody = this.find("prosody") as Prosody;
+        if(!prosody) return 1.0;
+        return prosody.pitch || 1.0;
+    }
+
+    get volume() {
+        const prosody = this.find("prosody") as Prosody;
+        if(!prosody) return 100;
+        const volume = util.volumeParse(`${prosody.volume || 100}`);
+        return util.isFinite(Number(volume)) ? Number(volume) : volume;
+    }
+
     get language() {
         return this["xml:lang"] as any;
     }
