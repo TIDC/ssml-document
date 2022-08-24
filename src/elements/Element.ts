@@ -81,7 +81,11 @@ export default class Element extends Base {
         return this.children?.reduce((t, e) => t + e.getText(filter), "") as string;
     }
 
-    static create(value: any, compilerOptions?: ICompilerOptions) {
+    up() {
+        return this.parent || this;
+    }
+
+    static create(value: any, compilerOptions?: ICompilerOptions): Element {
         return Element.isInstance(value) ? value : ElementFactory.createElement(value, compilerOptions);
     }
 

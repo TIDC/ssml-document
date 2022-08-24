@@ -146,6 +146,10 @@ export default class Document extends Base {
         }
     }
 
+    up() {
+        return this;
+    }
+
     get language() {
         return this["xml:lang"] as any;
     }
