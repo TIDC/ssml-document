@@ -8,12 +8,17 @@ Follow the [W3C SSML (Speech Synthesis Markup Language)](https://www.w3.org/TR/s
 Currently supports the generation of SSML documents for these service providers: 
 [Microsoft Azure](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-synthesis-markup) / [Aliyun](https://help.aliyun.com/document_detail/101645.html) / [Tencent Cloud](https://cloud.tencent.com/document/product/1073/49575) / [Google Cloud](https://cloud.google.com/text-to-speech/docs/ssml) / [Amazon AWS](https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html) / Tencent YunXiaoWei / ...
 
-当前支持生成这些服务商的SSML文档: 
+当前支持生成这些服务商的SSML文档：
 [微软云](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-synthesis-markup) / [阿里云](https://help.aliyun.com/document_detail/101645.html) / [腾讯云](https://cloud.tencent.com/document/product/1073/49575) / [谷歌云](https://cloud.google.com/text-to-speech/docs/ssml) / [亚马逊云](https://docs.aws.amazon.com/polly/latest/dg/supportedtags.html) / 腾讯云小微 / ...
 
 Every month we check the development documents of these service providers to ensure that the library is not out of date.
 
 每月我们会检查这些服务商的开发文档，以确保本库不会过时。
+
+## Initialization
+```sh
+npm i ssml-document --save
+```
 
 ## Basic Usage
 
@@ -163,4 +168,36 @@ const ssml2 = doc2.render({ provider: doc2.provider });  //build aliyun SSML
 console.log(ssml2);
 //<speak voice="aida">Hello World</speak>
 ```
+
+## Features
+* Support the construction of SSML that meets the requirements of mainstream voice service providers 支持构建符合主流语音服务商要求的SSML
+* Supports parsing and construction of aggregated SSML (intermediate state) 支持聚合SSML（中间态）的解析和构建
+* Supports almost all SSML document tags 支持几乎全部的SSML文档标签
+* Support for selectively constructing or discarding tags and attributes based on service providers 支持根据服务商选择性构建或丢弃标签与属性
+* Support expression compilation to make content change dynamically 支持表达式编译使内容动态变化
+* The library supports the following SSML tags and corresponding elements 该库支持以下SSML标签和对应的元素
+    * speak - Document
+    * voice - Voice
+    * prosody - Prosody
+    * p - Paragraph
+    * s - Sentence
+    * w - Word
+    * break - Break
+    * phoneme - Phoneme
+    * say-as - SayAs
+    * sub - Subsitute
+    * audio - Audio
+    * background-audio - BackgroundAudio
+    * express-as - ExpressAs
+    * emotion - Emotion
+    * effect - Effect
+    * emphasis - Emphasis
+    * lang - Language
+    * mark - Mark
+    * bookmark - Bookmark
+    * seq - Sequential
+    * par - Paragraph
+    * lexicon - Lexicon
+    * auto-breath - AutoBreaths
+    * silence - Silence
 
