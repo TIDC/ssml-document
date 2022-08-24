@@ -94,7 +94,7 @@ class Base {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.SayAs,
-            ["interpret-as"]: options.interpret,
+            ["interpret-as"]: options.interpret || options.interpretAs,
             ...options,
             compile
         });

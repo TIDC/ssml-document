@@ -98,13 +98,15 @@ export default class Document extends Base {
         const tagName = this.getTagName(options.provider);
         const tag = this.createRootTag(tagName || "root", this.optionsExport(options.provider));
         this.children?.forEach(node => node.render(options, tag));
-        const content = tag.end({
+        const content = util.isString(tag) ? tag : tag.end({
             prettyPrint: options.pretty,
             headless: options.headless,
         });
         if(tagName)
             return content;
-        return content.replace(/<root.*?>/, "").replace(/<\/root>$/, "");
+        return content
+        .replace(/<root.*?>/, "")
+        .replace(/<\/root>$/, "");
     }
 
     find(key: string) {

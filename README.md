@@ -17,6 +17,8 @@ Every month we check the development documents of these service providers to ens
 
 ## Basic Usage
 
+build microsoft-azure ssml:
+
 ```javascript
 const { Document, ServiceProvider } = require("ssml-document");
 const doc = new Document();
@@ -25,11 +27,14 @@ const ssml = doc
 .say("Hello World")
 .pause(500)
 .say("GO GO GO")
+.sayAs("123456", { interpretAs: "digits" })
 .up()
 .render({ provider: ServiceProvider.Microsoft });
 console.log(ssml);
 //<?xml version="1.0"?><speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts"><prosody pitch="110%" rate="120%">Hello World<break time="500ms"/>GO GO GO</prosody></speak>
 ```
+
+build aliyun ssml:
 
 ```javascript
 const { Document, ServiceProvider } = require("ssml-document");
@@ -42,8 +47,12 @@ const ssml = doc
     ph: "zhǎng"  //or zhang3
 })
 .say("高了")
+.s("欢迎来到")
+.sub("W3C", "万维网")
+.up()
 .up()
 .render({ provider: ServiceProvider.Aliyun });
 console.log(ssml);
-//<speak rate="100" pitch="50">我的身高<phoneme alphabet="py" ph="zhang3">长</phoneme>高了</speak>
+//<speak rate="100" pitch="50">我的身高<phoneme alphabet="py" ph="zhang3">长</phoneme>高了<s>欢迎来到<sub alias="万维网">W3C</sub></s></speak>
 ```
+

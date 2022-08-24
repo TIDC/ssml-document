@@ -57,14 +57,17 @@ export default class Element extends Base {
                 tag.att(key, _options[key]);
         }
         else
-            tag = parent;
+            tag = parent || this.createRootTag("root");
         this.content && tag.txt(this.content);
         this.children?.forEach(node => node.render(options, tag));
-        if (!parent)
+        if (!parent) {
             return tag.end({
                 prettyPrint: options.pretty,
                 headless: util.isBoolean(options.headless) ? options.headless : true
-            });
+            })
+            .replace(/<root.*?>/, "")
+            .replace(/<\/root>$/, "");
+        }
         return tag;
     }
 
