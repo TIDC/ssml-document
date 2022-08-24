@@ -1,7 +1,7 @@
 {
   "name": "ssml-document",
-  "version": "1.0.41",
-  "description": "SSML Document",
+  "version": "1.0.42",
+  "description": "SSML document building parser for multiple service providers",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
