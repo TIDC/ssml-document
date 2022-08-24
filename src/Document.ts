@@ -19,6 +19,7 @@ export default class Document extends Base {
     xmlns = "";  //文档URI
     encodeType?: string;  //音频编码类型
     sampleRate?: string;  //音频采样率
+    provider?: ServiceProvider;  //预期产出提供商
     children?: Element[] = [];  //文档子节点
 
     constructor(options: IDocumentOptions = {}, compilerOptions?: ICompilerOptions) {
@@ -40,6 +41,7 @@ export default class Document extends Base {
             xmlns: util.isString,
             encodeType: util.isString,
             sampleRate: util.isString,
+            provider: util.isString,
             children: util.isArray
         });
     }
@@ -53,7 +55,14 @@ export default class Document extends Base {
 
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "xmlns", "xml:base", "xml:lang"]);
+        if(provider === ServiceProvider.Aggregation)
+            options.provider = this.provider;
         switch(provider) {
+            case ServiceProvider.Aggregation:
+                options.version = this.version;
+                options["xml:lang"] = this.language;
+                options.xmlns = this.xmlns;
+            break;
             case ServiceProvider.W3C:
                 options.version = this.version;
                 options["xml:base"] = this.baseUrl;
@@ -83,7 +92,9 @@ export default class Document extends Base {
     }
 
     render(options: IRenderOptions = {}) {
-        const tagName = this.getTagName(options.provider || ServiceProvider.Aggregation);
+        options.provider = options.provider || ServiceProvider.Aggregation;
+        options.headless = util.isBoolean(options.headless) ? options.headless : this.getHeadlessDefaultStatus(options.provider);
+        const tagName = this.getTagName(options.provider);
         const tag = this.createRootTag(tagName || "root", this.optionsExport(options.provider));
         this.children?.forEach(node => node.render(options, tag));
         const content = tag.end({
@@ -121,6 +132,17 @@ export default class Document extends Base {
                 return "speak";
             default:
                 return null;
+        }
+    }
+
+    getHeadlessDefaultStatus(provider?: ServiceProvider) {
+        switch (provider) {
+            case ServiceProvider.Aggregation:
+            case ServiceProvider.W3C:
+            case ServiceProvider.Microsoft:
+                return false;
+            default:
+                return true;
         }
     }
 

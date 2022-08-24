@@ -9,6 +9,7 @@ export default class Raw extends Element {
     constructor(options: IRawOptions, ...args: any[]) {
         super(options, ...args);
         this.optionsInject(options, {}, {});
+        this.children = [];  //自闭合标签
     }
 
     render(options: any, parent?: any) {

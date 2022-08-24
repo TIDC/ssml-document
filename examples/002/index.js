@@ -8,6 +8,7 @@ const content = fs.readFileSync(path.join(__dirname, "ssml.xml")).toString();
 const document = Document.parse(content);
 
 const result = document.render({
+    provider: document.provider,
     pretty: true
 });
 

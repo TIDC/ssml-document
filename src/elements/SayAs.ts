@@ -13,7 +13,6 @@ export default class SayAs extends Element {
 
     constructor(options: ISayAsOptions, ...args: any[]) {
         super(options, ...args);
-        console.log(options);
         this.optionsInject(options, {}, {
             ["interpret-as"]: util.isString,
             format: util.isString,

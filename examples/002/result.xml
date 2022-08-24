@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts">
+  <voice name="zh-cn-YunxiNeural">
+    <prosody rate="100%" volume="100">
+      <p>
+        大家好，
+        <break time="1s"/>
+        我是哈哈
+        <break time="500ms"/>
+        哈哈哈哈哈
+        <phoneme alphabet="sapi" ph="zhang 3">长</phoneme>
+        城1
+        <say-as interpret-as="digits">2312</say-as>
+        312
+      </p>
+    </prosody>
+  </voice>
+</speak>

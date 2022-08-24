@@ -17,12 +17,14 @@ export default class Element extends Base {
     type = ElementTypes.Element;
     content?: string;  //元素内容
     value?: string;  //元素值
+    provider?: ServiceProvider;  //预期产出提供商
     children?: Element[] = [];  //元素子节点
     #parent?: Document | Element;  //父级节点
 
     constructor(options: IElementOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
         this.optionsInject(options, {
+            provider: (v: any) => util.defaultTo(v, ServiceProvider.Aggregation),
             children: (v: any) => (v || []).map((options: any) => {
                 const node = ElementFactory.createElement(options, compilerOptions);
                 node.parent = this;
@@ -31,6 +33,7 @@ export default class Element extends Base {
         }, {
             content: util.isString,
             value: util.isString,
+            provider: util.isString,
             children: util.isArray
         });
     }
@@ -43,12 +46,12 @@ export default class Element extends Base {
     }
 
     render(options: IRenderOptions = {}, parent?: any) {
-        const provider = options.provider || ServiceProvider.Aggregation;
-        const tagName = this.getTagName(provider);
+        options.provider = options.provider || ServiceProvider.Aggregation;
+        const tagName = this.getTagName(options.provider);
         let tag: any;
         if (tagName) {
             tag = parent ? parent.ele(tagName) : this.createRootTag(tagName);
-            const _options = this.optionsExport(provider);
+            const _options = this.optionsExport(options.provider);
             for (let key in _options)
                 tag.att(key, _options[key]);
         }
@@ -59,7 +62,7 @@ export default class Element extends Base {
         if (!parent)
             return tag.end({
                 prettyPrint: options.pretty,
-                headless: options.headless
+                headless: util.isBoolean(options.headless) ? options.headless : true
             });
         return tag;
     }

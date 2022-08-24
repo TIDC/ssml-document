@@ -42,13 +42,12 @@ export default class Phoneme extends Element {
 
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
-            case ServiceProvider.Aggregation:
-                return "phoneme";
             case ServiceProvider.W3C:
-            case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 return this.alphabet === "py" ? null : "phoneme";
+            case ServiceProvider.Aggregation:
+            case ServiceProvider.Microsoft:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:

@@ -37,12 +37,12 @@ export default class Prosody extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
                 options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
-                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch}`) + "%" : options.pitch;
+                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch * 100}`) + "%" : options.pitch;
                 break;
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
-                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch}`) + "%" : options.pitch;
+                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch * 100}`) + "%" : options.pitch;
                 options.volume = util.isFinite(Number(this.volume)) ? util.volumeValueParse(Number(this.volume)) : this.volume;
                 if (provider === ServiceProvider.Amazon) {
                     options.duration && (options["amazon:max-duration"] = options.duration);

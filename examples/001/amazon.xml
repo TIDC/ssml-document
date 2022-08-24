@@ -1,5 +1,5 @@
 <speak>
-  <prosody rate="120%">
+  <prosody pitch="110%" rate="120%" volume="soft">
     <p>
       测试一下
       <break time="2s"/>

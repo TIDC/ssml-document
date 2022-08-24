@@ -1,4 +1,4 @@
-<speak voice="zh-CN-XiaoxiaoNeural" rate="100">
+<speak voice="test-voice" rate="100" pitch="50" volume="40">
   <s>
     测试一下
     <break time="2s"/>

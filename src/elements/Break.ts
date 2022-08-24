@@ -1,4 +1,5 @@
 import IBreakOptions from "./interface/IBreakOptions";
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
@@ -18,6 +19,7 @@ export default class Break extends Element {
             strength: util.isString,
             time: util.isString
         });
+        this.children = [];  //自闭合标签
     }
 
     optionsExport(provider?: ServiceProvider) {

@@ -1,6 +1,6 @@
 <speak>
-  <voice name="zh-CN-XiaoxiaoNeural">
-    <prosody rate="120%">
+  <voice name="test-voice">
+    <prosody pitch="110%" rate="120%" volume="soft">
       <p>
         测试一下
         <break time="2s"/>
