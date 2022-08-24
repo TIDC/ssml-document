@@ -196,8 +196,162 @@ console.log(ssml2);
     * mark - Mark
     * bookmark - Bookmark
     * seq - Sequential
-    * par - Paragraph
+    * par - Parallel
     * lexicon - Lexicon
-    * auto-breath - AutoBreaths
+    * auto-breaths - AutoBreaths
     * silence - Silence
 
+## Elements
+
+### Document
+```
+Tag: speak
+Support: w3c / microsoft / aliyun / tencent / google / amazon
+```
+
+
+### Voice
+```
+Tag: voice
+Support: w3c / microsoft / google
+```
+
+### Prosody
+```
+Tag: prosody
+Support: w3c / microsoft / google / amazon
+```
+
+
+### Paragraph
+```
+Tag: p
+Support: w3c / microsoft / aliyun / google / amazon
+```
+
+
+### Sentence
+```
+Tag: s
+Support: w3c / microsoft / aliyun / google / amazon
+```
+
+### Word
+```
+Tag: w
+Support: w3c / aliyun / google / amazon
+```
+
+### Break
+```
+Tag: break
+Support: w3c / microsoft / aliyun / tencent / google / amazon / yunXiaoWei
+```
+
+### Phoneme
+```
+Tag: phoneme
+Support: w3c / microsoft / aliyun / tencent / google / amazon / yunXiaoWei
+```
+
+### SayAs
+```
+Tag: say-as
+Support: w3c / microsoft / aliyun / tencent / google / amazon
+```
+
+### Subsitute
+```
+Tag: sub
+Support: w3c / aliyun / tencent / google / amazon
+```
+
+### Audio
+```
+Tag: audio
+Support: w3c / microsoft / aliyun* / google
+```
+
+### BackgroundAudio
+```
+Tag: background-audio / backgroundAudio / backgroundaudio
+Support: microsoft / aliyun*
+```
+
+### ExpressAs
+```
+Tag: express-as
+Support: microsoft / aliyun* / amazon*
+```
+
+### Emotion
+```
+Tag: emotion
+Support: microsoft* / aliyun / amazon*
+```
+
+### Effect
+```
+Tag: effect
+Support: aliyun* / amazon
+```
+
+### Emphasis
+```
+Tag: emphasis
+Support: w3c / microsoft / google / amazon
+```
+
+### Language
+```
+Tag: lang
+Support: w3c / microsoft / google
+```
+
+### Mark
+```
+Tag: mark
+Support: w3c / google / amazon
+```
+
+### Bookmark
+```
+Tag: bookmark
+Support: microsoft
+```
+
+### Sequential
+```
+Tag: seq
+Support: microsoft
+```
+
+### Parallel
+```
+Tag: par
+Support: w3c / google
+```
+
+### Sequential
+```
+Tag: seq
+Support: w3c / google
+```
+
+### Lexicon
+```
+Tag: lexicon
+Support: w3c / microsoft
+```
+
+### AutoBreaths
+```
+Tag: auto-breaths
+Support: amazon
+```
+
+### Silence
+```
+Tag: silence
+Support: microsoft
+```
