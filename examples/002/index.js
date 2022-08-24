@@ -3,9 +3,10 @@ const path = require("path");
 
 const { Document } = require("../../dist");
 
-// const content = fs.readFileSync(path.join(__dirname, "ssml.xml")).toString();
+const content = fs.readFileSync(path.join(__dirname, "ssml.xml")).toString();
+// const document = Document.parse(content);
 
-const document = new Document({ provider: "yunXiaoWei" });
+const document = new Document({ compile: true });
 document
 .prosody({ rate: 1.1 })
 .say("你好啊")
@@ -15,7 +16,7 @@ document
 .emotion("哈哈哈哈哈", { category: "cry" })
 .up()
 .w("abc")
-.sub("W3C", "万维网")
+.sub("W3C", "万维网{{1 + 1}}")
 .phoneme("长", {
     alphabet: "py",
     ph: "zhǎng"

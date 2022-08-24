@@ -24,6 +24,7 @@ export default class Document extends Base {
 
     constructor(options: IDocumentOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
+        this.compile && (options = this.optionsCompile(options));
         this.optionsInject(options, {
             ["xml:lang"]: (v: any) => options.language || v,
             ["xml:base"]: (v: any) => options.baseUrl || v,

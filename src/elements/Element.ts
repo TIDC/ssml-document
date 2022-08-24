@@ -23,6 +23,7 @@ export default class Element extends Base {
 
     constructor(options: IElementOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
+        this.compile && Object.assign(options, this.optionsCompile(options));
         this.optionsInject(options, {
             provider: (v: any) => util.defaultTo(v, ServiceProvider.Aggregation),
             children: (v: any) => (v || []).map((options: any) => {
