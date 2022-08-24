@@ -32,6 +32,7 @@ console.log(ssml);
 ```
 
 ```javascript
+const { Document, ServiceProvider } = require("ssml-document");
 const doc = new Document();
 const ssml = doc
 .prosody({ rate: 1.2, pitch: 1.1 })
