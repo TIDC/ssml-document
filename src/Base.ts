@@ -2,7 +2,7 @@ import { create } from 'xmlbuilder2';
 
 import IBaseOptions from './interface/IBaseOptions';
 import ICompilerOptions from './lib/interface/ICompilerOptions';
-import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions, IPhonemeOptions } from './elements/interface';
+import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions, IPhonemeOptions, IEffectOptions } from './elements/interface';
 import ServiceProvider from './enums/ServiceProvoder';
 import Compiler from './lib/Compiler';
 import Element from './elements/Element';
@@ -78,6 +78,13 @@ class Base {
         return node;
     }
 
+    effect(options: IEffectOptions) {
+        options = util.isObject(options) ? options : {};
+        const node = Element.create({ type: Element.Type.Effect, ...options });
+        this.appendChild(node);
+        return node;
+    }
+
     say(content: string) {
         this.appendChild(`${content}`);
         return this;
@@ -117,6 +124,13 @@ class Base {
         return node;
     }
 
+    emphasis(content: string, level?: string) {
+        const node = Element.create({ type: Element.Type.Emphasis, level })
+        content && node.appendChild(`${content}`);
+        this.appendChild(node);
+        return this;
+    }
+
     p(content?: string) {
         const node = Element.create({ type: Element.Type.Paragraph })
         content && node.appendChild(`${content}`);
@@ -153,8 +167,8 @@ class Base {
         return this;
     }
 
-    break(value: any) {
-        this.appendChild(Element.create({ type: Element.Type.Break, time: value }));
+    break(time: any) {
+        this.appendChild(Element.create({ type: Element.Type.Break, time }));
         return this;
     }
 
@@ -165,6 +179,11 @@ class Base {
     audio(options: IAudioOptions) {
         options = util.isObject(options) ? options : {};
         this.appendChild(Element.create({ type: Element.Type.Audio, ...options }));
+        return this;
+    }
+
+    action(type: string) {
+        this.appendChild(Element.create({ type: Element.Type.Action, __type: type }));
         return this;
     }
 

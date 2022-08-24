@@ -5,7 +5,7 @@ const { Document } = require("../../dist");
 
 // const content = fs.readFileSync(path.join(__dirname, "ssml.xml")).toString();
 
-const document = new Document();
+const document = new Document({ provider: "yunXiaoWei" });
 document
 .prosody({ rate: 1.1 })
 .say("你好啊")
@@ -18,13 +18,14 @@ document
 .sub("W3C", "万维网")
 .phoneme("长", {
     alphabet: "py",
-    ph: "zhang 3"
+    ph: "zhǎng"
 })
 .sayAs("123456", { interpret: "digits" })
 .up()
 .say("啊啊啊")
+.action("test")
 .up()
-.say("6666")
+.say("6666");
 
 const result = document.render({
     provider: document.provider,

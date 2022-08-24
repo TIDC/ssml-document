@@ -1,18 +1,13 @@
-<?xml version="1.0"?>
-<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
-  <prosody rate="1.1">
-    你好啊
-    <break time="5s"/>
-    哈哈哈
-    <p>
-      56666
-      <emotion category="cry">哈哈哈哈哈</emotion>
-      <w>abc</w>
-      <sub alias="万维网">W3C</sub>
-      <phoneme alphabet="py" ph="zhang 3">长</phoneme>
-      <say-as interpret-as="digits">123456</say-as>
-    </p>
-    啊啊啊
-  </prosody>
+
+  你好啊
+  <break time="5s"/>
+  哈哈哈
+  56666
+  哈哈哈哈哈
+  abc
+  W3C
+  <phoneme alphabet="py" ph="zhang3">长</phoneme>
+  123456
+  啊啊啊
+  <insert-action type="test"/>
   6666
-</speak>
