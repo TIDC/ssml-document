@@ -20,6 +20,38 @@ Every month we check the development documents of these service providers to ens
 npm i ssml-document --save
 ```
 
+## Features
+* Support the construction of SSML that meets the requirements of mainstream voice service providers 支持构建符合主流语音服务商要求的SSML
+* Supports parsing and construction of aggregated SSML (intermediate state) 支持聚合SSML（中间态）的解析和构建
+* Supports almost all SSML document tags 支持几乎全部的SSML文档标签
+* Support for selectively constructing or discarding tags and attributes based on service providers 支持根据服务商选择性构建或丢弃标签与属性
+* Support expression compilation to make content change dynamically 支持JavaScript表达式求值使内容动态变化
+* The library supports the following SSML tags and corresponding elements 该库支持以下SSML标签和对应的元素
+    * speak - Document
+    * voice - Voice
+    * prosody - Prosody
+    * p - Paragraph
+    * s - Sentence
+    * w - Word
+    * break - Break
+    * phoneme - Phoneme
+    * say-as - SayAs
+    * sub - Subsitute
+    * audio - Audio
+    * background-audio - BackgroundAudio
+    * express-as - ExpressAs
+    * emotion - Emotion
+    * effect - Effect
+    * emphasis - Emphasis
+    * lang - Language
+    * mark - Mark
+    * bookmark - Bookmark
+    * seq - Sequential
+    * par - Parallel
+    * lexicon - Lexicon
+    * auto-breaths - AutoBreaths
+    * silence - Silence
+
 ## Basic Usage
 
 Build microsoft-azure SSML:
@@ -144,6 +176,7 @@ Support for marking expected voice service providers in aggregated SSML:
 支持在聚合SSML中标记期望的语音服务商：
 
 ```javascript
+const { Document } = require("ssml-document");
 //Frontend code:
 //前端代码：
 const doc = new Document({ provider: ServiceProvider.Aliyun });
@@ -169,37 +202,80 @@ console.log(ssml2);
 //<speak voice="aida">Hello World</speak>
 ```
 
-## Features
-* Support the construction of SSML that meets the requirements of mainstream voice service providers 支持构建符合主流语音服务商要求的SSML
-* Supports parsing and construction of aggregated SSML (intermediate state) 支持聚合SSML（中间态）的解析和构建
-* Supports almost all SSML document tags 支持几乎全部的SSML文档标签
-* Support for selectively constructing or discarding tags and attributes based on service providers 支持根据服务商选择性构建或丢弃标签与属性
-* Support expression compilation to make content change dynamically 支持表达式编译使内容动态变化
-* The library supports the following SSML tags and corresponding elements 该库支持以下SSML标签和对应的元素
-    * speak - Document
-    * voice - Voice
-    * prosody - Prosody
-    * p - Paragraph
-    * s - Sentence
-    * w - Word
-    * break - Break
-    * phoneme - Phoneme
-    * say-as - SayAs
-    * sub - Subsitute
-    * audio - Audio
-    * background-audio - BackgroundAudio
-    * express-as - ExpressAs
-    * emotion - Emotion
-    * effect - Effect
-    * emphasis - Emphasis
-    * lang - Language
-    * mark - Mark
-    * bookmark - Bookmark
-    * seq - Sequential
-    * par - Parallel
-    * lexicon - Lexicon
-    * auto-breaths - AutoBreaths
-    * silence - Silence
+Setting the compile attribute for tags enables JavaScript syntax expression evaluation:
+给标签设置compile属性启用JavaScript语法表达式求值:
+
+```javascript
+const { Document } = require("ssml-document");
+const aggregationSSML = '<?xml version="1.0"?>\
+<speak compile="true" version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">\
+  <voice name="aixia">\
+    Master, {{[\"today is a beautiful day\",\"have a good day from now\",\"the weather is not bad today\"][parseInt(Math.random() * 3)]}}.\
+    <break time="500"/>\
+    The current time is {{time}}.\
+  </voice>\
+</speak>';
+const date = new Date();
+const document = Document.parse(aggregationSSML, {
+    dataset: {
+        time: date.getHours() + ":" + date.getMinutes()
+    }
+});
+const ssml = document.render({
+    provider: document.provider,
+    pretty: true
+});
+console.log(ssml);
+/*
+<?xml version="1.0"?>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
+  <voice name="aixia">
+    Master, have a good day from now.
+    <break time="500ms"/>
+    The current time is 22:48.
+  </voice>
+</speak>
+*/
+```
+
+Setting for/if/elif/else attributes for tags can also implement loops and conditional divergence.
+给标签设置 for/if/elif/else 属性还能够实现循环和条件分歧。
+
+```javascript
+const aggregationSSML = '<?xml version="1.0"?>\
+<speak compile="true" version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">\
+  <voice name="aixia">\
+    <s if="{{Math.random() > 0.5}}" for="{{s1}}">{{item}}<break time="100"></s>\
+    <s else="true" for="{{s2}}">{{item}}<break time="100"></s>\
+  </voice>\
+</speak>';
+const document = Document.parse(aggregationSSML, {
+    dataset: {
+        s1: ["Oh", "my", "god"],
+        s2: ["Holy", "crap"]
+    }
+});
+const ssml = document.render({
+    provider: document.provider,
+    pretty: true
+});
+console.log(ssml);
+/*
+<?xml version="1.0"?>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
+  <voice name="aixia">
+    <s>
+      Holy
+      <break time="100ms"/>
+    </s>
+    <s>
+      crap
+      <break time="100ms"/>
+    </s>
+  </voice>
+</speak>
+*/
+```
 
 ## Elements
 
@@ -208,6 +284,7 @@ console.log(ssml2);
 Tag: speak
 Support: w3c / microsoft / aliyun / tencent / google / amazon
 ```
+
 
 
 ### Voice

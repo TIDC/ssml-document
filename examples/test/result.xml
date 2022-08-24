@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
+  <voice name="aixia">
+    Master, the weather is not bad today.
+    <break time="500ms"/>
+    The current time is 22:40.
+  </voice>
+</speak>

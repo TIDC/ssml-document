@@ -85,6 +85,7 @@ export default class Compiler {
             }
             if (util.isString($for)) {  //循环体
                 delete attrs.for;
+                delete attrs.if;
                 const expressions = this.extractExpressions($for);
                 if (!expressions.length) return null;  //没有表达式则丢弃本节点
                 const { expression } = expressions[0];
