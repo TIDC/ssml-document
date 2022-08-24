@@ -1,6 +1,6 @@
 {
   "name": "ssml-document",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "SSML Document",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -19,7 +19,14 @@
   },
   "repository": "https://github.com/TIDC/ssml-document.git",
   "keywords": [
-    "ssml"
+    "ssml",
+    "voice",
+    "tts",
+    "speech",
+    "text-to-speech",
+    "aggregation",
+    "builder",
+    "parser"
   ],
   "author": "Vinlic",
   "license": "MIT",
