@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Action extends Element {
 
     static type = Element.Type.Action;
+    static tagName = "action";
     type = Element.Type.Action;
     __type = '';  //动作类型
 
@@ -19,7 +20,7 @@ export default class Action extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
-                return "action";
+                return Action.tagName;
             case ServiceProvider.YunXiaoWei:
                 return "insert-action";
             default:

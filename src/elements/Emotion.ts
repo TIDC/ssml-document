@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Emotion extends Element {
 
     static type = Element.Type.Emotion;
+    static tagName = "emotion";
     type = Element.Type.Emotion;
     category = '';  //说话情绪
     intensity?: number;  //情绪强度
@@ -38,7 +39,7 @@ export default class Emotion extends Element {
         switch(provider) {
             case ServiceProvider.Aggregation:
             case ServiceProvider.Aliyun:
-                return "emotion";
+                return Emotion.tagName;
             case ServiceProvider.Amazon:
                 return "amazon:domain";
             case ServiceProvider.Microsoft:

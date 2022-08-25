@@ -12,6 +12,7 @@ import util from "./lib/util";
 export default class Document extends Base {
 
     static type = "document";
+    static tagName = "speak";
     readonly type = "document";
     version?: string;  //文档版本号
     "xml:lang"?: string;  //语音语言
@@ -92,11 +93,11 @@ export default class Document extends Base {
         return options;
     }
 
-    render(options: IRenderOptions = {}) {
+    render(options: IRenderOptions = {}, parent?: any) {
         options.provider = options.provider || ServiceProvider.Aggregation;
         options.headless = util.isBoolean(options.headless) ? options.headless : this.getHeadlessDefaultStatus(options.provider);
         const tagName = this.getTagName(options.provider);
-        const tag = this.createRootTag(tagName || "root", this.optionsExport(options.provider));
+        const tag = parent ? parent.ele(tagName || "root") : this.createRootTag(tagName || "root", this.optionsExport(options.provider));
         this.children?.forEach(node => node.render(options, tag));
         const content = util.isString(tag) ? tag : tag.end({
             prettyPrint: options.pretty,

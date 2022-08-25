@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class ExpressAs extends Element {
 
     static type = Element.Type.ExpressAs;
+    static tagName = "express-as";
     type = Element.Type.ExpressAs;
     style?: string;  //讲话风格
     styledegree?: number;  //讲话风格强度
@@ -39,7 +40,7 @@ export default class ExpressAs extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
-                return "express-as";
+                return ExpressAs.tagName;
             case ServiceProvider.Aliyun:
                 return "emotion";
             case ServiceProvider.Amazon:

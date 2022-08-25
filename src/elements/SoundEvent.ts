@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class SoundEvent extends Element {
 
     static type = Element.Type.SoundEvent;
+    static tagName = "sound-event";
     type = Element.Type.SoundEvent;
     src?: string;  //提示音来源
 
@@ -23,6 +24,7 @@ export default class SoundEvent extends Element {
             case ServiceProvider.Microsoft:
                 return "audio";
             case ServiceProvider.Aggregation:
+                return SoundEvent.tagName;
             case ServiceProvider.Aliyun:
                 return "soundEvent";
             default:

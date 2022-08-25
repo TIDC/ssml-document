@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class Lexicon extends Element {
 
     static type = Element.Type.Lexicon;
+    static tagName = "lexicon";
     type = Element.Type.Lexicon;
     uri?: string;  //外部PLS文档地址
 
@@ -21,7 +22,7 @@ export default class Lexicon extends Element {
             case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
-                return "lexicon";
+                return Lexicon.tagName;
             default:
                 return super.getTagName(provider);
         }

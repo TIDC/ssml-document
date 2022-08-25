@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Audio extends Element {
 
     static type = Element.Type.Audio;
+    static tagName = "audio";
     type = Element.Type.Audio;
     src?: string;  //音频来源
     fetchtimeout?: string;  //拉取音频超时时间
@@ -57,7 +58,7 @@ export default class Audio extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
-                return "audio";
+                return Audio.tagName;
             case ServiceProvider.Aliyun:
                 return "soundEvent";
             default:

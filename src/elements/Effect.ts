@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Effect extends Element {
 
     static type = Element.Type.Effect;
+    static tagName = "effect";
     type = Element.Type.Effect;
     name = '';  //音效名称
     phonation?: string;  //发音方式
@@ -37,7 +38,7 @@ export default class Effect extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
-                return "effect";
+                return Effect.tagName;
             case ServiceProvider.Amazon:
                 return "amazon:effect";
             default:

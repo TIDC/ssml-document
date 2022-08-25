@@ -5,6 +5,7 @@ import Element from "./Element";
 export default class Sequential extends Element {
 
     static type = Element.Type.Sequential;
+    static tagName = "seq";
     type = Element.Type.Sequential;
 
     constructor(options: ISequentialOptions, ...args: any[]) {
@@ -17,7 +18,7 @@ export default class Sequential extends Element {
             case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
-                return "seq";
+                return Sequential.tagName;
             default:
                 return super.getTagName(provider);
         }

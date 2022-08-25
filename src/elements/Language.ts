@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Language extends Element {
 
     static type = Element.Type.Language;
+    static tagName = "lang";
     type = Element.Type.Language;
     "xml:lang"?: string;  //语音语言
 
@@ -22,7 +23,7 @@ export default class Language extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
-                return "lang";
+                return Language.tagName;
             default:
                 return super.getTagName(provider);
         }

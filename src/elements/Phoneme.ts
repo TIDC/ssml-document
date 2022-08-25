@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Phoneme extends Element {
 
     static type = Element.Type.Phoneme;
+    static tagName = "phoneme";
     type = Element.Type.Phoneme;
     alphabet?: string;  //音标表
     ph?: string;  //音标
@@ -45,14 +46,14 @@ export default class Phoneme extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-                return this.alphabet === "py" ? null : "phoneme";
+                return this.alphabet === "py" ? null : Phoneme.tagName;
             case ServiceProvider.Aggregation:
             case ServiceProvider.Microsoft:
-                return "phoneme";
+                return Phoneme.tagName;
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-                return this.alphabet === "py" ? "phoneme" : null;
+                return this.alphabet === "py" ? Phoneme.tagName : null;
             default:
                 return super.getTagName(provider);
         }

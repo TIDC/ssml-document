@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class Voice extends Element {
 
     static type = Element.Type.Voice;
+    static tagName = "voice";
     type = Element.Type.Voice;
     gender?: string;  //发音音色性别
     age?: number;  //发音音色年龄
@@ -47,7 +48,7 @@ export default class Voice extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
-                return "voice";
+                return Voice.tagName;
             default:
                 return super.getTagName(provider);
         }

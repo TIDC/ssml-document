@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Emphasis extends Element {
 
     static type = Element.Type.Emphasis;
+    static tagName = "emphasis";
     type = Element.Type.Emphasis;
     level?: string;  //强调强度
 
@@ -23,7 +24,7 @@ export default class Emphasis extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-                return "emphasis";
+                return Emphasis.tagName;
             default:
                 return super.getTagName(provider);
         }

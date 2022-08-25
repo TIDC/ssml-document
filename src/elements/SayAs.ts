@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class SayAs extends Element {
 
     static type = Element.Type.SayAs;
+    static tagName = "say-as";
     type = Element.Type.SayAs;
     "interpret-as" = '';  //内容类型
     format?: string;  //内容格式
@@ -41,7 +42,7 @@ export default class SayAs extends Element {
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
-                return "say-as";
+                return SayAs.tagName;
             default:
                 return super.getTagName(provider);
         }

@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Prosody extends Element {
 
     static type = Element.Type.Prosody;
+    static tagName = "prosody";
     type = Element.Type.Prosody;
     pitch?: string;  //语音音调强度
     contour?: string;  //语音音高值
@@ -66,7 +67,7 @@ export default class Prosody extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-                return "prosody";
+                return Prosody.tagName;
             default:
                 return super.getTagName(provider);
         }

@@ -6,6 +6,7 @@ import util from "../lib/util";
 export default class Subsitute extends Element {
 
     static type = Element.Type.Subsitute;
+    static tagName = "sub";
     type = Element.Type.Subsitute;
     alias?: string;  //朗读别名
 
@@ -24,7 +25,7 @@ export default class Subsitute extends Element {
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
-                return "sub";
+                return Subsitute.tagName;
             default:
                 return super.getTagName(provider);
         }

@@ -7,6 +7,7 @@ export default class BackgroundAudio extends Element {
 
     static type = Element.Type.BackgroundAudio;
     type = Element.Type.BackgroundAudio;
+    static tagName = "background-audio";
     src?: string;  //背景音频来源
     volume?: number;  //背景音频音量
     fadein?: number;  //背景音频淡入时长
@@ -41,7 +42,7 @@ export default class BackgroundAudio extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
-                return "backgroundAudio";
+                return BackgroundAudio.tagName;
             case ServiceProvider.Microsoft:
                 return "mstts:backgroundaudio";
             default:

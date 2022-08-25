@@ -5,6 +5,7 @@ import Element from "./Element";
 export default class Sentence extends Element {
 
     static type = Element.Type.Sentence;
+    static tagName = "s";
     type = Element.Type.Sentence;
 
     constructor(options: ISentenceOptions, ...args: any[]) {
@@ -20,7 +21,7 @@ export default class Sentence extends Element {
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
-                return "s";
+                return Sentence.tagName;
             default:
                 return super.getTagName(provider);
         }

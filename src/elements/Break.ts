@@ -7,6 +7,7 @@ import util from "../lib/util";
 export default class Break extends Element {
 
     static type = Element.Type.Break;
+    static tagName = "break";
     type = Element.Type.Break;
     strength?: string;  //中断强度
     time?: string;  //暂停持续时间
@@ -43,7 +44,7 @@ export default class Break extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-                return "break";
+                return Break.tagName;
             default:
                 return super.getTagName(provider);
         }

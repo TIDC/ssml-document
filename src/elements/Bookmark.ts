@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class Bookmark extends Element {
 
     static type = Element.Type.Bookmark;
+    static tagName = "bookmark";
     type = Element.Type.Bookmark;
     mark?: string;  //标识
 
@@ -19,7 +20,7 @@ export default class Bookmark extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
-                return "bookmark";
+                return Bookmark.tagName;
             case ServiceProvider.Microsoft:
                 return "mstts:bookmark";
             default:

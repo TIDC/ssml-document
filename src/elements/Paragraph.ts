@@ -5,6 +5,7 @@ import Element from "./Element";
 export default class Paragraph extends Element {
 
     static type = Element.Type.Paragraph;
+    static tagName = "p";
     type = Element.Type.Paragraph;
 
     constructor(options: IParagraphOptions, ...args: any[]) {
@@ -19,7 +20,7 @@ export default class Paragraph extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-                return "p";
+                return Paragraph.tagName;
             case ServiceProvider.Aliyun:
                 return "s";
             default:

@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class Silence extends Element {
 
     static type = Element.Type.Silence;
+    static tagName = "silence";
     type = Element.Type.Silence;
     __type?: string;  //静音类型
     __value?: string;  //静音时长
@@ -21,7 +22,7 @@ export default class Silence extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
-                return "silence";
+                return Silence.tagName;
             case ServiceProvider.Microsoft:
                 return "mstts:silence";
             default:

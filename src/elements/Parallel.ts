@@ -5,6 +5,7 @@ import Element from "./Element";
 export default class Parallel extends Element {
 
     static type = Element.Type.Parallel;
+    static tagName = "par";
     type = Element.Type.Parallel;
 
     constructor(options: IParallelOptions, ...args: any[]) {
@@ -17,7 +18,7 @@ export default class Parallel extends Element {
             case ServiceProvider.Aggregation:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
-                return "par";
+                return Parallel.tagName;
             default:
                 return super.getTagName(provider);
         }

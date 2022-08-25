@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class Word extends Element {
 
     static type = Element.Type.Word;
+    static tagName = "w";
     type = Element.Type.Word;
     role?: string;  //词性
 
@@ -33,7 +34,7 @@ export default class Word extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
-                return "w";
+                return Word.tagName;
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
                 return "s";

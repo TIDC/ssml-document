@@ -6,6 +6,7 @@ import util from '../lib/util';
 export default class Mark extends Element {
 
     static type = Element.Type.Mark;
+    static tagName = "mark";
     type = Element.Type.Mark;
     name?: string;  //标识名称
 
@@ -22,7 +23,7 @@ export default class Mark extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
-                return "mark";
+                return Mark.tagName;
             default:
                 return super.getTagName(provider);
         }
