@@ -22,6 +22,7 @@ export default class Document extends Base {
     sampleRate?: string;  //音频采样率
     provider?: ServiceProvider;  //预期产出提供商
     children?: Element[] = [];  //文档子节点
+    #parent?: Document | Element;  //父级节点
 
     constructor(options: IDocumentOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
@@ -201,6 +202,14 @@ export default class Document extends Base {
 
     set baseUrl(value: string) {
         this["xml:base"] = value;
+    }
+
+    set parent(node: Document | Element) {
+        this.#parent = node;
+    }
+
+    get parent() {
+        return this.#parent as any;
     }
 
     static parse = parser.parseToDocument.bind(parser);
