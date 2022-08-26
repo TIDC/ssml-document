@@ -97,17 +97,25 @@ export default class Document extends Base {
         options.provider = options.provider || ServiceProvider.Aggregation;
         options.headless = util.isBoolean(options.headless) ? options.headless : this.getHeadlessDefaultStatus(options.provider);
         const tagName = this.getTagName(options.provider);
-        const tag = parent ? parent.ele(tagName || "root") : this.createRootTag(tagName || "root", this.optionsExport(options.provider));
+        let tag: any;
+        if (tagName) {
+            tag = parent ? parent.ele(tagName) : this.createRootTag(tagName);
+            const _options = this.optionsExport(options.provider);
+            for (let key in _options)
+                tag.att(key, _options[key]);
+        }
+        else
+            tag = parent || this.createRootTag("root");
         this.children?.forEach(node => node.render(options, tag));
-        const content = util.isString(tag) ? tag : tag.end({
-            prettyPrint: options.pretty,
-            headless: options.headless,
-        });
-        if(tagName)
-            return content;
-        return content
-        .replace(/<root.*?>/, "")
-        .replace(/<\/root>$/, "");
+        if (!parent) {
+            return tag.end({
+                prettyPrint: options.pretty,
+                headless: util.isBoolean(options.headless) ? options.headless : true
+            })
+            .replace(/<root.*?>/, "")
+            .replace(/<\/root>$/, "");
+        }
+        return tag;
     }
 
     find(key: string) {
