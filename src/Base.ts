@@ -71,7 +71,7 @@ class Base {
 
     appendChild(node: any) {}
 
-    voice(name: string, options: IVoiceOptions, compile?: boolean) {
+    voice(name: string, options?: IVoiceOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({ type: Element.Type.Voice, ...options, name, compile });
         this.appendChild(node);
@@ -97,7 +97,7 @@ class Base {
         return this;
     }
 
-    sayAs(content: string, options: ISayAsOptions, compile?: boolean) {
+    sayAs(content: string, options?: ISayAsOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.SayAs,
@@ -110,7 +110,7 @@ class Base {
         return this;
     }
 
-    expressAs(content: string, options: IExpressAsOptions, compile?: boolean) {
+    expressAs(content: string, options?: IExpressAsOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.ExpressAs,
@@ -122,7 +122,7 @@ class Base {
         return node;
     }
 
-    emotion(content: string, options: IEmotionOptions, compile?: boolean) {
+    emotion(content: string, options?: IEmotionOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.Emotion,
@@ -169,7 +169,7 @@ class Base {
         return this;
     }
     
-    phoneme(content: string, options: IPhonemeOptions, compile?: boolean) {
+    phoneme(content: string, options?: IPhonemeOptions, compile?: boolean) {
         options = util.isObject(options) ? options : {};
         const node = Element.create({ type: Element.Type.Phoneme, ...options, compile })
         content && node.appendChild(`${content}`);
