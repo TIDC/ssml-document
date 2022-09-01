@@ -73,13 +73,13 @@ export default class Document extends Base {
                 options.xmlns = this.xmlns;
             break;
             case ServiceProvider.Aliyun:
-                const voice = this.find("voice") as Voice;
+                const voice = this.findOne("voice") as Voice;
                 voice && Object.assign(options, voice.optionsExport(provider));
-                const prosody = this.find("prosody") as Prosody;
+                const prosody = this.findOne("prosody") as Prosody;
                 prosody && Object.assign(options, prosody.optionsExport(provider));
-                const effect = this.find("effect") as Effect;
+                const effect = this.findOne("effect") as Effect;
                 effect && Object.assign(options, effect.optionsExport(provider));
-                const backgroundAudio = this.find("backgroundAudio") as BackgroundAudio;
+                const backgroundAudio = this.findOne("backgroundAudio") as BackgroundAudio;
                 backgroundAudio && Object.assign(options, backgroundAudio.optionsExport(provider));
                 options.encodeType = this.encodeType;
                 options.sampleRate = this.sampleRate;
@@ -119,11 +119,11 @@ export default class Document extends Base {
         return tag;
     }
 
-    find(key: string) {
+    findOne(key: string) {
         for (let node of this.children || []) {
             if (node.type === key)
                 return node;
-            const foundNode = node.find(key);
+            const foundNode = node.findOne(key);
             if(foundNode) return foundNode;
         }
         return null;
@@ -164,25 +164,25 @@ export default class Document extends Base {
     }
 
     get speaker() {
-        const voice = this.find("voice") as Voice;
+        const voice = this.findOne("voice") as Voice;
         if(!voice) return null;
         return voice.name;
     }
 
     get rate() {
-        const prosody = this.find("prosody") as Prosody;
+        const prosody = this.findOne("prosody") as Prosody;
         if(!prosody) return 1.0;
         return prosody.rate || 1.0;
     }
 
     get pitch() {
-        const prosody = this.find("prosody") as Prosody;
+        const prosody = this.findOne("prosody") as Prosody;
         if(!prosody) return 1.0;
         return prosody.pitch || 1.0;
     }
 
     get volume() {
-        const prosody = this.find("prosody") as Prosody;
+        const prosody = this.findOne("prosody") as Prosody;
         if(!prosody) return 100;
         const volume = util.volumeParse(`${prosody.volume || 100}`);
         return util.isFinite(Number(volume)) ? Number(volume) : volume;

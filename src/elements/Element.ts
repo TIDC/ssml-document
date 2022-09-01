@@ -71,11 +71,11 @@ export default class Element extends Base {
         return tag;
     }
 
-    find(key: string): Element | null {
+    findOne(key: string): Element | null {
         for (let node of this.children || []) {
             if (node.type === key)
                 return node;
-            const foundNode = node.find(key);
+            const foundNode = node.findOne(key);
             if(foundNode) return foundNode;
         }
         return null;
