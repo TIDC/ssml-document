@@ -7,7 +7,7 @@ const content = fs.readFileSync(path.join(__dirname, "ssml.xml")).toString();
 const date = new Date();
 const document = Document.parse(content, {
     dataset: {
-        time: date.getFullYear() + ":" + date.getMinutes()
+        time: date.getHours() + ":" + date.getMinutes()
     }
 });
 const result = document.render({

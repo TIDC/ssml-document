@@ -11,9 +11,9 @@ import util from "./lib/util";
 
 export default class Document extends Base {
 
-    static type = "document";
+    static type = "speak";
     static tagName = "speak";
-    readonly type = "document";
+    readonly type = "speak";
     version?: string;  //文档版本号
     "xml:lang"?: string;  //语音语言
     "xml:base"?: string;  //文档基础URL

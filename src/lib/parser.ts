@@ -14,13 +14,13 @@ export default {
         const root = this.parseToXMLDocument(value);
         let documentObject, scriptObject;
         for (let o of root.children) {
-            if (o.name === "speak" || o.name === Document.type)
+            if (o.name === Document.type)
                 documentObject = o;
             else if(o.name === "script")
                 scriptObject = o;
         }
         if (!documentObject)
-            throw new Error("document tag not found");
+            throw new Error("speak tag not found");
         if(scriptObject) {
             if(!compilerOptions) compilerOptions = {};
             compilerOptions.script = scriptObject.children.reduce((t: any, v: any) => t + (v.data || ""), "");
