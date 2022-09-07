@@ -21,6 +21,7 @@ export default class Document extends Base {
     encodeType?: string;  //音频编码类型
     sampleRate?: string;  //音频采样率
     provider?: ServiceProvider;  //预期产出提供商
+    solution?: string;  //预期形象ID
     children?: Element[] = [];  //文档子节点
     #parent?: Document | Element;  //父级节点
 
@@ -45,6 +46,7 @@ export default class Document extends Base {
             encodeType: util.isString,
             sampleRate: util.isString,
             provider: util.isString,
+            solution: util.isString,
             children: util.isArray
         });
     }
@@ -58,8 +60,10 @@ export default class Document extends Base {
 
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "xmlns", "xml:base", "xml:lang"]);
-        if(provider === ServiceProvider.Aggregation)
+        if(provider === ServiceProvider.Aggregation) {
             options.provider = this.provider;
+            options.solution = this.solution;
+        }
         switch(provider) {
             case ServiceProvider.Aggregation:
                 options.version = this.version;
