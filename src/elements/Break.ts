@@ -30,6 +30,9 @@ export default class Break extends Element {
             case ServiceProvider.Tencent:
                 delete options.strength;
             break;
+            case ServiceProvider.YunXiaoWei:
+                options.time = util.timeStringToMilliseconds(options.time);
+            break;
         }
         return options;
     }

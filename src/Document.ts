@@ -167,27 +167,43 @@ export default class Document extends Base {
         return this;
     }
 
+    getRate(provider?: ServiceProvider) {
+        return this.getProsody()?.optionsExport(provider)?.rate;
+    }
+
+    getPitch(provider?: ServiceProvider) {
+        return this.getProsody()?.optionsExport(provider)?.pitch;
+    }
+
+    getVolume(provider?: ServiceProvider) {
+        return this.getProsody()?.optionsExport(provider)?.volume;
+    }
+    
+    getProsody() {
+        return this.findOne("prosody") as Prosody;
+    }
+
     get speaker() {
         const voice = this.findOne("voice") as Voice;
-        if(!voice) return null;
+        if(!voice) return;
         return voice.name;
     }
 
     get rate() {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return 1.0;
+        if(!prosody) return;
         return prosody.rate || 1.0;
     }
 
     get pitch() {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return 1.0;
+        if(!prosody) return;
         return prosody.pitch || 1.0;
     }
 
     get volume() {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return 100;
+        if(!prosody) return;
         const volume = util.volumeParse(`${prosody.volume || 100}`);
         return util.isFinite(Number(volume)) ? Number(volume) : volume;
     }
