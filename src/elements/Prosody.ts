@@ -46,7 +46,7 @@ export default class Prosody extends Element {
             case ServiceProvider.Amazon:
                 options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
                 options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch * 100}`) + "%" : options.pitch;
-                options.volume = util.isFinite(Number(this.volume)) ? util.volumeValueParse(Number(this.volume)) : this.volume;
+                options.volume = util.isFinite(Number(options.volume)) ? util.volumeValueParse(Number(options.volume)) : options.volume;
                 if (provider === ServiceProvider.Amazon) {
                     options.duration && (options["amazon:max-duration"] = options.duration);
                     delete options.duration;
@@ -54,10 +54,13 @@ export default class Prosody extends Element {
                 return util.omit(options, ["contour", "range"]);
             case ServiceProvider.Aliyun:
                 return {
-                    rate: util.isFinite(Number(this.rate)) ? Number(this.rate) * 500 - 500 : this.rate,
-                    pitch: util.isFinite(Number(this.pitch)) ? Number(this.pitch) * 500 - 500 : this.pitch,
-                    volume: util.isFinite(Number(this.volume)) ? Number(this.volume) * 0.5 : this.volume
+                    rate: util.isFinite(Number(options.rate)) ? Number(options.rate) * 500 - 500 : options.rate,
+                    pitch: util.isFinite(Number(options.pitch)) ? Number(options.pitch) * 500 - 500 : options.pitch,
+                    volume: util.isFinite(Number(options.volume)) ? Number(options.volume) * 0.5 : options.volume
                 };
+            case ServiceProvider.YunXiaoWei:
+                options.rate = options.rate * 0.5 - 0.5;
+                options.pitch = options.pitch * 0.5 - 0.5;
         }
         return options;
     }
