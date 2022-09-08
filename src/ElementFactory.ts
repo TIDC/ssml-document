@@ -10,7 +10,7 @@ export default class ElementFactory {
         if(util.isString(data))  //纯文本添加为Raw节点
             data = { type: Raw.type, value: data };
         if (!util.isObject(data)) throw new TypeError('data must be an Object');
-        return new (this.getElementTarget((data as any).type) || Raw)(data, compilerOptions, this);
+        return new (this.getElementTarget((data as any).type))(data, compilerOptions, this);
     }
 
     static getElementTarget(type: string) {
@@ -55,7 +55,7 @@ export default class ElementFactory {
             [Element.TypeAlias.Word]: Word,
             [Element.Type.Mark]: Mark,
             [Element.Type.Raw]: Raw
-        })[type] || null;
+        })[type] || Element;
     }
 
 }
