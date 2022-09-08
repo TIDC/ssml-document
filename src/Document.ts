@@ -210,6 +210,10 @@ export default class Document extends Base {
         return util.isFinite(Number(volume)) ? Number(volume) : volume;
     }
 
+    get format() {
+        return this.encodeType?.toLowerCase();
+    }
+
     get language() {
         return this["xml:lang"] as any;
     }
