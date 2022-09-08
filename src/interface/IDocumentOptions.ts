@@ -12,6 +12,8 @@ export default interface IDocumentOptions extends IBaseOptions {
     xmlns?: string;  //文档URI
     encodeType?: string;  //音频编码类型
     sampleRate?: string;  //音频采样率
+    bitrate?: string;  //音频码率
     provider?: ServiceProvider;  //预期产出提供商
+    solution?: string;  //预期形象ID
     children?: (Element | IElementOptions)[];  //文档子节点
 }
