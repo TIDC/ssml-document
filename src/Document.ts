@@ -23,6 +23,7 @@ export default class Document extends Base {
     bitrate?: string;  //音频码率
     provider?: ServiceProvider;  //预期产出提供商
     solution?: string;  //预期形象ID
+    enableSubtitle?: boolean;  //是否开启字幕
     children?: Element[] = [];  //文档子节点
     #parent?: Document | Element;  //父级节点
 
@@ -34,6 +35,7 @@ export default class Document extends Base {
             ["xml:base"]: (v: any) => options.baseUrl || v,
             version: (v: any) => util.defaultTo(v, "1.0"),
             xmlns: (v: any) => util.defaultTo(v, "http://www.w3.org/2001/10/synthesis"),
+            enableSubtitle: util.booleanParse,
             children: (v: any) => (v || []).map((options: any) => {
                 const node = ElementFactory.createElement(options, compilerOptions);
                 node.parent = this;
@@ -49,6 +51,7 @@ export default class Document extends Base {
             bitrate: util.isString,
             provider: util.isString,
             solution: util.isString,
+            enableSubtitle: util.isBoolean,
             children: util.isArray
         });
     }
@@ -61,10 +64,11 @@ export default class Document extends Base {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "bitrate", "solution", "xmlns", "xml:base", "xml:lang"]);
+        const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "bitrate", "solution", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
         if(provider === ServiceProvider.Aggregation) {
             options.provider = this.provider;
             options.solution = this.solution;
+            options.enableSubtitle = this.enableSubtitle;
         }
         switch(provider) {
             case ServiceProvider.Aggregation:
