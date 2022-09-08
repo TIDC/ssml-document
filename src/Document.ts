@@ -92,7 +92,7 @@ export default class Document extends Base {
             break;
             case ServiceProvider.Microsoft:
                 options.version = this.version;
-                options["xml:lang"] = this.language;
+                options["xml:lang"] = this.language || "zh";  //必须声明跟文档语言
                 options.xmlns = this.xmlns;
                 options["xmlns:mstts"] = "https://www.w3.org/2001/mstts";
             break;
