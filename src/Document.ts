@@ -242,6 +242,10 @@ export default class Document extends Base {
         return this.#parent as any;
     }
 
+    get textLength() {
+        return this.getText().length;
+    }
+
     static parse = parser.parseToDocument.bind(parser);
 
 }

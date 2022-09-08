@@ -109,4 +109,8 @@ export default class Element extends Base {
         return this.#parent as any;
     }
 
+    get textLength() {
+        return this.getText().length;
+    }
+
 }
