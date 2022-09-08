@@ -15,5 +15,6 @@ export default interface IDocumentOptions extends IBaseOptions {
     bitrate?: string;  //音频码率
     provider?: ServiceProvider;  //预期产出提供商
     solution?: string;  //预期形象ID
+    enableSubtitle?: boolean;  //是否开启字幕
     children?: (Element | IElementOptions)[];  //文档子节点
 }
