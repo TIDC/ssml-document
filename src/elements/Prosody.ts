@@ -36,9 +36,11 @@ export default class Prosody extends Element {
         const options = super.optionsExport(provider);
         switch (provider) {
             case ServiceProvider.W3C:
-            case ServiceProvider.Microsoft:
                 options.rate = util.isFinite(Number(options.rate)) ? parseInt(`${options.rate * 100}`) + "%" : options.rate;
                 options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch * 100}`) + "%" : options.pitch;
+                break;
+            case ServiceProvider.Microsoft:
+                options.pitch = util.isFinite(Number(options.pitch)) ? parseInt(`${options.pitch * 50 - 50}`) + "%" : options.pitch;
                 break;
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
