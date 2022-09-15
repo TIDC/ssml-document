@@ -10,6 +10,8 @@ enum ServiceProvider {
     Baidu = 'baidu',  //百度云
     IFlytek = 'iflytek',  //讯飞云
     YunXiaoWei = 'yunXiaoWei',  //腾讯云小微
+    ImageDerivative = 'imageDerivative',  //像衍科技
+    Xmov = 'xmov'  //魔珐科技
 }
 
 export default ServiceProvider;
