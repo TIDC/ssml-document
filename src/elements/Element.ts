@@ -40,10 +40,14 @@ export default class Element extends Base {
     }
 
     appendChild(node: any) {
+        this.children?.push(this.createNode(node));
+    }
+
+    createNode(node: any) {
         if(!Element.isInstance(node))
             node = ElementFactory.createElement(node, this.compilerOptions);
         node.parent = this;
-        this.children?.push(node);
+        return node;
     }
 
     render(options: IRenderOptions = {}, parent?: any) {

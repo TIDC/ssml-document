@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts">
+<speak version="1.0" xml:lang="zh" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts">
   <voice name="test-voice">
-    <prosody pitch="110%" rate="120%" volume="80">
+    <prosody pitch="5%" rate="1.2" volume="80">
       <p>
         测试一下
         <break time="2s"/>

@@ -1,8 +1,4 @@
-<?xml version="1.0"?>
-<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis">
-  <voice name="aixia">
-    Master, have a good day from now.
-    <break time="500ms"/>
-    The current time is 16:0.
-  </voice>
-</speak>
+
+  测试一下
+  <break time="2000"/>
+  再测试一下

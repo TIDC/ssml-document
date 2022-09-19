@@ -30,6 +30,15 @@ export default {
         for(let o of documentObject.children) {
             if(o.name)
                 document.children.push(this.parseToElement(o, compilerOptions));
+            else if(o.type === "text" && o.data) {
+                const text = o.data.trim();
+                if(!text.length) continue;
+                document.children.push({
+                    type: Raw.type,
+                    value: text,
+                    ...o.attribs
+                });
+            }
         }
         return new Document(document, compilerOptions);
     },

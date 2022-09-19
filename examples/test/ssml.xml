@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
-<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" compile="true">
-  <voice name="aixia">
-    Master, {{['today is a beautiful day','have a good day from now','the weather is not bad today'][parseInt(Math.random() * 3)]}}.
-    <break time="500"/>
-    The current time is {{time}}.
-  </voice>
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" provider="yunXiaoWei">
+        测试一下
+        <break time="2s"/>
+        再测试一下
 </speak>
