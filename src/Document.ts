@@ -74,6 +74,7 @@ export default class Document extends Base {
             options.solution = this.solution;
             options.enableSubtitle = this.enableSubtitle;
         }
+        let prosody;
         switch(provider) {
             case ServiceProvider.Aggregation:
                 options.version = this.version;
@@ -89,7 +90,7 @@ export default class Document extends Base {
             case ServiceProvider.Aliyun:
                 const voice = this.findOne("voice") as Voice;
                 voice && Object.assign(options, voice.optionsExport(provider));
-                const prosody = this.findOne("prosody") as Prosody;
+                prosody = this.findOne("prosody") as Prosody;
                 prosody && Object.assign(options, prosody.optionsExport(provider));
                 const effect = this.findOne("effect") as Effect;
                 effect && Object.assign(options, effect.optionsExport(provider));
@@ -103,6 +104,10 @@ export default class Document extends Base {
                 options["xml:lang"] = this.language || "zh";  //必须声明跟文档语言
                 options.xmlns = this.xmlns;
                 options["xmlns:mstts"] = "https://www.w3.org/2001/mstts";
+            break;
+            case ServiceProvider.Xmov:
+                options.speed = this.getRate(ServiceProvider.Xmov);
+                options.pitch = this.getPitch(ServiceProvider.Xmov);
             break;
         }
         return options;
@@ -156,6 +161,7 @@ export default class Document extends Base {
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Tencent:
+            case ServiceProvider.Xmov:
                 return "speak";
             default:
                 return null;
