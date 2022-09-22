@@ -16,5 +16,6 @@ export default interface IDocumentOptions extends IBaseOptions {
     provider?: ServiceProvider;  //预期产出提供商
     solution?: string;  //预期形象ID
     enableSubtitle?: boolean;  //是否开启字幕
+    "enable-subtitle"?: boolean;  //是否开启字幕别名
     children?: (Element | IElementOptions)[];  //文档子节点
 }

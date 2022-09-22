@@ -54,6 +54,11 @@ export default class Document extends Base {
             enableSubtitle: util.isBoolean,
             children: util.isArray
         });
+        this.init(options);
+    }
+
+    init(options: IDocumentOptions) {
+        options["enable-subtitle"] && (this.enableSubtitle = util.booleanParse(options["enable-subtitle"]));
     }
 
     appendChild(node: any) {
