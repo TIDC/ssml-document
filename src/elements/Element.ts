@@ -50,6 +50,16 @@ export default class Element extends Base {
         return node;
     }
 
+    clone(compilerOptions?: ICompilerOptions): any {
+        const element = ElementFactory.createElement(util.omit(this, ["children"]), compilerOptions);
+        element.children = this.children?.map(node => {
+            const _node = node.clone(compilerOptions);
+            _node.parent = this;
+            return _node;
+        }) || [];
+        return element;
+    }
+
     render(options: IRenderOptions = {}, parent?: any) {
         options.provider = options.provider || ServiceProvider.Aggregation;
         const tagName = this.getTagName(options.provider);

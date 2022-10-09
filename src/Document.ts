@@ -72,6 +72,16 @@ export default class Document extends Base {
         return node;
     }
 
+    clone() {
+        const document = new Document(util.omit(this, ["children"]));
+        document.children = this.children?.map(node => {
+            const _node = node.clone(this.compilerOptions);
+            _node.parent = this;
+            return _node;
+        }) || [];
+        return document;
+    }
+
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "bitrate", "solution", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
         if(provider === ServiceProvider.Aggregation) {
