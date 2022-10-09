@@ -76,7 +76,7 @@ export default class Document extends Base {
         const document = new Document(util.omit(this, ["children"]));
         document.children = this.children?.map(node => {
             const _node = node.clone(this.compilerOptions);
-            _node.parent = this;
+            _node.parent = document;
             return _node;
         }) || [];
         return document;

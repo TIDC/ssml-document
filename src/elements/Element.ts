@@ -54,7 +54,7 @@ export default class Element extends Base {
         const element = ElementFactory.createElement(util.omit(this, ["children"]), compilerOptions);
         element.children = this.children?.map(node => {
             const _node = node.clone(compilerOptions);
-            _node.parent = this;
+            _node.parent = element;
             return _node;
         }) || [];
         return element;
