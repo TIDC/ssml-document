@@ -73,7 +73,17 @@ export default class Element extends Base {
         else
             tag = parent || this.createRootTag("root");
         this.content && tag.txt(this.content);
-        this.children?.forEach(node => node.render(options, tag));
+        this.children?.forEach((node: any, index) => {
+            const lastNode: any = index > 0 && this.children ? this.children[index - 1] : null;
+            if(lastNode && node.type === "break" && lastNode.type === "break") {
+                const time = (util.timeStringToMilliseconds(lastNode.time) || 0) + (util.timeStringToMilliseconds(node.time) || 0);
+                time && (node.time = util.millisecondsToTimeString(time));
+                return;
+            }
+            lastNode && lastNode.render(options, tag);
+            if(this.children && index === this.children.length - 1)
+                node.render(options, tag);
+        });
         if (!parent) {
             return tag.end({
                 prettyPrint: options.pretty,
