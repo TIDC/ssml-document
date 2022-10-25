@@ -109,6 +109,8 @@ const util = {
             const [,, symbol, tone] = match;
             chunks.push(`${symbol} ${tone}`);
         }
+        if(!chunks.length)  //无匹配音标时无音标处理
+            chunks.push(value);
         return chunks.join(" - ");
     },
 
