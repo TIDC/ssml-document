@@ -9,7 +9,7 @@ const vowelTones = [
     "ǖ", "ǘ", "ǚ", "ǜ"
 ];
 const vowels = ["a", "o", "e", "i", "u", "ü"];
-const vowelRegExp = new RegExp(vowelTones.join("|"), "g");
+const vowelRegExp = new RegExp(vowelTones.join("|") + "|a", "g");
 
 const util = {
     ...lodash,
@@ -107,7 +107,7 @@ const util = {
         let chunks = [];
         while((match = regExp.exec(value)) != null) {
             const [,, symbol, tone] = match;
-            chunks.push(`${symbol} ${tone || 0}`);
+            chunks.push(`${symbol} ${tone}`);
         }
         return chunks.join(" - ");
     },
@@ -118,14 +118,18 @@ const util = {
         let ph = value.split("");
         while ((temp = vowelRegExp.exec(value)) != null) {
             const toneIndex = vowelTones.indexOf(temp[0]);
-            const vowelIndex = Math.floor(toneIndex / 4);
-            const spaceMatch = spaceRegExp.exec(value);
-            ph[temp.index + offset] = vowels[vowelIndex];
-            if (spaceMatch)
-                ph.splice(spaceMatch.index + offset, 0, `${toneIndex % 4 + 1}`);
+            if(toneIndex !== -1) {
+                const vowelIndex = Math.floor(toneIndex / 4);
+                const spaceMatch = spaceRegExp.exec(value);
+                ph[temp.index + offset] = vowels[vowelIndex];
+                if (spaceMatch)
+                    ph.splice(spaceMatch.index + offset, 0, `${toneIndex % 4 + 1}`);
+                else
+                    ph.push(`${toneIndex % 4 + 1}`);
+                offset++;
+            }
             else
-                ph.push(`${toneIndex % 4 + 1}`);
-            offset++;
+                ph[temp.index + offset] = temp[0] + "1";
         }
         return ph.join("");
     }
