@@ -102,15 +102,13 @@ const util = {
     },
 
     pinyin2sapi(value: string) {
-        const regExp = new RegExp(/(([a-z]+)(\d))+/g);
+        const regExp = new RegExp(/(([a-z]+)(\d)?)+/g);
         let match = null;
         let chunks = [];
         while((match = regExp.exec(value)) != null) {
             const [,, symbol, tone] = match;
-            chunks.push(`${symbol} ${tone}`);
+            chunks.push(`${symbol} ${tone || 0}`);
         }
-        if(!chunks.length)  //无匹配音标时无音标处理
-            chunks.push(value);
         return chunks.join(" - ");
     },
 
