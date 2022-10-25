@@ -31,6 +31,13 @@ export default class Phoneme extends Element {
                     options.ph = util.pinyin2sapi(ph);
                 }
             break;
+            case ServiceProvider.Xmov:
+                if(this.alphabet === "py" && ph) {
+                    options.py = ph;
+                    delete options.alphabet;
+                    delete options.ph;
+                }
+            break;
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
@@ -49,6 +56,7 @@ export default class Phoneme extends Element {
                 return this.alphabet === "py" ? null : Phoneme.tagName;
             case ServiceProvider.Aggregation:
             case ServiceProvider.Microsoft:
+            case ServiceProvider.Xmov:
                 return Phoneme.tagName;
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
