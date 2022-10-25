@@ -12,7 +12,7 @@ const document = Document.parse(content, {
 });
 const result = document.render({
     provider: document.provider,
-    pretty: true
+    pretty: false
 });
 
 fs.writeFileSync(path.join(__dirname, "result.xml"), result);

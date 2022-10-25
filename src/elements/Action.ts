@@ -25,6 +25,16 @@ export default class Action extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Xmov:
+                delete options.type;
+            break;
+        }
+        return options;
+    }
+
     render(options: IRenderOptions = {}, parent?: any) {
         const tag = super.render(options, parent);
         if(options.provider === ServiceProvider.Xmov) {
