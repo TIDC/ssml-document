@@ -101,8 +101,8 @@ export default class Element extends Base {
      generateCharacteristicString(): string {
         const options = this.optionsExport(ServiceProvider.Aggregation);  //提取options
         const keys = Object.keys(options).sort();  //对options属性进行字典排序
-        const head = keys.reduce((result, key) => options[key] ? (result + `${key}${options[key]}`) : "", "");  //将数据进行拼接生成头部部分
-        return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || "";  //生成子元素特征字符串并拼接到尾部
+        const head = keys.reduce((result, key) => options[key] ? (result + `${key}${options[key]}`) : result, "");  //将数据进行拼接生成头部部分
+        return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
     }
 
     findOne(key: string): Element | null {
