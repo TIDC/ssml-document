@@ -29,6 +29,10 @@ export default class SayAs extends Element {
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
                 return util.pick(options, ["interpret-as"]);
+            case ServiceProvider.Microsoft:
+                if(options["interpret-as"] === "digits")
+                    options["interpret-as"] = "number";
+            break;
         }
         return options;
     }
