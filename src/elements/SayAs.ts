@@ -31,7 +31,7 @@ export default class SayAs extends Element {
                 return util.pick(options, ["interpret-as"]);
             case ServiceProvider.Microsoft:
                 if(options["interpret-as"] === "digits")
-                    options["interpret-as"] = "number";
+                    options["interpret-as"] = "number_digit";
             break;
         }
         return options;
