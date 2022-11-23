@@ -1,5 +1,6 @@
 import IRawOptions from './interface/IRawOptions';
 import Element from './Element';
+import ServiceProvider from "../enums/ServiceProvoder";
 
 export default class Raw extends Element {
 
@@ -14,7 +15,15 @@ export default class Raw extends Element {
 
     render(options: any, parent?: any) {
         if(!parent) return this.value || "";
-        parent.txt(this.getText());
+        let text = this.getText();
+        switch(options.provider) {
+            case ServiceProvider.Xmov:
+                text = text
+                .replace(/(\d+)\-(\d+)/g, "$1至$2")
+                .replace(/\-(\d+)/g, "负$1");
+            break;
+        }
+        parent.txt(text);
     }
 
     getText(filter?: any) {
