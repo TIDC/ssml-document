@@ -197,6 +197,10 @@ class Base {
         return this;
     }
 
+    toJSON() {
+        return util.omit(this, ["compile", "debug", "compilerOptions"]);
+    }
+
 }
 
 export default Base;
