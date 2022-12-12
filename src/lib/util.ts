@@ -128,8 +128,6 @@ const util = {
                     ph.push(`${toneIndex % 4 + 1}`);
                 offset++;
             }
-            else
-                ph[temp.index + offset] = temp[0] + "1";
         }
         return ph.join("");
     }
