@@ -1,5 +1,4 @@
 import IBreakOptions from "./interface/IBreakOptions";
-import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
@@ -30,6 +29,10 @@ export default class Break extends Element {
             case ServiceProvider.Tencent:
                 delete options.strength;
             break;
+            case ServiceProvider.XiaoBing:
+                delete options.strength;
+                options.time = `${util.timeStringToMilliseconds(options.time)}ms`;
+            break;
             case ServiceProvider.YunXiaoWei:
                 options.time = util.timeStringToMilliseconds(options.time);
             break;
@@ -48,6 +51,7 @@ export default class Break extends Element {
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
             case ServiceProvider.Xmov:
+            case ServiceProvider.XiaoBing:
                 return Break.tagName;
             default:
                 return super.getTagName(provider);

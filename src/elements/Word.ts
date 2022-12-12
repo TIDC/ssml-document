@@ -34,6 +34,7 @@ export default class Word extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
+            case ServiceProvider.XiaoBing:
                 return Word.tagName;
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:

@@ -11,7 +11,8 @@ enum ServiceProvider {
     IFlytek = 'iflytek',  //讯飞云
     YunXiaoWei = 'yunXiaoWei',  //腾讯云小微
     ImageDerivative = 'imageDerivative',  //像衍科技
-    Xmov = 'xmov'  //魔珐科技
+    Xmov = 'xmov',  //魔珐科技
+    XiaoBing = 'xiaoBing'  //微软小冰
 }
 
 export default ServiceProvider;

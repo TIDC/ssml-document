@@ -28,11 +28,8 @@ export default class SayAs extends Element {
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
+            case ServiceProvider.XiaoBing:
                 return util.pick(options, ["interpret-as"]);
-            case ServiceProvider.Microsoft:
-                if(options["interpret-as"] === "digits")
-                    options["interpret-as"] = "number_digit";
-            break;
         }
         return options;
     }
@@ -46,6 +43,7 @@ export default class SayAs extends Element {
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
+            case ServiceProvider.XiaoBing:
                 return SayAs.tagName;
             default:
                 return super.getTagName(provider);

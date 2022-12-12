@@ -25,6 +25,7 @@ export default class Subsitute extends Element {
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
+            case ServiceProvider.XiaoBing:
                 return Subsitute.tagName;
             default:
                 return super.getTagName(provider);
