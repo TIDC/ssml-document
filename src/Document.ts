@@ -23,6 +23,7 @@ export default class Document extends Base {
     bitrate?: string;  //音频码率
     provider?: ServiceProvider;  //预期产出提供商
     solution?: string;  //预期形象ID
+    pose?: string;  //预期形象姿势ID
     enableSubtitle?: boolean;  //是否开启字幕
     children?: Element[] = [];  //文档子节点
     #parent?: Document | Element;  //父级节点
@@ -51,6 +52,7 @@ export default class Document extends Base {
             bitrate: util.isString,
             provider: util.isString,
             solution: util.isString,
+            pose: util.isString,
             enableSubtitle: util.isBoolean,
             children: util.isArray
         });
@@ -83,10 +85,11 @@ export default class Document extends Base {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "bitrate", "solution", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
+        const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "bitrate", "solution", "pose", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
         if(provider === ServiceProvider.Aggregation) {
             options.provider = this.provider;
             options.solution = this.solution;
+            options.pose = this.pose;
             options.enableSubtitle = this.enableSubtitle;
         }
         let prosody;
