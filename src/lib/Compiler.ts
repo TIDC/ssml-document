@@ -32,7 +32,8 @@ export default class Compiler {
                 let children: any[] = [];
                 const _scope = util.omit(scope, ["ifFlag"]);  //过滤条件分歧标志限制作用域
                 value.forEach(v => {
-                    const result = this.compile(util.cloneDeep(v), _scope);
+                    const nv = util.isObject(v) ? util.cloneDeep(v) : v;
+                    const result = this.compile(nv, _scope);
                     if (result === null) return;  //如果返回null则此节点丢弃
                     if (util.isArray(result))
                         children = [...children, ...result];
@@ -51,6 +52,7 @@ export default class Compiler {
                 const expressions = this.extractExpressions($if);
                 if (expressions.length) {
                     const { expression } = expressions[0];
+                    scope.that = attrs;
                     const result = this.eval(expression, scope);
                     if (!result) {
                         scope.ifFlag = false;
@@ -68,6 +70,7 @@ export default class Compiler {
                 const expressions = this.extractExpressions(elif);
                 if (expressions.length) {
                     const { expression } = expressions[0];
+                    scope.that = attrs;
                     const result = this.eval(expression, scope);
                     if (!result) {
                         scope.ifFlag = false;
@@ -89,6 +92,7 @@ export default class Compiler {
                 const expressions = this.extractExpressions($for);
                 if (!expressions.length) return null;  //没有表达式则丢弃本节点
                 const { expression } = expressions[0];
+                scope.that = attrs;
                 const list = this.eval(expression, scope);
                 if (util.isNumber(list)) {
                     const items = [];
@@ -153,7 +157,8 @@ export default class Compiler {
     }
 
     prepareFunctionScript(script: string, data: any = {}) {
-        const expression = `const {${Object.keys(data).join(",")}}=this;`;
+        const keys = Object.keys(util.omit(data, ["for","if","else"]));
+        const expression = `const {${keys.join(",")}}=this;`;
         return Function(expression + DISABLE_TARGETS_SCRIPT + script).bind(data);
     }
 

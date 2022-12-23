@@ -25,7 +25,7 @@ export default {
             if(!compilerOptions) compilerOptions = {};
             compilerOptions.script = scriptObject.children.reduce((t: any, v: any) => t + (v.data || ""), "");
         }
-        const document = this.parseAttributes(documentObject.attribs);
+        const document = this.parseAttributes(documentObject.attribs, { booleanParse: true });
         document.children = [];
         for(let o of documentObject.children) {
             if(o.name)
@@ -75,14 +75,15 @@ export default {
         return util.isString(value) ? ElementFactory.createElement(element, compilerOptions) : element;
     },
 
-    parseAttributes(value: any) {
+    parseAttributes(value: any, options?: { booleanParse?: boolean }) {
+        const { booleanParse } = options || {};
         const attributes: any = {};
         for(let key in value) {
             const targetKey = {
                 type: "__type",
                 value: "__value"
               }[key] || key;
-            attributes[targetKey] = value[key];
+            attributes[targetKey] = booleanParse && value[key] === "" ? true : value[key];
         }
         return attributes;
     },
