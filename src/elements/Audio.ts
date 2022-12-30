@@ -58,6 +58,7 @@ export default class Audio extends Element {
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Microsoft:
+            case ServiceProvider.Huoshanyun:
                 return Audio.tagName;
             case ServiceProvider.Aliyun:
                 return "soundEvent";

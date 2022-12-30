@@ -1,4 +1,8 @@
-
-  测试一下
-  <break time="2000"/>
+<speak>
+  <word>测试一下</word>
+  <break time="4s"/>
+  <audio src="www.baidu.com"/>
   再测试一下
+  <say-as interpret-as="cardinal">3123214124124</say-as>
+  <phoneme alphabet="py" ph="di4">的</phoneme>
+</speak>

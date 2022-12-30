@@ -39,6 +39,8 @@ export default class Word extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
                 return "s";
+            case ServiceProvider.Huoshanyun:
+                return "word";
             default:
                 return super.getTagName(provider);
         }

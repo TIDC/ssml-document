@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" provider="yunXiaoWei">
-        测试一下
-        <break time="2s"/>
-        再测试一下
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" provider="huoshanyun">
+       <w> 测试一下</w>
+        <break time="4s"/><audio src="www.baidu.com"></audio>
+        再测试一下<say-as interpret-as="cardinal" asdsa='asdasd'>3123214124124</say-as> <phoneme alphabet="py" ph="dì">的</phoneme>
 </speak>

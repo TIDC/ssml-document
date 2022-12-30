@@ -51,3 +51,6 @@ fs.writeFileSync(path.join(__dirname, "google.xml"), document.render({
 fs.writeFileSync(path.join(__dirname, "yunXiaoWei.xml"), document.render({
     provider: "yunXiaoWei"
 }));
+fs.writeFileSync(path.join(__dirname, "huoshanyun.xml"), document.render({
+    provider: "huoshanyun"
+}));

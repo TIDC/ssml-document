@@ -42,6 +42,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
             case ServiceProvider.XiaoBing:
+            case ServiceProvider.Huoshanyun:
                 if(this.alphabet === "py" && ph)
                     options.ph = ph;
             break;
@@ -63,6 +64,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.YunXiaoWei:
             case ServiceProvider.Xmov:
             case ServiceProvider.XiaoBing:
+            case ServiceProvider.Huoshanyun:
                 return this.alphabet === "py" ? Phoneme.tagName : null;
             default:
                 return super.getTagName(provider);

@@ -22,13 +22,14 @@ export default class SayAs extends Element {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider);
+        const options = super.optionsExport(provider); //为了生成的ssml标准点，把产商不需要的属性进行去除，不构建到ssml里，以下厂商在say-as标签中 只需要interpret-as属性
         switch(provider) {
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.XiaoBing:
+            case ServiceProvider.Huoshanyun:
                 return util.pick(options, ["interpret-as"]);
         }
         return options;
@@ -44,6 +45,7 @@ export default class SayAs extends Element {
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.XiaoBing:
+            case ServiceProvider.Huoshanyun:
                 return SayAs.tagName;
             default:
                 return super.getTagName(provider);
