@@ -18,13 +18,13 @@ export default class Document extends Base {
     "xml:lang"?: string;  //语音语言
     "xml:base"?: string;  //文档基础URL
     xmlns = "";  //文档URI
-    encodeType?: string;  //音频编码类型
     sampleRate?: string;  //音频采样率
     bitrate?: string;  //音频码率
     provider?: ServiceProvider;  //预期产出提供商
     solution?: string;  //预期形象ID
     pose?: string;  //预期形象姿势ID
     enableSubtitle?: boolean;  //是否开启字幕
+    format?: string;  //预期内容格式
     children?: Element[] = [];  //文档子节点
     #parent?: Document | Element;  //父级节点
 
@@ -47,7 +47,7 @@ export default class Document extends Base {
             ["xml:lang"]: util.isString,
             ["xml:base"]: util.isString,
             xmlns: util.isString,
-            encodeType: util.isString,
+            format: util.isString,
             sampleRate: util.isString,
             bitrate: util.isString,
             provider: util.isString,
@@ -85,12 +85,13 @@ export default class Document extends Base {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider, ["version", "encodeType", "sampleRate", "bitrate", "solution", "pose", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
+        const options = super.optionsExport(provider, ["version", "format", "sampleRate", "bitrate", "solution", "pose", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
         if(provider === ServiceProvider.Aggregation) {
             options.provider = this.provider;
             options.solution = this.solution;
             options.pose = this.pose;
             options.enableSubtitle = this.enableSubtitle;
+            options.format = this.format;
         }
         let prosody;
         switch(provider) {
@@ -114,7 +115,7 @@ export default class Document extends Base {
                 effect && Object.assign(options, effect.optionsExport(provider));
                 const backgroundAudio = this.findOne("backgroundAudio") as BackgroundAudio;
                 backgroundAudio && Object.assign(options, backgroundAudio.optionsExport(provider));
-                options.encodeType = this.encodeType;
+                options.encodeType = this.format;
                 options.sampleRate = this.sampleRate;
             break;
             case ServiceProvider.Microsoft:
@@ -260,10 +261,6 @@ export default class Document extends Base {
         if(!prosody) return;
         const volume = util.volumeParse(`${prosody.volume || 100}`);
         return util.isFinite(Number(volume)) ? Number(volume) : volume;
-    }
-
-    get format() {
-        return this.encodeType?.toLowerCase();
     }
 
     get language() {
