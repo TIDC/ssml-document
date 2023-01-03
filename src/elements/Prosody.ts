@@ -67,8 +67,8 @@ export default class Prosody extends Element {
                 options.pitch = util.isFinite(Number(options.pitch)) ? Number((options.pitch * 0.5 + 0.5).toFixed(1)) : options.pitch;
                 break;
             case ServiceProvider.Huoshanyun:
-                options.rate = util.isFinite(Number(options.rate)) ? Number(((options.rate * 2 -1) * 10).toFixed(1)) : options.rate;
-                options.pitch = util.isFinite(Number(options.pitch)) ? Number((Math.log(options.pitch) / Math.log(Math.E) * 12 / 0.69314718056 +10).toFixed(1)) : options.pitch;
+                options.rate = util.isFinite(Number(options.rate)) ? Number(((options.rate * 2 - 1) * 10).toFixed(1)) : options.rate;
+                options.pitch = util.isFinite(Number(options.pitch)) ? Number((Math.log(options.pitch) / Math.log(Math.E) * 12 / 0.69314718056 + 10).toFixed(1)) : options.pitch;
                 options.volume = util.isFinite(Number(options.volume)) ? Number(options.volume) * 0.1 : options.volume
                 break;
         }
