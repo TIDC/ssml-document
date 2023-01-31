@@ -38,6 +38,7 @@ export default class Effect extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return Effect.tagName;
             case ServiceProvider.Amazon:
                 return "amazon:effect";

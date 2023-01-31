@@ -38,6 +38,7 @@ export default class Emotion extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.Aliyun:
                 return Emotion.tagName;
             case ServiceProvider.Amazon:

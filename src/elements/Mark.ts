@@ -20,6 +20,7 @@ export default class Mark extends Element {
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.W3C:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:

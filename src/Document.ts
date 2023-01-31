@@ -97,6 +97,7 @@ export default class Document extends Base {
         let prosody;
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 options.version = this.version;
                 options["xml:lang"] = this.language;
                 options.xmlns = this.xmlns;
@@ -195,6 +196,7 @@ export default class Document extends Base {
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.W3C:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Microsoft:
@@ -212,6 +214,7 @@ export default class Document extends Base {
     getHeadlessDefaultStatus(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
                 return false;

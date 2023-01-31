@@ -21,6 +21,7 @@ export default class Word extends Element {
         const options = super.optionsExport(provider, ["role"]);
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.Amazon:
                 this.role && (options["role"] = this.role);
                 break;
@@ -31,6 +32,7 @@ export default class Word extends Element {
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.W3C:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:

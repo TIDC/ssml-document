@@ -57,6 +57,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.Amazon:
                 return this.alphabet === "py" ? null : Phoneme.tagName;
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.Microsoft:
                 return Phoneme.tagName;
             case ServiceProvider.Aliyun:

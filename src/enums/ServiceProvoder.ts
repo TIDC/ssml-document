@@ -1,6 +1,7 @@
 enum ServiceProvider {
     Aggregation = "aggregation",  //聚合
     W3C = 'w3c',  //W3C标准
+    Thinkive = "thinkive",  //思迪信息
     Microsoft = 'microsoft',  //微软云
     Amazon = 'amazon',  //亚马逊云
     Google = 'google',  //谷歌云

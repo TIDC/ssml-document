@@ -20,6 +20,7 @@ export default class Bookmark extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return Bookmark.tagName;
             case ServiceProvider.Microsoft:
                 return "mstts:bookmark";

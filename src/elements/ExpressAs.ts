@@ -40,6 +40,7 @@ export default class ExpressAs extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return ExpressAs.tagName;
             case ServiceProvider.Aliyun:
                 return "emotion";

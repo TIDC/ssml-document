@@ -42,6 +42,7 @@ export default class BackgroundAudio extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return BackgroundAudio.tagName;
             case ServiceProvider.Microsoft:
                 return "mstts:backgroundaudio";

@@ -24,6 +24,7 @@ export default class SoundEvent extends Element {
             case ServiceProvider.Microsoft:
                 return "audio";
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return SoundEvent.tagName;
             case ServiceProvider.Aliyun:
                 return "soundEvent";

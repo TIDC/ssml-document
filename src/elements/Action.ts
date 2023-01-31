@@ -58,6 +58,7 @@ export default class Action extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return Action.tagName;
             case ServiceProvider.YunXiaoWei:
                 return "insert-action";

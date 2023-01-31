@@ -22,6 +22,7 @@ export default class Silence extends Element {
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return Silence.tagName;
             case ServiceProvider.Microsoft:
                 return "mstts:silence";

@@ -16,6 +16,7 @@ export default class Paragraph extends Element {
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:

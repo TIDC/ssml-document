@@ -16,6 +16,7 @@ export default class AutoBreaths extends Element {
     getTagName(provider?: ServiceProvider) {
         switch (provider) {
             case ServiceProvider.Aggregation:
+            case ServiceProvider.Thinkive:
                 return AutoBreaths.tagName;
             case ServiceProvider.Amazon:
                 return "amazon:auto-breaths";
