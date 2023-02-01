@@ -248,6 +248,12 @@ export default class Document extends Base {
         if(!emotion) return;
         return emotion.category;
     }
+
+    set speaker(value) {
+        const voice = this.findOne("voice") as Voice;
+        if(!voice) return;
+        voice.name = value;
+    }
     
     get speaker() {
         const voice = this.findOne("voice") as Voice;
