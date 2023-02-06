@@ -57,4 +57,8 @@ export default class BackgroundAudio extends Element {
         return `[${labelText}:${this.name || this.src}]${super.getText(undefined, options)}[/${labelText}:${this.name || this.src}]`;
     }
 
+    get editable() {
+        return true;
+    }
+
 }

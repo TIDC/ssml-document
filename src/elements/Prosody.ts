@@ -89,4 +89,8 @@ export default class Prosody extends Element {
         }
     }
 
+    get editable() {
+        return true;
+    }
+
 }

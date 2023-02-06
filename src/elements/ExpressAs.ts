@@ -59,4 +59,8 @@ export default class ExpressAs extends Element {
         return `[${labelText}:${this.style || this.name}]${super.getText(undefined, options)}[/${labelText}:${this.style || this.name}]`;
     }
 
+    get editable() {
+        return true;
+    }
+
 }

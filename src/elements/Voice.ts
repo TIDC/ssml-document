@@ -53,4 +53,8 @@ export default class Voice extends Element {
         }
     }
 
+    get editable() {
+        return true;
+    }
+
 }

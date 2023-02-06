@@ -100,14 +100,7 @@ export default class Element extends Base {
     renderHTML(options: IRenderOptions = {}, parent?: any) {
         const tag = parent ? parent.ele("span") : this.createRootTag("span");
         tag.att("class", (options.classNamePrefix || "") + this.type);
-        tag.att("contenteditable", [
-            Element.Type.Voice,
-            Element.Type.Prosody,
-            Element.Type.Emotion,
-            Element.Type.Paragraph,
-            Element.Type.ExpressAs,
-            Element.Type.BackgroundAudio
-        ].includes(this.type));
+        tag.att("contenteditable", this.editable);
         const data = util.omit(this, ["children", "provider", "compile", "debug", "compilerOptions"]) as any;
         for(let key in data)
             tag.att(`data-${key}`, data[key]);
@@ -188,6 +181,10 @@ export default class Element extends Base {
 
     get textLength() {
         return this.getText().length;
+    }
+
+    get editable() {
+        return false;
     }
 
 }

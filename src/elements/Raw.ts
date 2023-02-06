@@ -27,8 +27,8 @@ export default class Raw extends Element {
     }
 
     renderHTML(options: any, parent?: any) {
-        super.renderHTML(options, parent);
-        parent && parent.txt(this.parent.getLabelText(options) || this.value || "");
+        const tag = super.renderHTML(options, parent);
+        tag.txt(this.parent.getLabelText(options) || this.value || "");
     }
 
     getText(filter?: any) {
@@ -39,6 +39,10 @@ export default class Raw extends Element {
 
     static isInstance(value: any) {
         return value instanceof Raw;
+    }
+
+    get editable() {
+        return this.parent.editable;
     }
 
 }

@@ -31,4 +31,8 @@ export default class AutoBreaths extends Element {
         return `[${labelText}]${super.getText(undefined, options)}[/${labelText}]`;
     }
 
+    get editable() {
+        return true;
+    }
+
 }

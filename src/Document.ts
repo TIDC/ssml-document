@@ -390,6 +390,10 @@ export default class Document extends Base {
         return this.getText().length;
     }
 
+    get editable() {
+        return true;
+    }
+
     static parse = parser.parseToDocument.bind(parser);
 
     static parseHTML = parser.parseHTMLToDocument.bind(parser);

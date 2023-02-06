@@ -56,4 +56,8 @@ export default class Emotion extends Element {
         return `[${labelText}:${this.category || this.name}]${super.getText(undefined, options)}[/${labelText}:${this.category || this.name}]`;
     }
 
+    get editable() {
+        return true;
+    }
+
 }
