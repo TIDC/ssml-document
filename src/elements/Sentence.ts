@@ -1,4 +1,5 @@
 import ISentenceOptions from './interface/ISentenceOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
@@ -26,6 +27,11 @@ export default class Sentence extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "句子";
+        return `[${labelText}]${super.getText(undefined, options)}[/${labelText}]`;
     }
 
 }

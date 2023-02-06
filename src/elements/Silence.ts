@@ -1,4 +1,5 @@
 import ISilenceOptions from './interface/ISilenceOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from '../lib/util';
@@ -29,6 +30,11 @@ export default class Silence extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "静音";
+        return `[${labelText}:${util.millisecondsToTimeString(util.timeStringToMilliseconds(this.value || 0) || 0)}]`;
     }
 
 }

@@ -1,4 +1,5 @@
 import IEmotionOptions from "./interface/IEmotionOptions";
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
@@ -48,6 +49,11 @@ export default class Emotion extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "情感";
+        return `[${labelText}:${this.category || this.name}]${super.getText(undefined, options)}[/${labelText}:${this.category || this.name}]`;
     }
 
 }

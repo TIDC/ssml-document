@@ -1,4 +1,5 @@
 import IExpressAsOptions from './interface/IExpressAsOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util"; 
@@ -51,6 +52,11 @@ export default class ExpressAs extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "风格";
+        return `[${labelText}:${this.style || this.name}]${super.getText(undefined, options)}[/${labelText}:${this.style || this.name}]`;
     }
 
 }

@@ -97,6 +97,22 @@ export default {
             return { children: [value] };
         else
             return value;
+    },
+
+    parseHTMLToDocument(value: string, compilerOptions?: ICompilerOptions) {
+        const root = parseDocument(value).children.find(v => v.type === "tag" && v.name === "div");
+        if(!root) throw new Error("root tag not found");
+        const options = (function render(value: any, target: any) {
+            for(let key in value.attribs) {
+                if(key.indexOf("data-") !== 0)
+                    continue;
+                const _key = key.substring(5);
+                target[_key] = value.attribs[key];
+            }
+            target.children = value.children?.map((_value: any) => render(_value, {})) || [];
+            return target;
+        })(root, {});
+        return new Document(options, compilerOptions);
     }
 
 };

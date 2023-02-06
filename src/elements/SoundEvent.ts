@@ -1,4 +1,5 @@
 import ISoundEventOptions from './interface/ISoundEventOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util";
@@ -31,6 +32,11 @@ export default class SoundEvent extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "分词";
+        return `[${labelText}:${this.name || this.src}]`;
     }
 
 }

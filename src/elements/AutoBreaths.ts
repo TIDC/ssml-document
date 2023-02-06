@@ -1,4 +1,5 @@
 import IAutoBreathsOptions from './interface/IAutoBreathsOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
@@ -23,6 +24,11 @@ export default class AutoBreaths extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "心跳";
+        return `[${labelText}]${super.getText(undefined, options)}[/${labelText}]`;
     }
 
 }

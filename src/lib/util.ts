@@ -26,11 +26,14 @@ const util = {
         }
     },
 
-    timeStringToMilliseconds(value: string) {
+    timeStringToMilliseconds(value: string | number) {
         if(!util.isString(value)) return Number(value);
         value = value.trim();
         const match = value.match(/^(\d+)(ms|s|m|h)$/);
-        if(!match) return null;
+        if(!match) {
+            const _value = util.durationParse(value) as number;
+            return util.isFinite(_value) ? _value : 0;
+        }
         const [, num, unit] = match;
         let milliseconds = Number(num);
         if(unit === "s") milliseconds *= 1000;
@@ -39,9 +42,10 @@ const util = {
         return milliseconds;
     },
 
-    millisecondsToTimeString(value: number) {
+    millisecondsToTimeString(value: string | number) {
         if(!util.isFinite(Number(value)))
             return util.durationParse(value as any);
+        value = Number(value);
         if(value < 1000)
             return value + "ms";
         if(value < 1000 * 60)
@@ -51,7 +55,7 @@ const util = {
         return value / (1000 * 60 * 60) + "h";
     },
 
-    durationParse(value: string) {
+    durationParse(value: string | number) {
         return ({
             "x-weak": 250,
             "weak": 500,

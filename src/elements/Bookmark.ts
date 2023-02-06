@@ -1,4 +1,5 @@
 import IBookmarkOptions from './interface/IBookmarkOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from '../elements/Element';
 import util from '../lib/util';
@@ -27,6 +28,11 @@ export default class Bookmark extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "书签";
+        return `[${labelText}:${this.name || this.mark}]`;
     }
 
 }

@@ -1,4 +1,5 @@
 import IEffectOptions from "./interface/IEffectOptions";
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
@@ -8,7 +9,6 @@ export default class Effect extends Element {
     static type = Element.Type.Effect;
     static tagName = "effect";
     type = Element.Type.Effect;
-    name = '';  //音效名称
     phonation?: string;  //发音方式
     level?: string;  //音效强度
     "vocal-tract-length"?: string;  //声道长度
@@ -16,7 +16,6 @@ export default class Effect extends Element {
     constructor(options: IEffectOptions, ...args: any[]) {
         super(options, ...args);
         this.optionsInject(options, {}, {
-            name: util.isString,
             phonation: util.isString,
             level: util.isString,
             ["vocal-tract-length"]: util.isString
@@ -45,6 +44,11 @@ export default class Effect extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "音效";
+        return `[${labelText}:${this.name || this.phonation}]${super.getText(undefined, options)}[/${labelText}:${this.name || this.phonation}]`;
     }
 
     set vocalTractLength(value: string) {

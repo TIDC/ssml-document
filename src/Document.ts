@@ -170,6 +170,36 @@ export default class Document extends Base {
     }
 
     /**
+     * 渲染HTML
+     */
+    renderHTML(options: IRenderOptions = {}, parent?: any) {
+        const tag = parent ? parent.ele("div") : this.createRootTag("div");
+        options.className && tag.att("class", options.className);
+        tag.att("contenteditable", true);
+        const data = util.omit(this, ["children", "compile", "debug", "compilerOptions"]) as any;
+        for(let key in data)
+            tag.att(`data-${key}`, data[key]);
+        this.children?.forEach(node => node.renderHTML(options, tag));
+        if (!parent) {
+            return tag.end({
+                prettyPrint: options.pretty,
+                headless: util.isBoolean(options.headless) ? options.headless : true,
+                allowEmptyTags: true
+            })
+            .replace(/<root.*?>/, "")
+            .replace(/<\/root>$/, "");
+        }
+        return tag;
+    }
+
+    /**
+     * 渲染内容
+     */
+    renderContent(filter?: any, options?: IRenderOptions) {
+        return this.getText(filter, options);
+    }
+
+    /**
      * 生成特征字符串
      */
     generateCharacteristicString(): string {
@@ -189,8 +219,12 @@ export default class Document extends Base {
         return null;
     }
 
-    getText(filter?: any): string {
-        return this.children?.reduce((t, e) => t + e.getText(filter), "") as string;
+    getText(filter?: any, options?: IRenderOptions): string {
+        return this.children?.reduce((t, e) => t + e.getText(filter, options), "") as string;
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        return "";
     }
 
     getTagName(provider?: ServiceProvider) {
@@ -261,22 +295,69 @@ export default class Document extends Base {
         return voice.name;
     }
 
+    set rate(value: number) {
+        let prosody = this.findOne("prosody") as Prosody;
+        if(!prosody) {
+            prosody = new Prosody();
+            let voice = this.findOne("voice") as Voice;
+            if(!voice) {
+                voice = new Voice();
+                voice.children = this.children;
+                this.children = [voice];
+            }
+            prosody.children = voice.children;
+            voice.children = [prosody];
+        }
+        prosody.rate = value;
+    }
 
-    get rate() {
+    get rate(): number {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return;
-        return prosody.rate || 1.0;
+        if(!prosody) return 1.0;
+        return (prosody.rate || 1.0) as number;
+    }
+
+    set pitch(value: number) {
+        let prosody = this.findOne("prosody") as Prosody;
+        if(!prosody) {
+            prosody = new Prosody();
+            let voice = this.findOne("voice") as Voice;
+            if(!voice) {
+                voice = new Voice();
+                voice.children = this.children;
+                this.children = [voice];
+            }
+            prosody.children = voice.children;
+            voice.children = [prosody];
+        }
+        prosody.pitch = value;
     }
 
     get pitch() {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return;
-        return prosody.pitch || 1.0;
+        if(!prosody) return 1.0;
+        return (prosody.pitch || 1.0) as number;
     }
 
-    get volume() {
+    set volume(value: number | string) {
+        let prosody = this.findOne("prosody") as Prosody;
+        if(!prosody) {
+            prosody = new Prosody();
+            let voice = this.findOne("voice") as Voice;
+            if(!voice) {
+                voice = new Voice();
+                voice.children = this.children;
+                this.children = [voice];
+            }
+            prosody.children = voice.children;
+            voice.children = [prosody];
+        }
+        prosody.volume = value;
+    }
+
+    get volume(): number | string {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return;
+        if(!prosody) return 100;
         const volume = util.volumeParse(`${prosody.volume || 100}`);
         return util.isFinite(Number(volume)) ? Number(volume) : volume;
     }
@@ -310,5 +391,7 @@ export default class Document extends Base {
     }
 
     static parse = parser.parseToDocument.bind(parser);
+
+    static parseHTML = parser.parseHTMLToDocument.bind(parser);
 
 }

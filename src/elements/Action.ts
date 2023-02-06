@@ -27,6 +27,8 @@ export default class Action extends Element {
 
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider);
+        if(provider !== ServiceProvider.Aggregation)
+            delete options.name;
         switch(provider) {
             case ServiceProvider.Xmov:
                 delete options.type;
@@ -53,6 +55,11 @@ export default class Action extends Element {
             return _tag;
         }
         return tag;
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "动作";
+        return `[${labelText}:${this.name || this.__type || ""}]`;
     }
 
     getTagName(provider?: ServiceProvider) {

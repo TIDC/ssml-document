@@ -15,6 +15,7 @@ export default class Element extends Base {
     static TypeAlias = ElementTypesAlias;
     static type = ElementTypes.Element;
     type = ElementTypes.Element;
+    name?: string;  //yuansu名称
     content?: string;  //元素内容
     value?: string;  //元素值
     provider?: ServiceProvider;  //预期产出提供商
@@ -32,6 +33,7 @@ export default class Element extends Base {
                 return node;
             })
         }, {
+            name: util.isString,
             content: util.isString,
             value: util.isString,
             provider: util.isString,
@@ -95,10 +97,47 @@ export default class Element extends Base {
         return tag;
     }
 
+    renderHTML(options: IRenderOptions = {}, parent?: any) {
+        const tag = parent ? parent.ele("span") : this.createRootTag("span");
+        tag.att("class", (options.classNamePrefix || "") + this.type);
+        tag.att("contenteditable", [
+            Element.Type.Voice,
+            Element.Type.Prosody,
+            Element.Type.Emotion,
+            Element.Type.Paragraph,
+            Element.Type.ExpressAs,
+            Element.Type.BackgroundAudio
+        ].includes(this.type));
+        const data = util.omit(this, ["children", "provider", "compile", "debug", "compilerOptions"]) as any;
+        for(let key in data)
+            tag.att(`data-${key}`, data[key]);
+        this.content && tag.txt(this.content);
+        if(!this.children?.length)
+            tag.txt(this.getLabelText(options));
+        this.children?.forEach(node => node.renderHTML(options, tag));
+        if (!parent) {
+            return tag.end({
+                prettyPrint: options.pretty,
+                headless: util.isBoolean(options.headless) ? options.headless : true,
+                allowEmptyTags: true
+            })
+            .replace(/<root.*?>/, "")
+            .replace(/<\/root>$/, "");
+        }
+        return tag;
+    }
+
+    /**
+     * 渲染内容
+     */
+    renderContent(filter?: any, options?: IRenderOptions) {
+        return this.getText(filter, options);
+    }
+
     /**
      * 生成特征字符串
      */
-     generateCharacteristicString(): string {
+    generateCharacteristicString(): string {
         const options = this.optionsExport(ServiceProvider.Aggregation);  //提取options
         const keys = Object.keys(options).sort();  //对options属性进行字典排序
         const head = keys.reduce((result, key) => options[key] ? (result + `${key}${options[key]}`) : result, "");  //将数据进行拼接生成头部部分
@@ -115,8 +154,12 @@ export default class Element extends Base {
         return null;
     }
 
-    getText(filter?: any): string {
-        return this.children?.reduce((t, e) => t + e.getText(filter), "") as string;
+    getText(filter?: any, options?: IRenderOptions): string {
+        return this.children?.reduce((t, e) => t + e.getText(filter, options), "") as string;
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        return "";
     }
 
     up() {

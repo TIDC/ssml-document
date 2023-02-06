@@ -1,4 +1,5 @@
 import IBreakOptions from "./interface/IBreakOptions";
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from "../enums/ServiceProvoder";
 import Element from "./Element";
 import util from "../lib/util";
@@ -38,6 +39,11 @@ export default class Break extends Element {
             break;
         }
         return options;
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "停顿";
+        return `[${labelText}${util.millisecondsToTimeString(util.timeStringToMilliseconds(this.time || 0) || 0)}]`;
     }
 
     getTagName(provider?: ServiceProvider) {

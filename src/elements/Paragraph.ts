@@ -1,4 +1,5 @@
 import IParagraphOptions from './interface/IParagraphOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 
@@ -10,7 +11,6 @@ export default class Paragraph extends Element {
 
     constructor(options: IParagraphOptions, ...args: any[]) {
         super(options, ...args);
-        this.optionsInject(options, {}, {});
     }
 
     getTagName(provider?: ServiceProvider) {

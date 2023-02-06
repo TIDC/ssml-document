@@ -26,8 +26,13 @@ export default class Raw extends Element {
         parent.txt(text);
     }
 
+    renderHTML(options: any, parent?: any) {
+        super.renderHTML(options, parent);
+        parent && parent.txt(this.parent.getLabelText(options) || this.value || "");
+    }
+
     getText(filter?: any) {
-        if(filter && this.parent && !filter[this.parent.type])
+        if(filter && this.parent && filter[this.parent.type] === false)
             return "";
         return this.value || "";
     }

@@ -1,4 +1,5 @@
 import IBackgroundAudioOptions from './interface/IBackgroundAudioOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from '../lib/util';
@@ -49,6 +50,11 @@ export default class BackgroundAudio extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "背景音乐";
+        return `[${labelText}:${this.name || this.src}]${super.getText(undefined, options)}[/${labelText}:${this.name || this.src}]`;
     }
 
 }

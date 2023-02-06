@@ -1,4 +1,5 @@
 import ISubsituteOptions from './interface/ISubsituteOptions';
+import IRenderOptions from "../interface/IRenderOptions";
 import ServiceProvider from '../enums/ServiceProvoder';
 import Element from "./Element";
 import util from "../lib/util";
@@ -31,6 +32,11 @@ export default class Subsitute extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    getLabelText(options: IRenderOptions = {}) {
+        const labelText = (options.labelMap || {})[this.type as string] || "别名";
+        return `[${labelText}:${super.getText(undefined, options)}=${this.alias}]`;
     }
 
 }
