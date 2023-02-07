@@ -10,16 +10,9 @@ const document = Document.parse(content, {
         time: date.getHours() + ":" + date.getMinutes()
     }
 });
-console.log(document.renderHTML({
-    className: "thinkive-editor"
-}))
-const document2 = Document.parseHTML(document.renderHTML({
-    className: "thinkive-editor",
-    classNamePrefix: "thinkive-"
-}))
-document2.volume = 120;
-const result = document2.render({
-    provider: document2.provider,
+console.log(document.getDuration(), document.exportActions())
+const result = document.render({
+    provider: document.provider,
     pretty: true
 });
 

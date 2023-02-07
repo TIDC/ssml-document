@@ -46,7 +46,7 @@ export default class Element extends Base {
     }
 
     createNode(node: any) {
-        if(!Element.isInstance(node))
+        if (!Element.isInstance(node))
             node = ElementFactory.createElement(node, this.compilerOptions);
         node.parent = this;
         return node;
@@ -77,13 +77,13 @@ export default class Element extends Base {
         this.content && tag.txt(this.content);
         this.children?.forEach((node: any, index) => {
             const lastNode: any = index > 0 && this.children ? this.children[index - 1] : null;
-            if(lastNode && node.type === "break" && lastNode.type === "break") {
+            if (lastNode && node.type === "break" && lastNode.type === "break") {
                 const time = (util.timeStringToMilliseconds(lastNode.time) || 0) + (util.timeStringToMilliseconds(node.time) || 0);
                 time && (node.time = util.millisecondsToTimeString(time));
                 return;
             }
             lastNode && lastNode.render(options, tag);
-            if(this.children && index === this.children.length - 1)
+            if (this.children && index === this.children.length - 1)
                 node.render(options, tag);
         });
         if (!parent) {
@@ -91,8 +91,8 @@ export default class Element extends Base {
                 prettyPrint: options.pretty,
                 headless: util.isBoolean(options.headless) ? options.headless : true
             })
-            .replace(/<root.*?>/, "")
-            .replace(/<\/root>$/, "");
+                .replace(/<root.*?>/, "")
+                .replace(/<\/root>$/, "");
         }
         return tag;
     }
@@ -102,10 +102,10 @@ export default class Element extends Base {
         tag.att("class", (options.classNamePrefix || "") + this.type);
         tag.att("contenteditable", this.editable);
         const data = util.omit(this, ["children", "provider", "compile", "debug", "compilerOptions"]) as any;
-        for(let key in data)
+        for (let key in data)
             tag.att(`data-${key}`, data[key]);
         this.content && tag.txt(this.content);
-        if(!this.children?.length)
+        if (!this.children?.length)
             tag.txt(this.getLabelText(options));
         this.children?.forEach(node => node.renderHTML(options, tag));
         if (!parent) {
@@ -114,8 +114,8 @@ export default class Element extends Base {
                 headless: util.isBoolean(options.headless) ? options.headless : true,
                 allowEmptyTags: true
             })
-            .replace(/<root.*?>/, "")
-            .replace(/<\/root>$/, "");
+                .replace(/<root.*?>/, "")
+                .replace(/<\/root>$/, "");
         }
         return tag;
     }
@@ -137,14 +137,39 @@ export default class Element extends Base {
         return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
     }
 
+    /**
+     * 导出动作列表
+     */
+    exportActions(baseTime = 0) {
+        let currentTime = baseTime;
+        let actions: any[] = [];
+        this.children?.forEach((node: any) => {
+            if (node.type === "action") {
+                actions.push({
+                    id: node.__type,
+                    timestamp: currentTime
+                });
+            }
+            else {
+                actions = actions.concat(node.exportActions(currentTime));
+                currentTime += node.getDuration();
+            }
+        });
+        return actions;
+    }
+
     findOne(key: string): Element | null {
         for (let node of this.children || []) {
             if (node.type === key)
                 return node;
             const foundNode = node.findOne(key);
-            if(foundNode) return foundNode;
+            if (foundNode) return foundNode;
         }
         return null;
+    }
+
+    getDuration() {
+        return this.children?.reduce((totalDuration, node: any) => totalDuration + node.getDuration(), 0) || 0;
     }
 
     getText(filter?: any, options?: IRenderOptions): string {

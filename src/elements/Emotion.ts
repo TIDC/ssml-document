@@ -60,4 +60,8 @@ export default class Emotion extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Emotion;
+    }
+
 }

@@ -4,7 +4,7 @@ import IRenderOptions from "./interface/IRenderOptions";
 import ServiceProvider from "./enums/ServiceProvoder";
 import ElementFactory from "./ElementFactory";
 import Element from "./elements/Element";
-import { BackgroundAudio, Effect, Emotion, Prosody, Voice } from "./elements";
+import { Action, BackgroundAudio, Effect, Emotion, Prosody, Voice } from "./elements";
 import Base from "./Base";
 import parser from './lib/parser';
 import util from "./lib/util";
@@ -209,6 +209,27 @@ export default class Document extends Base {
         return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
     }
 
+    /**
+     * 导出动作列表
+     */
+    exportActions(baseTime = 0) {
+        let currentTime = baseTime;
+        let actions: any[] = [];
+        this.children?.forEach((node: any) => {
+            if(Action.isInstance(node)) {
+                actions.push({
+                    id: node.__type,
+                    timestamp: currentTime
+                });
+            }
+            else {
+                actions = actions.concat(node.exportActions(currentTime));
+                currentTime += node.getDuration();
+            }
+        });
+        return actions;
+    }
+
     findOne(key: string) {
         for (let node of this.children || []) {
             if (node.type === key)
@@ -217,6 +238,10 @@ export default class Document extends Base {
             if(foundNode) return foundNode;
         }
         return null;
+    }
+
+    getDuration() {
+        return this.children?.reduce((totalDuration, node: any) => totalDuration + node.getDuration(), 0) || 0;
     }
 
     getText(filter?: any, options?: IRenderOptions): string {
@@ -397,5 +422,9 @@ export default class Document extends Base {
     static parse = parser.parseToDocument.bind(parser);
 
     static parseHTML = parser.parseHTMLToDocument.bind(parser);
+
+    static isInstance(value: any) {
+        return value instanceof Document;
+    }
 
 }

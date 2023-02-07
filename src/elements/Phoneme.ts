@@ -77,4 +77,8 @@ export default class Phoneme extends Element {
         return `[${super.getText(undefined, options)}=${this.ph}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Phoneme;
+    }
+
 }

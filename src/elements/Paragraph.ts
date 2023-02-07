@@ -33,4 +33,8 @@ export default class Paragraph extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Paragraph;
+    }
+
 }

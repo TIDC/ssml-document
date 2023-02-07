@@ -1,8 +1,5 @@
-<speak provider="microsoft" version="1.0"
-        xmlns="http://www.w3.org/2001/10/synthesis">
-
-               欢迎收看                        <break time="1s"/>
-，易方达基金，2022年<say-as interpret-as="digits">2</say-as>季度报告之易方达新经济混合。
-           
-        
+<speak provider="aliyun" enable-subtitle="false">
+        <voice name="xiaoyun">
+                <prosody rate="1" volume="100" pitch="1">近日，浙江湖州一位女士发视频称，<insert-action type="happy"/>自己去银行存5万元被要求提供收入证明等材料。</prosody>
+        </voice>
 </speak>

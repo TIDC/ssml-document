@@ -76,4 +76,8 @@ export default class Action extends Element {
         }
     }
 
+    static isInstance(value: any) {
+        return value instanceof Action;
+    }
+
 }

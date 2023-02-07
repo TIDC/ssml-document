@@ -61,4 +61,8 @@ export default class BackgroundAudio extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof BackgroundAudio;
+    }
+
 }

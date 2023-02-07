@@ -1,12 +1,7 @@
-<?xml version="1.0"?>
-<speak version="1.0" xml:lang="zh" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts">
-  <voice>
-    <prosody volume="120">
-      欢迎收看
-      <break time="1s"/>
-      ，易方达基金，2022年
-      <say-as interpret-as="number_digit">2</say-as>
-      季度报告之易方达新经济混合。
-    </prosody>
-  </voice>
+<speak voice="xiaoyun" rate="0" pitch="0" volume="50">
+  近日，浙江湖州一位女士发视频称，
+  自己去银行
+  <break time="2s"/>
+  <w>啊啊啊啊</w>
+  存5万元被要求提供收入证明等材料。
 </speak>

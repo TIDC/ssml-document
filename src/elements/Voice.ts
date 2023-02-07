@@ -57,4 +57,8 @@ export default class Voice extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Voice;
+    }
+
 }

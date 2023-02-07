@@ -32,9 +32,17 @@ export default class Silence extends Element {
         }
     }
 
+    getDuration() {
+        return this.__value ? util.timeStringToMilliseconds(this.__value) : 0;
+    }
+
     getLabelText(options: IRenderOptions = {}) {
         const labelText = (options.labelMap || {})[this.type as string] || "静音";
         return `[${labelText}:${util.millisecondsToTimeString(util.timeStringToMilliseconds(this.value || 0) || 0)}]`;
+    }
+
+    static isInstance(value: any) {
+        return value instanceof Silence;
     }
 
 }

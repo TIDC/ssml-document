@@ -35,4 +35,8 @@ export default class Bookmark extends Element {
         return `[${labelText}:${this.name || this.mark}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Bookmark;
+    }
+
 }

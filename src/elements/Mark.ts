@@ -31,4 +31,8 @@ export default class Mark extends Element {
         return `[${labelText}:${this.name}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Mark;
+    }
+
 }

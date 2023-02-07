@@ -2,6 +2,8 @@ import IRawOptions from './interface/IRawOptions';
 import Element from './Element';
 import ServiceProvider from "../enums/ServiceProvoder";
 
+const symbols = [",", "，", "。", "?", "!", ".", "/", "@", "#", "<", ">", "(", ")", "[", "]", "-", "+", "=", "——", "~", "'", "\"", "“", "”", "{", "}", ":", "：", ";", "；", " ", "\n"];
+
 export default class Raw extends Element {
 
     static type = Element.Type.Raw;
@@ -29,6 +31,18 @@ export default class Raw extends Element {
     renderHTML(options: any, parent?: any) {
         const tag = super.renderHTML(options, parent);
         tag.txt(this.parent.getLabelText(options) || this.value || "");
+    }
+
+    getDuration(options: any = {}) {
+        // const rate = options.rate 
+        const duration = (this.value?.split("") || [])
+        .reduce((total, word: string) => {
+            if(symbols.includes(word))
+                return total + 100;
+            else
+                return total += 220;
+        }, 0)
+        return duration;
     }
 
     getText(filter?: any) {

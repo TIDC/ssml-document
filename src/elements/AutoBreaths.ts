@@ -35,4 +35,8 @@ export default class AutoBreaths extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof AutoBreaths;
+    }
+
 }

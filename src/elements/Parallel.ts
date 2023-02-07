@@ -31,4 +31,8 @@ export default class Parallel extends Element {
         return `[${labelText}]${super.getText(undefined, options)}[/${labelText}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Parallel;
+    }
+
 }

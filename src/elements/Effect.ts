@@ -59,4 +59,8 @@ export default class Effect extends Element {
         return this["vocal-tract-length"] as any;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Effect;
+    }
+
 }

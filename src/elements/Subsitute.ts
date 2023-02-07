@@ -39,4 +39,8 @@ export default class Subsitute extends Element {
         return `[${labelText}:${super.getText(undefined, options)}=${this.alias}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Subsitute;
+    }
+
 }

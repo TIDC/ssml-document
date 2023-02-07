@@ -93,4 +93,8 @@ export default class SayAs extends Element {
         }[this.interpretAs] || this.interpretAs;
     }
 
+    static isInstance(value: any) {
+        return value instanceof SayAs;
+    }
+
 }

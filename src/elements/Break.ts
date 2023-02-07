@@ -41,6 +41,10 @@ export default class Break extends Element {
         return options;
     }
 
+    getDuration() {
+        return this.time ? util.timeStringToMilliseconds(this.time) : 0;
+    }
+
     getLabelText(options: IRenderOptions = {}) {
         const labelText = (options.labelMap || {})[this.type as string] || "停顿";
         return `[${labelText}${util.millisecondsToTimeString(util.timeStringToMilliseconds(this.time || 0) || 0)}]`;
@@ -64,6 +68,10 @@ export default class Break extends Element {
             default:
                 return super.getTagName(provider);
         }
+    }
+
+    static isInstance(value: any) {
+        return value instanceof Break;
     }
 
 }

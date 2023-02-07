@@ -54,4 +54,8 @@ export default class Word extends Element {
         return `[${labelText}]${super.getText(undefined, options)}[/${labelText}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Word;
+    }
+
 }

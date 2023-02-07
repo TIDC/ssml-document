@@ -63,4 +63,8 @@ export default class ExpressAs extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof ExpressAs;
+    }
+
 }

@@ -44,4 +44,8 @@ export default class Language extends Element {
         this["xml:lang"] = value;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Language;
+    }
+
 }

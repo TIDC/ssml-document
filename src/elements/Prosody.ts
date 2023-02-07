@@ -93,4 +93,8 @@ export default class Prosody extends Element {
         return true;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Prosody;
+    }
+    
 }

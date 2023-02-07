@@ -74,4 +74,8 @@ export default class Audio extends Element {
         return `[${labelText}:${this.name || this.src}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Audio;
+    }
+    
 };

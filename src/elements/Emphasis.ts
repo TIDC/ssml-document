@@ -37,4 +37,8 @@ export default class Emphasis extends Element {
         return `[${labelText}]${super.getText(undefined, options)}[/${labelText}]`;
     }
 
+    static isInstance(value: any) {
+        return value instanceof Emphasis;
+    }
+
 }
