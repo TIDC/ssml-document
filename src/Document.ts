@@ -69,7 +69,7 @@ export default class Document extends Base {
     }
 
     createNode(node: any) {
-        if(!Element.isInstance(node))
+        if (!Element.isInstance(node))
             node = ElementFactory.createElement(node, this.compilerOptions);
         node.parent = this;
         return node;
@@ -87,7 +87,7 @@ export default class Document extends Base {
 
     optionsExport(provider?: ServiceProvider) {
         const options = super.optionsExport(provider, ["version", "format", "sampleRate", "bitrate", "solution", "pose", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
-        if(provider === ServiceProvider.Aggregation) {
+        if (provider === ServiceProvider.Aggregation) {
             options.provider = this.provider;
             options.solution = this.solution;
             options.pose = this.pose;
@@ -95,19 +95,19 @@ export default class Document extends Base {
             options.format = this.format;
         }
         let prosody;
-        switch(provider) {
+        switch (provider) {
             case ServiceProvider.Aggregation:
             case ServiceProvider.Thinkive:
                 options.version = this.version;
                 options["xml:lang"] = this.language;
                 options.xmlns = this.xmlns;
-            break;
+                break;
             case ServiceProvider.W3C:
                 options.version = this.version;
                 options["xml:base"] = this.baseUrl;
                 options["xml:lang"] = this.language;
                 options.xmlns = this.xmlns;
-            break;
+                break;
             case ServiceProvider.Aliyun:
                 const voice = this.findOne("voice") as Voice;
                 voice && Object.assign(options, voice.optionsExport(provider));
@@ -119,17 +119,17 @@ export default class Document extends Base {
                 backgroundAudio && Object.assign(options, backgroundAudio.optionsExport(provider));
                 options.encodeType = this.format;
                 options.sampleRate = this.sampleRate;
-            break;
+                break;
             case ServiceProvider.Microsoft:
                 options.version = this.version;
                 options["xml:lang"] = this.language || "zh";  //必须声明跟文档语言
                 options.xmlns = this.xmlns;
                 options["xmlns:mstts"] = "https://www.w3.org/2001/mstts";
-            break;
+                break;
             case ServiceProvider.Xmov:
                 options.speed = this.getRate(ServiceProvider.Xmov);
                 options.pitch = this.getPitch(ServiceProvider.Xmov);
-            break;
+                break;
         }
         return options;
     }
@@ -149,13 +149,13 @@ export default class Document extends Base {
             tag = parent || this.createRootTag("root");
         this.children?.forEach((node: any, index) => {
             const lastNode: any = index > 0 && this.children ? this.children[index - 1] : null;
-            if(lastNode && node.type === "break" && lastNode.type === "break") {
+            if (lastNode && node.type === "break" && lastNode.type === "break") {
                 const time = (util.timeStringToMilliseconds(lastNode.time) || 0) + (util.timeStringToMilliseconds(node.time) || 0);
                 time && (node.time = util.millisecondsToTimeString(time));
                 return;
             }
             lastNode && lastNode.render(options, tag);
-            if(this.children && index === this.children.length - 1)
+            if (this.children && index === this.children.length - 1)
                 node.render(options, tag);
         });
         if (!parent) {
@@ -163,8 +163,8 @@ export default class Document extends Base {
                 prettyPrint: options.pretty,
                 headless: util.isBoolean(options.headless) ? options.headless : true
             })
-            .replace(/<root.*?>/, "")
-            .replace(/<\/root>$/, "");
+                .replace(/<root.*?>/, "")
+                .replace(/<\/root>$/, "");
         }
         return tag;
     }
@@ -177,7 +177,7 @@ export default class Document extends Base {
         options.className && tag.att("class", options.className);
         tag.att("contenteditable", true);
         const data = util.omit(this, ["children", "compile", "debug", "compilerOptions"]) as any;
-        for(let key in data)
+        for (let key in data)
             tag.att(`data-${key}`, data[key]);
         this.children?.forEach(node => node.renderHTML(options, tag));
         if (!parent) {
@@ -186,8 +186,8 @@ export default class Document extends Base {
                 headless: util.isBoolean(options.headless) ? options.headless : true,
                 allowEmptyTags: true
             })
-            .replace(/<root.*?>/, "")
-            .replace(/<\/root>$/, "");
+                .replace(/<root.*?>/, "")
+                .replace(/<\/root>$/, "");
         }
         return tag;
     }
@@ -210,13 +210,26 @@ export default class Document extends Base {
     }
 
     /**
+     * 导出文档所有元素
+     */
+    exportElements(options: any = {}) {
+        let elements: Element[] = [];
+        this.children?.forEach(node => {
+            if (!options.filter || (options.filter && options.filter[node.type]))
+                elements.push(node as Element);
+            elements = elements.concat(node.exportElements(options))
+        });
+        return elements;
+    }
+
+    /**
      * 导出动作列表
      */
     exportActions(baseTime = 0) {
         let currentTime = baseTime;
         let actions: any[] = [];
         this.children?.forEach((node: any) => {
-            if(Action.isInstance(node)) {
+            if (Action.isInstance(node)) {
                 actions.push({
                     id: node.__type,
                     timestamp: currentTime
@@ -235,7 +248,7 @@ export default class Document extends Base {
             if (node.type === key)
                 return node;
             const foundNode = node.findOne(key);
-            if(foundNode) return foundNode;
+            if (foundNode) return foundNode;
         }
         return null;
     }
@@ -297,35 +310,35 @@ export default class Document extends Base {
     getVolume(provider?: ServiceProvider) {
         return this.getProsody()?.optionsExport(provider)?.volume;
     }
-    
+
     getProsody() {
         return this.findOne("prosody") as Prosody;
     }
 
     get category() {
         const emotion = this.findOne("emotion") as Emotion;
-        if(!emotion) return;
+        if (!emotion) return;
         return emotion.category;
     }
 
     set speaker(value) {
         const voice = this.findOne("voice") as Voice;
-        if(!voice) return;
+        if (!voice) return;
         voice.name = value;
     }
-    
+
     get speaker() {
         const voice = this.findOne("voice") as Voice;
-        if(!voice) return;
+        if (!voice) return;
         return voice.name;
     }
 
     set rate(value: number) {
         let prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) {
+        if (!prosody) {
             prosody = new Prosody();
             let voice = this.findOne("voice") as Voice;
-            if(!voice) {
+            if (!voice) {
                 voice = new Voice();
                 voice.children = this.children;
                 this.children = [voice];
@@ -338,16 +351,16 @@ export default class Document extends Base {
 
     get rate(): number {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return 1.0;
+        if (!prosody) return 1.0;
         return (prosody.rate || 1.0) as number;
     }
 
     set pitch(value: number) {
         let prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) {
+        if (!prosody) {
             prosody = new Prosody();
             let voice = this.findOne("voice") as Voice;
-            if(!voice) {
+            if (!voice) {
                 voice = new Voice();
                 voice.children = this.children;
                 this.children = [voice];
@@ -360,16 +373,16 @@ export default class Document extends Base {
 
     get pitch() {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return 1.0;
+        if (!prosody) return 1.0;
         return (prosody.pitch || 1.0) as number;
     }
 
     set volume(value: number | string) {
         let prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) {
+        if (!prosody) {
             prosody = new Prosody();
             let voice = this.findOne("voice") as Voice;
-            if(!voice) {
+            if (!voice) {
                 voice = new Voice();
                 voice.children = this.children;
                 this.children = [voice];
@@ -382,7 +395,7 @@ export default class Document extends Base {
 
     get volume(): number | string {
         const prosody = this.findOne("prosody") as Prosody;
-        if(!prosody) return 100;
+        if (!prosody) return 100;
         const volume = util.volumeParse(`${prosody.volume || 100}`);
         return util.isFinite(Number(volume)) ? Number(volume) : volume;
     }

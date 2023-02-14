@@ -1,5 +1,5 @@
 <speak provider="aliyun" enable-subtitle="false">
         <voice name="xiaoyun">
-                <prosody rate="1" volume="100" pitch="1">近日，浙江湖州一位女士发视频称，<insert-action type="happy"/>自己去银行存5万元被要求提供收入证明等材料。</prosody>
+                <prosody rate="1" volume="100" pitch="1">近<break time="2s"/>日，浙江湖州一位女士发视频称，<insert-action type="happy"/>自己去银行存5万元被要求提供收入证明等材料。</prosody>
         </voice>
 </speak>

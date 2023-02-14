@@ -138,6 +138,19 @@ export default class Element extends Base {
     }
 
     /**
+     * 导出元素中所有元素
+     */
+    exportElements(options: any = {}) {
+        let elements: Element[] = [];
+        this.children?.forEach(node => {
+            if (!options.filter || (options.filter && options.filter[node.type]))
+                elements.push(node as Element);
+            elements = elements.concat(node.exportElements(options))
+        });
+        return elements;
+    }
+
+    /**
      * 导出动作列表
      */
     exportActions(baseTime = 0) {
