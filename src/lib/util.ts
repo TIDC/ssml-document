@@ -29,7 +29,7 @@ const util = {
     timeStringToMilliseconds(value: string | number) {
         if(!util.isString(value)) return Number(value);
         value = value.trim();
-        const match = value.match(/^(\d+)(ms|s|m|h)$/);
+        const match = value.match(/^([\d|\.?]+)(ms|s|m|h)$/);
         if(!match) {
             const _value = util.durationParse(value) as number;
             return util.isFinite(_value) ? _value : 0;

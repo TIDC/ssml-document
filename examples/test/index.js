@@ -10,6 +10,7 @@ const document = Document.parse(content, {
         time: date.getHours() + ":" + date.getMinutes()
     }
 });
+console.log(document.exportElements({ filter: { raw: true, break: true } }))
 const result = document.render({
     provider: document.provider,
     pretty: true
