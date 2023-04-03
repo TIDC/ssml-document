@@ -47,7 +47,6 @@ export default class Document extends Base {
             ["xml:lang"]: util.isString,
             ["xml:base"]: util.isString,
             xmlns: util.isString,
-            encodeType: util.isString,
             sampleRate: util.isString,
             bitrate: util.isString,
             provider: util.isString,

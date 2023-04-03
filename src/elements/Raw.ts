@@ -25,7 +25,7 @@ export default class Raw extends Element {
                 .replace(/\-(\d+)/g, "负$1");
             break;
         }
-        parent.txt(text);
+        parent.txt(text.replace(/&nbsp;/g, " "));
     }
 
     renderHTML(options: any, parent?: any) {

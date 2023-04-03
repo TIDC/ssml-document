@@ -97,7 +97,14 @@ class Base {
         return this;
     }
 
-    sayAs(content: string, options?: ISayAsOptions, compile?: boolean) {
+    sayAs(options: ISayAsOptions, compile?: boolean): Base;
+    sayAs(content: string, options?: ISayAsOptions, compile?: boolean): Base;
+    sayAs(...args: any[]) {
+        let content, options: ISayAsOptions, compile;
+        if(util.isString(args[0]))
+            ([content, options, compile] = args);
+        else
+            ([options, compile] = args);
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.SayAs,
@@ -110,7 +117,14 @@ class Base {
         return this;
     }
 
-    expressAs(content: string, options?: IExpressAsOptions, compile?: boolean) {
+    expressAs(options: IExpressAsOptions, compile?: boolean): Element;
+    expressAs(content: string, options?: IExpressAsOptions, compile?: boolean): Element;
+    expressAs(...args: any[]) {
+        let content, options, compile;
+        if(util.isString(args[0]))
+            ([content, options, compile] = args);
+        else
+            ([options, compile] = args);
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.ExpressAs,
@@ -122,7 +136,14 @@ class Base {
         return node;
     }
 
-    emotion(content: string, options?: IEmotionOptions, compile?: boolean) {
+    emotion(options: IEmotionOptions, compile?: boolean): Element;
+    emotion(content: string, options?: IEmotionOptions, compile?: boolean): Element;
+    emotion(...args: any[]) {
+        let content, options, compile;
+        if(util.isString(args[0]))
+            ([content, options, compile] = args);
+        else
+            ([options, compile] = args);
         options = util.isObject(options) ? options : {};
         const node = Element.create({
             type: Element.Type.Emotion,
@@ -134,7 +155,14 @@ class Base {
         return node;
     }
 
-    emphasis(content: string, level?: string, compile?: boolean) {
+    emphasis(level: string, compile?: boolean): Base;
+    emphasis(content: string, level?: string, compile?: boolean): Base;
+    emphasis(...args: any[]) {
+        let content, level, compile;
+        if(util.isString(args[0]))
+            ([content, level, compile] = args);
+        else
+            ([level, compile] = args);
         const node = Element.create({ type: Element.Type.Emphasis, level, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
@@ -162,14 +190,28 @@ class Base {
         return this;
     }
 
-    sub(content: string, alias: string, compile?: boolean) {
+    sub(alias: string, compile?: boolean): Base;
+    sub(content: string, alias: string, compile?: boolean): Base;
+    sub(...args: any[]) {
+        let content, alias, compile;
+        if(util.isString(args[0]))
+            ([content, alias, compile] = args);
+        else
+            ([alias, compile] = args);
         const node = Element.create({ type: Element.Type.Subsitute, alias, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
         return this;
     }
     
-    phoneme(content: string, options?: IPhonemeOptions, compile?: boolean) {
+    phoneme(options: IPhonemeOptions, compile?: boolean): Base
+    phoneme(content: string, options?: IPhonemeOptions, compile?: boolean): Base;
+    phoneme(...args: any[]) {
+        let content, options, compile;
+        if(util.isString(args[0]))
+            ([content, options, compile] = args);
+        else
+            ([options, compile] = args);
         options = util.isObject(options) ? options : {};
         const node = Element.create({ type: Element.Type.Phoneme, ...options, compile })
         content && node.appendChild(`${content}`);
