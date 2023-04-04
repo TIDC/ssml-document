@@ -252,6 +252,16 @@ export default class Document extends Base {
         return null;
     }
 
+    find(callback: Function) {
+        for (let node of this.children || []) {
+            if (callback(node))
+                return node;
+            const foundNode = node.find(callback);
+            if(foundNode) return foundNode;
+        }
+        return null;
+    }
+
     getDuration() {
         return this.children?.reduce((totalDuration, node: any) => totalDuration + node.getDuration(), 0) || 0;
     }
