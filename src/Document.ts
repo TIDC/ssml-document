@@ -23,6 +23,8 @@ export default class Document extends Base {
     provider?: ServiceProvider;  //预期产出提供商
     solution?: string;  //预期形象ID
     pose?: string;  //预期形象姿势ID
+    subtitleMinLength?: number;  //字幕最小字数长度
+    subtitleMaxLength?: number;  //字幕最大字数长度
     enableSubtitle?: boolean;  //是否开启字幕
     format?: string;  //预期内容格式
     children?: Element[] = [];  //文档子节点
@@ -36,6 +38,8 @@ export default class Document extends Base {
             ["xml:base"]: (v: any) => options.baseUrl || v,
             version: (v: any) => util.defaultTo(v, "1.0"),
             xmlns: (v: any) => util.defaultTo(v, "http://www.w3.org/2001/10/synthesis"),
+            subtitleMinLength: Number,
+            subtitleMaxLength: Number,
             enableSubtitle: util.booleanParse,
             children: (v: any) => (v || []).map((options: any) => {
                 const node = ElementFactory.createElement(options, compilerOptions);
@@ -53,6 +57,8 @@ export default class Document extends Base {
             solution: util.isString,
             pose: util.isString,
             format: util.isString,
+            subtitleMinLength: util.isFinite,
+            subtitleMaxLength: util.isFinite,
             enableSubtitle: util.isBoolean,
             children: util.isArray
         });
@@ -85,11 +91,17 @@ export default class Document extends Base {
     }
 
     optionsExport(provider?: ServiceProvider) {
-        const options = super.optionsExport(provider, ["version", "format", "sampleRate", "bitrate", "solution", "pose", "enableSubtitle", "xmlns", "xml:base", "xml:lang"]);
+        const options = super.optionsExport(provider, [
+            "version", "format", "sampleRate", "bitrate", "solution", "pose",
+            "subtitleMinLength", "subtitleMaxLength", "enableSubtitle", "xmlns",
+            "xml:base", "xml:lang"
+        ]);
         if (provider === ServiceProvider.Aggregation) {
             options.provider = this.provider;
             options.solution = this.solution;
             options.pose = this.pose;
+            options.subtitleMinLength = this.subtitleMinLength;
+            options.subtitleMaxLength = this.subtitleMaxLength;
             options.enableSubtitle = this.enableSubtitle;
             options.format = this.format;
         }
@@ -199,13 +211,40 @@ export default class Document extends Base {
     }
 
     /**
+     * 合并模板
+     */
+    merge(document: any) {
+        if(!Document.isInstance(document))
+            throw new Error("Document object invalid");
+        for(let nnode of document.children || []) {
+            const nid = nnode.generateHeadCharacteristicString();  //取元素特征值
+            let found = false;
+            for(let onode of this.children || []) {
+                const oid = onode.generateHeadCharacteristicString();  //优先取id，取不到再取元素特征值
+                if(nid != oid) continue;
+                found = true;
+                onode.merge(nnode);
+            }
+            !found && this.appendChild(nnode)
+        }
+    }
+
+    /**
      * 生成特征字符串
      */
     generateCharacteristicString(): string {
+        const head = this.generateHeadCharacteristicString();
+        return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
+    }
+
+    /**
+     * 生成头部特征字符串
+     */
+    generateHeadCharacteristicString(): string {
         const options = this.optionsExport(ServiceProvider.Aggregation);  //提取options
         const keys = Object.keys(options).sort();  //对options属性进行字典排序
         const head = keys.reduce((result, key) => options[key] ? (result + `${key}${options[key]}`) : result, "");  //将数据进行拼接生成头部部分
-        return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
+        return head;
     }
 
     /**

@@ -128,13 +128,40 @@ export default class Element extends Base {
     }
 
     /**
+     * 合并模板
+     */
+    merge(element: any) {
+        if(!Element.isInstance(element))
+            throw new Error("element object invalid");
+        for(let nnode of element.children || []) {
+            const nid = nnode.generateHeadCharacteristicString();  //取元素特征值
+            let found = false;
+            for(let onode of this.children || []) {
+                const oid = onode.generateHeadCharacteristicString();  //优先取id，取不到再取元素特征值
+                if(nid != oid) continue;
+                found = true;
+                onode.merge(nnode);
+            }
+            !found && this.appendChild(nnode)
+        }
+    }
+
+    /**
      * 生成特征字符串
      */
     generateCharacteristicString(): string {
+        const head = this.generateHeadCharacteristicString();
+        return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
+    }
+
+    /**
+     * 生成头部特征字符串
+     */
+    generateHeadCharacteristicString(): string {
         const options = this.optionsExport(ServiceProvider.Aggregation);  //提取options
         const keys = Object.keys(options).sort();  //对options属性进行字典排序
         const head = keys.reduce((result, key) => options[key] ? (result + `${key}${options[key]}`) : result, "");  //将数据进行拼接生成头部部分
-        return this.children?.reduce((result, node) => result + node.generateCharacteristicString(), head) || head;  //生成子元素特征字符串并拼接到尾部
+        return head;
     }
 
     /**
