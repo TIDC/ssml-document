@@ -14,7 +14,8 @@ enum ServiceProvider {
     ImageDerivative = 'imageDerivative',  //像衍科技
     Xmov = 'xmov',  //魔珐科技
     XiaoBing = 'xiaoBing', //微软小冰
-    Huoshanyun = 'huoshanyun'  //火山云
+    Huoshanyun = 'huoshanyun',  //火山云
+    Guiji = 'guiji'  //硅基智能
 }
 
 export default ServiceProvider;
