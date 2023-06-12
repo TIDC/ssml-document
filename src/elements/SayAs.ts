@@ -53,6 +53,7 @@ export default class SayAs extends Element {
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
+            case ServiceProvider.YunXiaoWei:
             case ServiceProvider.XiaoBing:
             case ServiceProvider.Huoshanyun:
                 return SayAs.tagName;
