@@ -15,7 +15,8 @@ enum ServiceProvider {
     Xmov = 'xmov',  //魔珐科技
     XiaoBing = 'xiaoBing', //微软小冰
     Huoshanyun = 'huoshanyun',  //火山云
-    Guiji = 'guiji'  //硅基智能
+    Guiji = 'guiji',  //硅基智能
+    Aita = 'aita'  //艾塔智能
 }
 
 export default ServiceProvider;
