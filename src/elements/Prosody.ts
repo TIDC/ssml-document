@@ -62,7 +62,7 @@ export default class Prosody extends Element {
                 options.rate = util.isFinite(Number(options.rate)) ? Number((options.rate * 0.5 + 0.5).toFixed(1)) : options.rate;
                 options.pitch = util.isFinite(Number(options.pitch)) ? Number((options.pitch * 0.5 + 0.5).toFixed(1)) : options.pitch;
                 break;
-            case ServiceProvider.Aita:
+            case ServiceProvider.Eta:
                 options.rate = util.isFinite(Number(options.rate)) ? Number((options.rate * 0.5 + 0.5).toFixed(1)) : options.rate;
                 options.pitch = util.isFinite(Number(options.pitch)) ? Number((options.pitch * 0.5 + 0.5).toFixed(1)) : options.pitch;
                 break;

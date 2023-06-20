@@ -68,7 +68,7 @@ export default class Action extends Element {
             case ServiceProvider.Thinkive:
                 return Action.tagName;
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Aita:
+            case ServiceProvider.Eta:
                 return "insert-action";
             case ServiceProvider.Xmov:
                 return "ue4event"

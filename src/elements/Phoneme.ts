@@ -42,7 +42,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Aita:
+            case ServiceProvider.Eta:
             case ServiceProvider.XiaoBing:
             case ServiceProvider.Huoshanyun:
                 if(this.alphabet === "py" && ph)
@@ -65,7 +65,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Aita:
+            case ServiceProvider.Eta:
             case ServiceProvider.Xmov:
             case ServiceProvider.XiaoBing:
             case ServiceProvider.Huoshanyun:

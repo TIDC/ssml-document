@@ -16,7 +16,7 @@ enum ServiceProvider {
     XiaoBing = 'xiaoBing', //微软小冰
     Huoshanyun = 'huoshanyun',  //火山云
     Guiji = 'guiji',  //硅基智能
-    Aita = 'aita'  //艾塔智能
+    Eta = 'eta'  //艾塔智能
 }
 
 export default ServiceProvider;

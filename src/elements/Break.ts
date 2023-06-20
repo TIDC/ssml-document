@@ -35,7 +35,7 @@ export default class Break extends Element {
                 options.time = `${util.timeStringToMilliseconds(options.time)}ms`;
             break;
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Aita:
+            case ServiceProvider.Eta:
                 options.time = util.timeStringToMilliseconds(options.time);
             break;
         }
@@ -62,7 +62,7 @@ export default class Break extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Aita:
+            case ServiceProvider.Eta:
             case ServiceProvider.Xmov:
             case ServiceProvider.XiaoBing:
             case ServiceProvider.Huoshanyun:    
