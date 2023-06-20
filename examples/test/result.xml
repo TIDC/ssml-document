@@ -1,4 +1,9 @@
-
-  地方撒发发啊123
-  <say-as interpret-as="cardinal">1</say-as>
-  23
+<speak sttts:version="0.1">
+  你说
+  <phoneme ph="bo2 bo3">薄</phoneme>
+  。
+  <break time="500ms"/>
+  我说
+  <phoneme ph="bao2">薄</phoneme>
+  。
+</speak>

@@ -141,6 +141,9 @@ export default class Document extends Base {
                 options.speed = this.getRate(ServiceProvider.Xmov);
                 options.pitch = this.getPitch(ServiceProvider.Xmov);
                 break;
+            case ServiceProvider.Scenetime:
+                options["sttts:version"] = "0.1";
+                break;
         }
         return options;
     }
@@ -326,6 +329,7 @@ export default class Document extends Base {
             case ServiceProvider.Tencent:
             case ServiceProvider.Xmov:
             case ServiceProvider.Huoshanyun:
+            case ServiceProvider.Scenetime:
                 return "speak";
             default:
                 return null;

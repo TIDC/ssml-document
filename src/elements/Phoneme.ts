@@ -48,6 +48,11 @@ export default class Phoneme extends Element {
                 if(this.alphabet === "py" && ph)
                     options.ph = ph;
             break;
+            case ServiceProvider.Scenetime:
+                if(this.alphabet === "py" && ph)
+                    options.ph = ph;
+                delete options.alphabet;
+            break;
         }
         return options;
     }
@@ -61,6 +66,7 @@ export default class Phoneme extends Element {
             case ServiceProvider.Aggregation:
             case ServiceProvider.Thinkive:
             case ServiceProvider.Microsoft:
+            case ServiceProvider.Scenetime:
                 return Phoneme.tagName;
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:

@@ -1,1 +1,5 @@
-<speak provider="yunXiaoWei" solution="yinhe_huang_stand2" enable-subtitle="true"><voice><prosody rate="1" volume="100" pitch="1">地方撒发发啊123<say-as interpret-as="cardinal">1﻿</say-as>23</prosody></voice></speak>
+<speak provider="scenetime">
+    你说<phoneme alphabet="py" ph="bo2 bo3">薄</phoneme>。
+    <break time="500ms" />
+    我说<phoneme alphabet="py" ph="bao2">薄</phoneme>。
+</speak>

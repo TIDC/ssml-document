@@ -21,6 +21,7 @@ export default class Paragraph extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
+            case ServiceProvider.Scenetime:
                 return Paragraph.tagName;
             case ServiceProvider.Aliyun:
                 return "s";

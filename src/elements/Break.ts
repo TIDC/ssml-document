@@ -62,10 +62,11 @@ export default class Break extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
+            case ServiceProvider.Scenetime:
             case ServiceProvider.Eta:
             case ServiceProvider.Xmov:
             case ServiceProvider.XiaoBing:
-            case ServiceProvider.Huoshanyun:    
+            case ServiceProvider.Huoshanyun:
                 return Break.tagName;
             default:
                 return super.getTagName(provider);
