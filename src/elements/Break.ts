@@ -62,7 +62,7 @@ export default class Break extends Element {
             case ServiceProvider.Microsoft:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Scenetime:
+            case ServiceProvider.Sensetime:
             case ServiceProvider.Eta:
             case ServiceProvider.Xmov:
             case ServiceProvider.XiaoBing:

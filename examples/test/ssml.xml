@@ -1,4 +1,4 @@
-<speak provider="scenetime">
+<speak provider="sensetime">
     你说<phoneme alphabet="py" ph="bo2 bo3">薄</phoneme>。
     <break time="500ms" />
     我说<phoneme alphabet="py" ph="bao2">薄</phoneme>。

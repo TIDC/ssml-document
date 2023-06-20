@@ -11,7 +11,7 @@ enum ServiceProvider {
     Baidu = 'baidu',  //百度云
     IFlytek = 'iflytek',  //讯飞云
     YunXiaoWei = 'yunXiaoWei',  //腾讯云小微
-    Scenetime = 'scenetime',  //商汤科技
+    Sensetime = 'sensetime',  //商汤科技
     ImageDerivative = 'imageDerivative',  //像衍科技
     Xmov = 'xmov',  //魔珐科技
     XiaoBing = 'xiaoBing', //微软小冰

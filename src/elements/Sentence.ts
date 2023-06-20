@@ -20,7 +20,7 @@ export default class Sentence extends Element {
             case ServiceProvider.Thinkive:
             case ServiceProvider.W3C:
             case ServiceProvider.Microsoft:
-            case ServiceProvider.Scenetime:
+            case ServiceProvider.Sensetime:
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
             case ServiceProvider.Aliyun:

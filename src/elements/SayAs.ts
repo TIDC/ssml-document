@@ -54,7 +54,7 @@ export default class SayAs extends Element {
             case ServiceProvider.Aliyun:
             case ServiceProvider.Tencent:
             case ServiceProvider.YunXiaoWei:
-            case ServiceProvider.Scenetime:
+            case ServiceProvider.Sensetime:
             case ServiceProvider.Eta:
             case ServiceProvider.XiaoBing:
             case ServiceProvider.Huoshanyun:
