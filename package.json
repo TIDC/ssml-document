@@ -17,7 +17,7 @@
     "release": "npm run build && npm publish",
     "example": "node tools/runExample.js"
   },
-  "repository": "https://github.com/TIDC/ssml-document.git",
+  "repository": "https://github.com/open-thinkive/ssml-document.git",
   "keywords": [
     "ssml",
     "voice",
