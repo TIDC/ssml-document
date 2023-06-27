@@ -7,7 +7,7 @@ const exampleId = process.argv[2];
 if(!exampleId)
     return console.error("example id must provide");
 
-const scriptPath = path.join(__dirname, "../", `examples/${exampleId}/index.js`);
+const scriptPath = path.join(__dirname, "../", `dist/examples/${exampleId}/index.js`);
 
 if(!fs.existsSync(scriptPath))
     return console.error(`example ${exampleId} not found`);
