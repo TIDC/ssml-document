@@ -9,7 +9,7 @@ const vowelTones = [
     "ǖ", "ǘ", "ǚ", "ǜ"
 ];
 const vowels = ["a", "o", "e", "i", "u", "ü"];
-const vowelRegExp = new RegExp(vowelTones.join("|") + "|a", "g");
+const vowelRegExp = new RegExp(vowelTones.join("|") + `|${vowels.join("|")}`, "g");
 
 const util = {
     ...lodash,
@@ -130,6 +130,11 @@ const util = {
                     ph.splice(spaceMatch.index + offset, 0, `${toneIndex % 4 + 1}`);
                 else
                     ph.push(`${toneIndex % 4 + 1}`);
+                offset++;
+            }
+            else if(value[temp.index + 1] == " " || !value[temp.index + 1]) {
+                spaceRegExp.exec(value);  //跳过空格
+                ph.splice(temp.index + offset + 1, 0, "5");
                 offset++;
             }
         }
