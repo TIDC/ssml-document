@@ -9,7 +9,7 @@ export default class Paragraph extends Element {
     static tagName = "p";
     type = Element.Type.Paragraph;
 
-    constructor(options: IParagraphOptions, ...args: any[]) {
+    constructor(options?: IParagraphOptions, ...args: any[]) {
         super(options, ...args);
     }
 

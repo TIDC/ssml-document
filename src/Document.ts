@@ -90,7 +90,7 @@ export default class Document extends Base {
         return document;
     }
 
-    optionsExport(provider?: ServiceProvider) {
+    optionsExport(provider?: ServiceProvider | string) {
         const options = super.optionsExport(provider, [
             "version", "format", "sampleRate", "bitrate", "solution", "pose",
             "subtitleMinLength", "subtitleMaxLength", "enableSubtitle", "xmlns",
@@ -316,7 +316,7 @@ export default class Document extends Base {
         return "";
     }
 
-    getTagName(provider?: ServiceProvider) {
+    getTagName(provider?: ServiceProvider | string) {
         switch (provider) {
             case ServiceProvider.Aggregation:
             case ServiceProvider.Thinkive:
@@ -336,7 +336,7 @@ export default class Document extends Base {
         }
     }
 
-    getHeadlessDefaultStatus(provider?: ServiceProvider) {
+    getHeadlessDefaultStatus(provider?: ServiceProvider | string) {
         switch (provider) {
             case ServiceProvider.Aggregation:
             case ServiceProvider.Thinkive:

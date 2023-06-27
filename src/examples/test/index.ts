@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const { Document, ServiceProvider } = require("../../dist");
+import { Document } from "../../";
 
 const content = fs.readFileSync(path.join(__dirname, "ssml.xml")).toString();
 const date = new Date();

@@ -50,7 +50,7 @@ class Base {
         });
     }
 
-    optionsExport(provider?: ServiceProvider, _excludeAttrNames?: string[]) {
+    optionsExport(provider?: ServiceProvider | string, _excludeAttrNames?: string[]) {
         const excludeAttrNames = ["type", "children", "content", "provider", "compile", "debug", "compilerOptions", ...(_excludeAttrNames || [])];
         const options: any = {};
         for(let key in this) {

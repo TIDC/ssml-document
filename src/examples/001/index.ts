@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const { Document, elements: { Voice, Prosody, Paragraph, Break } } = require("../../dist");
+import { Document, Voice, Prosody, Paragraph, Break } from "../../";
 
 const document = new Document();
 const voice = new Voice({ name: "test-voice" });

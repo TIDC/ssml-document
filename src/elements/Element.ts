@@ -242,7 +242,7 @@ export default class Element extends Base {
         return value instanceof Element;
     }
 
-    getTagName(provider?: ServiceProvider): string | null {
+    getTagName(provider?: ServiceProvider | string): string | null {
         return null;
     }
 
