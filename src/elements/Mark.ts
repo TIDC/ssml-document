@@ -8,9 +8,19 @@ export default class Mark extends Element {
     static type = Element.Type.Mark;
     static tagName = "mark";
     type = Element.Type.Mark;
+    mark?: string;  //标识
 
     constructor(options: IMarkOptions, ...args: any[]) {
         super(options, ...args);
+    }
+
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Microsoft:
+                return { mark: this.mark };
+        }
+        return options;
     }
 
     getTagName(provider?: ServiceProvider) {
@@ -21,6 +31,8 @@ export default class Mark extends Element {
             case ServiceProvider.Google:
             case ServiceProvider.Amazon:
                 return Mark.tagName;
+            case ServiceProvider.Microsoft:
+                return "mstts:bookmark";
             default:
                 return super.getTagName(provider);
         }

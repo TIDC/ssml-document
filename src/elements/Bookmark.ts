@@ -18,11 +18,22 @@ export default class Bookmark extends Element {
         });
     }
 
+    optionsExport(provider?: ServiceProvider) {
+        const options = super.optionsExport(provider);
+        switch(provider) {
+            case ServiceProvider.Amazon:
+                return { name: this.mark };
+        }
+        return options;
+    }
+
     getTagName(provider?: ServiceProvider) {
         switch(provider) {
             case ServiceProvider.Aggregation:
             case ServiceProvider.Thinkive:
                 return Bookmark.tagName;
+            case ServiceProvider.Amazon:
+                return "mark";
             case ServiceProvider.Microsoft:
                 return "mstts:bookmark";
             default:

@@ -15,7 +15,7 @@ export default class Element extends Base {
     static TypeAlias = ElementTypesAlias;
     static type = ElementTypes.Element;
     type = ElementTypes.Element;
-    name?: string;  //yuansu名称
+    name?: string;  //元素名称
     content?: string;  //元素内容
     value?: string;  //元素值
     provider?: ServiceProvider;  //预期产出提供商
