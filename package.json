@@ -31,9 +31,9 @@
   "author": "Vinlic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TIDC/ssml-document/issues"
+    "url": "https://github.com/open-thinkive/ssml-document/issues"
   },
-  "homepage": "https://github.com/TIDC/ssml-document#readme",
+  "homepage": "https://github.com/open-thinkive/ssml-document#readme",
   "devDependencies": {
     "@types/lodash": "^4.14.182",
     "tsup": "^7.1.0",
