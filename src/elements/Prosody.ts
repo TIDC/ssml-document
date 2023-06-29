@@ -32,7 +32,7 @@ export default class Prosody extends Element {
         });
     }
 
-    optionsExport(provider?: ServiceProvider) {
+    optionsExport(provider?: ServiceProvider | string) {
         const options = super.optionsExport(provider);
         switch (provider) {
             case ServiceProvider.W3C:

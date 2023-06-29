@@ -32,7 +32,7 @@ export default class Document extends Base {
 
     constructor(options: IDocumentOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
-        this.compile && (options = this.optionsCompile(options));
+        (this.compile || compilerOptions?.compile) && (options = this.optionsCompile(options));
         this.optionsInject(options, {
             ["xml:lang"]: (v: any) => options.language || v,
             ["xml:base"]: (v: any) => options.baseUrl || v,
@@ -348,19 +348,23 @@ export default class Document extends Base {
         }
     }
 
+    root(): Document | Element {
+        return this;
+    }
+
     up() {
         return this;
     }
 
-    getRate(provider?: ServiceProvider) {
+    getRate(provider?: ServiceProvider | string) {
         return this.getProsody()?.optionsExport(provider)?.rate;
     }
 
-    getPitch(provider?: ServiceProvider) {
+    getPitch(provider?: ServiceProvider | string) {
         return this.getProsody()?.optionsExport(provider)?.pitch;
     }
 
-    getVolume(provider?: ServiceProvider) {
+    getVolume(provider?: ServiceProvider | string) {
         return this.getProsody()?.optionsExport(provider)?.volume;
     }
 
@@ -371,6 +375,35 @@ export default class Document extends Base {
     get category() {
         const emotion = this.findOne("emotion") as Emotion;
         if (!emotion) return;
+        return emotion.category;
+    }
+
+    set emotions(value: string | null) {
+        let emotion = this.findOne("emotion") as Emotion;
+        if (!emotion) {
+            emotion = new Emotion();
+            let voice = this.findOne("voice") as Voice;
+            if (!voice) {
+                voice = new Voice();
+                voice.children = this.children;
+                this.children = [voice];
+            }
+            const prosody = this.findOne("prosody") as Prosody;
+            if(prosody) {
+                emotion.children = prosody.children;
+                prosody.children = [emotion];
+            }
+            else {
+                emotion.children = voice.children;
+                voice.children = [emotion];
+            }
+        }
+        value && (emotion.category = value);
+    }
+
+    get emotions(): string | null {
+        const emotion = this.findOne("emotion") as Emotion;
+        if (!emotion) return null;
         return emotion.category;
     }
 

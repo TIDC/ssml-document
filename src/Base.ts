@@ -5,6 +5,7 @@ import ICompilerOptions from './lib/interface/ICompilerOptions';
 import { IProsodyOptions, ISayAsOptions, IExpressAsOptions, IEmotionOptions, IAudioOptions, IPhonemeOptions, IEffectOptions, IVoiceOptions } from './elements/interface';
 import ServiceProvider from './enums/ServiceProvoder';
 import Compiler from './lib/Compiler';
+import Document from './Document';
 import Element from './elements/Element';
 import util from './lib/util';
 
@@ -114,7 +115,7 @@ class Base {
         });
         content && node.appendChild(content);
         this.appendChild(node);
-        return this;
+        return content ? this : node;
     }
 
     expressAs(options: IExpressAsOptions, compile?: boolean): Element;
@@ -133,7 +134,7 @@ class Base {
         });
         content && node.appendChild(content);
         this.appendChild(node);
-        return node;
+        return content ? this : node;
     }
 
     emotion(options: IEmotionOptions, compile?: boolean): Element;
@@ -152,56 +153,56 @@ class Base {
         });
         content && node.appendChild(content);
         this.appendChild(node);
-        return node;
+        return content ? this : node;
     }
 
     emphasis(level: string, compile?: boolean): Base;
     emphasis(content: string, level?: string, compile?: boolean): Base;
     emphasis(...args: any[]) {
         let content, level, compile;
-        if(util.isString(args[0]))
+        if(util.isString(args[1]))
             ([content, level, compile] = args);
         else
             ([level, compile] = args);
         const node = Element.create({ type: Element.Type.Emphasis, level, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return this;
+        return content ? this : node;
     }
 
     p(content?: string, compile?: boolean) {
         const node = Element.create({ type: Element.Type.Paragraph, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return node;
+        return content ? this : node;
     }
 
     s(content?: string, compile?: boolean) {
         const node = Element.create({ type: Element.Type.Sentence, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return node;
+        return content ? this : node;
     }
 
     w(content?: string, compile?: boolean) {
         const node = Element.create({ type: Element.Type.Word, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return this;
+        return content ? this : node;
     }
 
     sub(alias: string, compile?: boolean): Base;
     sub(content: string, alias: string, compile?: boolean): Base;
     sub(...args: any[]) {
         let content, alias, compile;
-        if(util.isString(args[0]))
+        if(util.isString(args[1]))
             ([content, alias, compile] = args);
         else
             ([alias, compile] = args);
         const node = Element.create({ type: Element.Type.Subsitute, alias, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return this;
+        return content ? this : node;
     }
     
     phoneme(options: IPhonemeOptions, compile?: boolean): Base
@@ -216,7 +217,7 @@ class Base {
         const node = Element.create({ type: Element.Type.Phoneme, ...options, compile })
         content && node.appendChild(`${content}`);
         this.appendChild(node);
-        return this;
+        return content ? this : node;
     }
 
     break(time: any, compile?: boolean) {
@@ -236,6 +237,18 @@ class Base {
 
     action(type: string, compile?: boolean) {
         this.appendChild(Element.create({ type: Element.Type.Action, __type: type, compile }));
+        return this;
+    }
+
+    render() {
+        return "";
+    }
+
+    root(): Document | Element | Base {
+        return this;
+    }
+
+    up(): Document | Element | Base {
         return this;
     }
 

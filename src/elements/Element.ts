@@ -24,7 +24,7 @@ export default class Element extends Base {
 
     constructor(options: IElementOptions = {}, compilerOptions?: ICompilerOptions) {
         super(options, compilerOptions);
-        this.compile && Object.assign(options, this.optionsCompile(options));
+        (this.compile || compilerOptions?.compile) && (options = this.optionsCompile(options));
         this.optionsInject(options, {
             provider: (v: any) => util.defaultTo(v, ServiceProvider.Aggregation),
             children: (v: any) => (v || []).map((options: any) => {
@@ -230,7 +230,11 @@ export default class Element extends Base {
         return "";
     }
 
-    up() {
+    root(): Document | Element {
+        return this.parent.root() || this;
+    }
+
+    up(): Document | Element | Base {
         return this.parent || this;
     }
 

@@ -21,11 +21,22 @@ export default class Compiler {
         if (util.isString(value)) {  //字符串处理
             const expressions = this.extractExpressions(value);
             if (!expressions.length) return value;  //未找到表达式直接返回原始值
-            return expressions.reduce((result: any, expressionObject: any) => {
+            let objectResult = null;
+            const result = expressions.reduce((result: any, expressionObject: any) => {
                 const { expression, regExp } = expressionObject;
                 const evalResult = this.eval(expression, scope);
-                return util.isNil(evalResult) ? result : result.replace(regExp, evalResult);
+                if (util.isObject(evalResult)) {  //如果结果为对象则缓存并替换结果为原型字符串
+                    objectResult = evalResult;
+                    return result.replace(regExp, Object.prototype.toString.call(objectResult));
+                }
+                if (this.debug)
+                    return util.isNil(evalResult) ? result : result.replace(regExp, evalResult);
+                else
+                    return result.replace(regExp, util.isNil(evalResult) ? "" : evalResult);
             }, value);
+            if (result === Object.prototype.toString.call(objectResult))  //如果结果只为对象且对象结果存在则直接采用对象结果
+                return objectResult;
+            return result;
         }
         else if (util.isObject(value)) {  //对象处理
             if (util.isArray(value)) {  //数组处理
@@ -45,6 +56,7 @@ export default class Compiler {
             const attrs = value as any;
             const { for: $for, forItem, forIndex, if: $if, elif, else: $else } = attrs;
             if (util.isString($if)) {  //如果分歧
+                delete attrs.if;
                 if (!$if.length) {  //如果为空则丢弃节点
                     scope.ifFlag = false;
                     return null;
@@ -62,6 +74,7 @@ export default class Compiler {
                 scope.ifFlag = true;  //设置分歧为真
             }
             else if (util.isString(elif)) {  //否则如果分歧
+                delete attrs.elif;
                 if (!util.isBoolean(scope.ifFlag)) throw new Error("elif attribute node must follow the if attribute node");
                 if (!elif.length || scope.ifFlag) {  //如果此条件为空或上个条件分歧为真则本节点丢弃
                     scope.ifFlag = false;
@@ -80,6 +93,7 @@ export default class Compiler {
                 scope.ifFlag = true;  //设置分歧为真
             }
             else if ($else) {  //否则分歧
+                delete attrs.else;
                 if (!util.isBoolean(scope.ifFlag)) throw new Error("else attribute node must follow the if or elif attribute node");
                 if (scope.ifFlag) {  //如果上个条件分歧为真则本节点丢弃
                     delete scope.ifFlag;
@@ -93,9 +107,9 @@ export default class Compiler {
                 if (!expressions.length) return null;  //没有表达式则丢弃本节点
                 const { expression } = expressions[0];
                 scope.that = attrs;
-                const list = this.eval(expression, scope);
+                const list = this.eval(expression, scope) as any;
                 if (util.isNumber(list)) {
-                    const items = [];
+                    const items: any[] = [];
                     for (let i = 0; i < list; i++) {
                         const item = this.compile(attrs, {
                             ...scope,
@@ -139,7 +153,19 @@ export default class Compiler {
 
     extractExpressions(value: any) {
         if (!util.isString(value)) return [];
-        const match = value.toString().match(/(?<={{).*?(?=}})/g); //匹配所有的表达式
+        let match
+        try {
+            match = value.toString().match(/(?<={{).*?(?=}})/g); //匹配所有的表达式
+        }
+        catch (err) {  //处理零宽断言兼容性问题
+            match = value.toString().match(/{{.*?}}/g); //匹配所有的表达式
+            if (!match) return [];
+            match = match.map((v: any) => {
+                const _match = v.match(/^{{(.+)}}$/);
+                if (!_match) return v;
+                return _match[1];
+            });
+        }
         if (!match) return [];
         return match.map((expression: string) => ({
             expression,
@@ -150,16 +176,31 @@ export default class Compiler {
     generateGlobal(script: string, extendFunctions: any) {
         const { functions } = extension;
         const scope = { ...this.dataset, ...functions, ...extendFunctions };
+        const scriptFunctions = this.prepareFunctionScript(script, scope)();
+        if (util.isObject(scriptFunctions)) {
+            for (let name in scriptFunctions) {
+                if (!util.isFunction((scriptFunctions as any)[name]))
+                    continue;
+                (scriptFunctions as any)[name] = (scriptFunctions as any)[name].bind(scriptFunctions);
+            }  //this指向修改
+        }
         return {
             ...scope,
-            ...this.prepareFunctionScript(script, scope)() || {}
+            ...scriptFunctions || {}
         };
     }
 
     prepareFunctionScript(script: string, data: any = {}) {
-        const keys = Object.keys(util.omit(data, ["for","if","else"]));
+        const keys = Object.keys(util.omit(data, ["for", "if", "else"]));
         const expression = `const {${keys.join(",")}}=this;`;
-        return Function(expression + DISABLE_TARGETS_SCRIPT + script).bind(data);
+        const code = expression + DISABLE_TARGETS_SCRIPT + script;
+        try {
+            return Function(code).bind(data);
+        }
+        catch(err: any) {
+            console.warn(`invalid script:\n${code}`);
+            throw new Error("script prepare error: " + err.message);
+        }
     }
 
 }

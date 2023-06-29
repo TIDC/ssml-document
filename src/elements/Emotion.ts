@@ -12,7 +12,7 @@ export default class Emotion extends Element {
     category = '';  //说话情绪
     intensity?: number;  //情绪强度
 
-    constructor(options: IEmotionOptions, ...args: any[]) {
+    constructor(options: IEmotionOptions = {}, ...args: any[]) {
         super(options, ...args);
         this.optionsInject(options, {
             intensity: Number
