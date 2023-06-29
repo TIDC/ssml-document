@@ -17,7 +17,6 @@
     "release": "npm run build && npm publish",
     "example": "node tools/runExample.js"
   },
-  "repository": "https://github.com/open-thinkive/ssml-document.git",
   "keywords": [
     "ssml",
     "voice",
@@ -30,10 +29,6 @@
   ],
   "author": "Vinlic",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/open-thinkive/ssml-document/issues"
-  },
-  "homepage": "https://github.com/open-thinkive/ssml-document#readme",
   "devDependencies": {
     "@types/lodash": "^4.14.182",
     "tsup": "^7.1.0",
